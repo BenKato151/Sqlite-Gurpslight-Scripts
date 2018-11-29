@@ -1,0 +1,34 @@
+D:\Fächer\DBG\SQL Datenbanken\GurpsLight\Neuer_Ordner\Scripts\Player\SqlitePlayer\bin\Debug\SqlitePlayer.exe.config
+D:\Fächer\DBG\SQL Datenbanken\GurpsLight\Neuer_Ordner\Scripts\Player\SqlitePlayer\bin\Debug\SqlitePlayer.exe
+D:\Fächer\DBG\SQL Datenbanken\GurpsLight\Neuer_Ordner\Scripts\Player\SqlitePlayer\bin\Debug\SqlitePlayer.pdb
+D:\Fächer\DBG\SQL Datenbanken\GurpsLight\Neuer_Ordner\Scripts\Player\SqlitePlayer\bin\Debug\EntityFramework.dll
+D:\Fächer\DBG\SQL Datenbanken\GurpsLight\Neuer_Ordner\Scripts\Player\SqlitePlayer\bin\Debug\EntityFramework.SqlServer.dll
+D:\Fächer\DBG\SQL Datenbanken\GurpsLight\Neuer_Ordner\Scripts\Player\SqlitePlayer\bin\Debug\System.Data.SQLite.dll
+D:\Fächer\DBG\SQL Datenbanken\GurpsLight\Neuer_Ordner\Scripts\Player\SqlitePlayer\bin\Debug\System.Data.SQLite.EF6.dll
+D:\Fächer\DBG\SQL Datenbanken\GurpsLight\Neuer_Ordner\Scripts\Player\SqlitePlayer\bin\Debug\System.Data.SQLite.Linq.dll
+D:\Fächer\DBG\SQL Datenbanken\GurpsLight\Neuer_Ordner\Scripts\Player\SqlitePlayer\bin\Debug\EntityFramework.xml
+D:\Fächer\DBG\SQL Datenbanken\GurpsLight\Neuer_Ordner\Scripts\Player\SqlitePlayer\bin\Debug\EntityFramework.SqlServer.xml
+D:\Fächer\DBG\SQL Datenbanken\GurpsLight\Neuer_Ordner\Scripts\Player\SqlitePlayer\bin\Debug\System.Data.SQLite.xml
+D:\Fächer\DBG\SQL Datenbanken\GurpsLight\Neuer_Ordner\Scripts\Player\SqlitePlayer\bin\Debug\System.Data.SQLite.dll.config
+D:\Fächer\DBG\SQL Datenbanken\GurpsLight\Neuer_Ordner\Scripts\Player\SqlitePlayer\obj\Debug\SqlitePlayer.csprojAssemblyReference.cache
+D:\Fächer\DBG\SQL Datenbanken\GurpsLight\Neuer_Ordner\Scripts\Player\SqlitePlayer\obj\Debug\SqlitePlayer.csproj.CoreCompileInputs.cache
+D:\Fächer\DBG\SQL Datenbanken\GurpsLight\Neuer_Ordner\Scripts\Player\SqlitePlayer\obj\Debug\SqlitePlayer.csproj.CopyComplete
+D:\Fächer\DBG\SQL Datenbanken\GurpsLight\Neuer_Ordner\Scripts\Player\SqlitePlayer\obj\Debug\SqlitePlayer.exe
+D:\Fächer\DBG\SQL Datenbanken\GurpsLight\Neuer_Ordner\Scripts\Player\SqlitePlayer\obj\Debug\SqlitePlayer.pdb
+C:\Users\Stefan\Desktop\Bewerbungen undAnderes\bib International College\projekte\SqliteDatabase\SqliteScript\SqlitePlayer\bin\Debug\SqlitePlayer.exe.config
+C:\Users\Stefan\Desktop\Bewerbungen undAnderes\bib International College\projekte\SqliteDatabase\SqliteScript\SqlitePlayer\bin\Debug\SqlitePlayer.exe
+C:\Users\Stefan\Desktop\Bewerbungen undAnderes\bib International College\projekte\SqliteDatabase\SqliteScript\SqlitePlayer\bin\Debug\SqlitePlayer.pdb
+C:\Users\Stefan\Desktop\Bewerbungen undAnderes\bib International College\projekte\SqliteDatabase\SqliteScript\SqlitePlayer\bin\Debug\EntityFramework.dll
+C:\Users\Stefan\Desktop\Bewerbungen undAnderes\bib International College\projekte\SqliteDatabase\SqliteScript\SqlitePlayer\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Stefan\Desktop\Bewerbungen undAnderes\bib International College\projekte\SqliteDatabase\SqliteScript\SqlitePlayer\bin\Debug\System.Data.SQLite.dll
+C:\Users\Stefan\Desktop\Bewerbungen undAnderes\bib International College\projekte\SqliteDatabase\SqliteScript\SqlitePlayer\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\Stefan\Desktop\Bewerbungen undAnderes\bib International College\projekte\SqliteDatabase\SqliteScript\SqlitePlayer\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\Stefan\Desktop\Bewerbungen undAnderes\bib International College\projekte\SqliteDatabase\SqliteScript\SqlitePlayer\bin\Debug\EntityFramework.xml
+C:\Users\Stefan\Desktop\Bewerbungen undAnderes\bib International College\projekte\SqliteDatabase\SqliteScript\SqlitePlayer\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Stefan\Desktop\Bewerbungen undAnderes\bib International College\projekte\SqliteDatabase\SqliteScript\SqlitePlayer\bin\Debug\System.Data.SQLite.xml
+C:\Users\Stefan\Desktop\Bewerbungen undAnderes\bib International College\projekte\SqliteDatabase\SqliteScript\SqlitePlayer\bin\Debug\System.Data.SQLite.dll.config
+C:\Users\Stefan\Desktop\Bewerbungen undAnderes\bib International College\projekte\SqliteDatabase\SqliteScript\SqlitePlayer\obj\Debug\SqlitePlayer.csprojAssemblyReference.cache
+C:\Users\Stefan\Desktop\Bewerbungen undAnderes\bib International College\projekte\SqliteDatabase\SqliteScript\SqlitePlayer\obj\Debug\SqlitePlayer.csproj.CoreCompileInputs.cache
+C:\Users\Stefan\Desktop\Bewerbungen undAnderes\bib International College\projekte\SqliteDatabase\SqliteScript\SqlitePlayer\obj\Debug\SqlitePlayer.csproj.CopyComplete
+C:\Users\Stefan\Desktop\Bewerbungen undAnderes\bib International College\projekte\SqliteDatabase\SqliteScript\SqlitePlayer\obj\Debug\SqlitePlayer.exe
+C:\Users\Stefan\Desktop\Bewerbungen undAnderes\bib International College\projekte\SqliteDatabase\SqliteScript\SqlitePlayer\obj\Debug\SqlitePlayer.pdb

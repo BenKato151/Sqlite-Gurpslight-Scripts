@@ -1,0 +1,17 @@
+D:\Scripts\Sqlitecontroller\SqliteA-VerteidigungController\SqliteA-VerteidigungController\bin\Debug\SqliteA-VerteidigungController.exe.config
+D:\Scripts\Sqlitecontroller\SqliteA-VerteidigungController\SqliteA-VerteidigungController\bin\Debug\SqliteA-VerteidigungController.exe
+D:\Scripts\Sqlitecontroller\SqliteA-VerteidigungController\SqliteA-VerteidigungController\bin\Debug\SqliteA-VerteidigungController.pdb
+D:\Scripts\Sqlitecontroller\SqliteA-VerteidigungController\SqliteA-VerteidigungController\bin\Debug\EntityFramework.dll
+D:\Scripts\Sqlitecontroller\SqliteA-VerteidigungController\SqliteA-VerteidigungController\bin\Debug\EntityFramework.SqlServer.dll
+D:\Scripts\Sqlitecontroller\SqliteA-VerteidigungController\SqliteA-VerteidigungController\bin\Debug\System.Data.SQLite.dll
+D:\Scripts\Sqlitecontroller\SqliteA-VerteidigungController\SqliteA-VerteidigungController\bin\Debug\System.Data.SQLite.EF6.dll
+D:\Scripts\Sqlitecontroller\SqliteA-VerteidigungController\SqliteA-VerteidigungController\bin\Debug\System.Data.SQLite.Linq.dll
+D:\Scripts\Sqlitecontroller\SqliteA-VerteidigungController\SqliteA-VerteidigungController\bin\Debug\EntityFramework.xml
+D:\Scripts\Sqlitecontroller\SqliteA-VerteidigungController\SqliteA-VerteidigungController\bin\Debug\EntityFramework.SqlServer.xml
+D:\Scripts\Sqlitecontroller\SqliteA-VerteidigungController\SqliteA-VerteidigungController\bin\Debug\System.Data.SQLite.xml
+D:\Scripts\Sqlitecontroller\SqliteA-VerteidigungController\SqliteA-VerteidigungController\bin\Debug\System.Data.SQLite.dll.config
+D:\Scripts\Sqlitecontroller\SqliteA-VerteidigungController\SqliteA-VerteidigungController\obj\Debug\SqliteA-VerteidigungController.csprojAssemblyReference.cache
+D:\Scripts\Sqlitecontroller\SqliteA-VerteidigungController\SqliteA-VerteidigungController\obj\Debug\SqliteA-VerteidigungController.csproj.CoreCompileInputs.cache
+D:\Scripts\Sqlitecontroller\SqliteA-VerteidigungController\SqliteA-VerteidigungController\obj\Debug\SqliteA-VerteidigungController.csproj.CopyComplete
+D:\Scripts\Sqlitecontroller\SqliteA-VerteidigungController\SqliteA-VerteidigungController\obj\Debug\SqliteA-VerteidigungController.exe
+D:\Scripts\Sqlitecontroller\SqliteA-VerteidigungController\SqliteA-VerteidigungController\obj\Debug\SqliteA-VerteidigungController.pdb

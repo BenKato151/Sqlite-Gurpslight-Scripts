@@ -1,0 +1,17 @@
+D:\Scripts\Sqlitecontroller\SqliteAttributeController\SqliteAttributeController\bin\Debug\SqliteAttributeController.exe.config
+D:\Scripts\Sqlitecontroller\SqliteAttributeController\SqliteAttributeController\bin\Debug\SqliteAttributeController.exe
+D:\Scripts\Sqlitecontroller\SqliteAttributeController\SqliteAttributeController\bin\Debug\SqliteAttributeController.pdb
+D:\Scripts\Sqlitecontroller\SqliteAttributeController\SqliteAttributeController\bin\Debug\EntityFramework.dll
+D:\Scripts\Sqlitecontroller\SqliteAttributeController\SqliteAttributeController\bin\Debug\EntityFramework.SqlServer.dll
+D:\Scripts\Sqlitecontroller\SqliteAttributeController\SqliteAttributeController\bin\Debug\System.Data.SQLite.dll
+D:\Scripts\Sqlitecontroller\SqliteAttributeController\SqliteAttributeController\bin\Debug\System.Data.SQLite.EF6.dll
+D:\Scripts\Sqlitecontroller\SqliteAttributeController\SqliteAttributeController\bin\Debug\System.Data.SQLite.Linq.dll
+D:\Scripts\Sqlitecontroller\SqliteAttributeController\SqliteAttributeController\bin\Debug\EntityFramework.xml
+D:\Scripts\Sqlitecontroller\SqliteAttributeController\SqliteAttributeController\bin\Debug\EntityFramework.SqlServer.xml
+D:\Scripts\Sqlitecontroller\SqliteAttributeController\SqliteAttributeController\bin\Debug\System.Data.SQLite.xml
+D:\Scripts\Sqlitecontroller\SqliteAttributeController\SqliteAttributeController\bin\Debug\System.Data.SQLite.dll.config
+D:\Scripts\Sqlitecontroller\SqliteAttributeController\SqliteAttributeController\obj\Debug\SqliteAttributeController.csprojAssemblyReference.cache
+D:\Scripts\Sqlitecontroller\SqliteAttributeController\SqliteAttributeController\obj\Debug\SqliteAttributeController.csproj.CoreCompileInputs.cache
+D:\Scripts\Sqlitecontroller\SqliteAttributeController\SqliteAttributeController\obj\Debug\SqliteAttributeController.csproj.CopyComplete
+D:\Scripts\Sqlitecontroller\SqliteAttributeController\SqliteAttributeController\obj\Debug\SqliteAttributeController.exe
+D:\Scripts\Sqlitecontroller\SqliteAttributeController\SqliteAttributeController\obj\Debug\SqliteAttributeController.pdb
