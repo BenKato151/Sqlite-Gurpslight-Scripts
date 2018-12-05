@@ -26,14 +26,14 @@ namespace SqliteAbwehrController
 
         #region Start
         // Use this for initialization
-        void Start () {
+       public void Start () {
             Description();
-	    }
+	   }
         #endregion
 
         #region Main
         // Update is called once per frame
-        void Update () {
+       public void Update () {
             ConnectionDB();
             InsertingValues();
             SelectingColumns();
@@ -45,7 +45,7 @@ namespace SqliteAbwehrController
             }
             #endregion
             Exit();
-        }
+       }
         #endregion
 
         #region Insert
@@ -79,7 +79,7 @@ namespace SqliteAbwehrController
         #endregion
 
         #region Select
-        private static void SelectingColumns()
+        public static void SelectingColumns()
         {
             if (Input.GetKeyDown(KeyCode.S))
             {
@@ -113,7 +113,7 @@ namespace SqliteAbwehrController
 
         #region DELETE
 
-        private static void DeleteColumns()
+        public static void DeleteColumns()
         {
             if (Input.GetKeyDown(KeyCode.D))
             {
@@ -141,7 +141,7 @@ namespace SqliteAbwehrController
         #endregion
 
         #region Connection
-        private static void ConnectionDB()
+        public static void ConnectionDB()
         {
             if (Input.GetKeyDown(KeyCode.C))
             {
@@ -171,26 +171,26 @@ namespace SqliteAbwehrController
         #endregion
 
         #region Description
-        void Description()
-        {
+       public void Description()
+       {
             Debug.Log("Press 'C' to connect with the database table " + table_abwehr[0] + ".");
             Debug.Log("Drücke 'S' zum Abfragen der Werte in " + table_abwehr[0] + ".");
             Debug.Log("Drücke 'I' zum Einfügen von Werten in " + table_abwehr[0] + ".");
             Debug.Log("Drücke 'D' zum Löschen von Werten in " + table_abwehr[0] + ".");
             Debug.Log("Drücke 'X' zum Verlassen der Datenbank.");
             Debug.Log("Drücke 'H' für diese Anzeige.");
-        }
+       }
         #endregion
 
         #region Exit
-        void Exit()
-        {
+       public void Exit()
+       {
             if (Input.GetKeyDown(KeyCode.X))
             {
                 dbConnection.Close();
                 Debug.Log("Verbindung beendet");
             }
-        }
+       }
         #endregion
 
     }

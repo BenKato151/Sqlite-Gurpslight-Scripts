@@ -80,7 +80,7 @@ namespace SqliteplayerControll
                     Command.Parameters.Clear();
                     Debug.Log("Inserted values into " + table_player[0] + " successfuly!");
                 }
-
+                //func paramaterAdder(string, string[]){  for       }
                 catch (Exception e)
                 {
                     Debug.Log("Error! ");

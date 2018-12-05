@@ -40,7 +40,7 @@ namespace MyNamespace
 
         #region Start
         // Use this for initialization
-        void Start()
+        public void Start()
         {
             Description();
         }
@@ -48,7 +48,7 @@ namespace MyNamespace
 
         #region Main
         // Update is called once per frame
-        void Update()
+       public void Update()
         {
             ConnectionDB();
             InsertingValues();
@@ -59,7 +59,7 @@ namespace MyNamespace
         #endregion
 
         #region Insert
-        private static void InsertingValues()
+        public static void InsertingValues()
         {
             if (Input.GetKeyDown(KeyCode.I))
             {
@@ -106,7 +106,7 @@ namespace MyNamespace
         #endregion
 
         #region Select
-        private static void SelectingColumns()
+        public static void SelectingColumns()
         {
             if (Input.GetKeyDown(KeyCode.S))
             {
@@ -151,7 +151,7 @@ namespace MyNamespace
 
         #region DELETE
 
-        private static void DeleteColumns()
+        public static void DeleteColumns()
         {
             if (Input.GetKeyDown(KeyCode.D))
             {
@@ -180,7 +180,7 @@ namespace MyNamespace
         #endregion
 
         #region Connection
-        private static void ConnectionDB()
+        public static void ConnectionDB()
         {
             if (Input.GetKeyDown(KeyCode.C))
             {
@@ -210,7 +210,7 @@ namespace MyNamespace
         #endregion
 
         #region Description
-        void Description()
+        public static void Description()
         {
             Debug.Log("Press 'C' to connect with the database table " + table_waffen[0] + ".");
             Debug.Log("Drücke 'S' zum Abfragen der Werte in " + table_waffen[0] + ".");
@@ -221,7 +221,7 @@ namespace MyNamespace
         #endregion
 
         #region Exit
-        void Exit()
+        public void Exit()
         {
             if (Input.GetKeyDown(KeyCode.X))
             {
