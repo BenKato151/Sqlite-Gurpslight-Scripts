@@ -12,7 +12,7 @@ namespace SqliteAbwehrController
         #region ConnectionVars
         static SqliteConnection dbConnection;
         //absolute path required
-        static private readonly string databasepath = @"D:\Scripts\Sqlitecontroller\DataBase\new_Char_Bogen1.sqlite";
+        static private readonly string databasepath = @"D:\Scripts\UnityScripts\SqliteScripts\Assets\Scripts\Database\new_Char_Bogen1.sqlite";
         #endregion
         
         #region SqlVars
@@ -49,124 +49,115 @@ namespace SqliteAbwehrController
         #endregion
 
         #region Insert
-        private static void InsertingValues()
+        public void InsertingValues()
         {
-            if (Input.GetKeyDown(KeyCode.I))
+            try
             {
-                try
-                {
-                    string insertIntoWaffen = " INSERT INTO Abwehr(Schild, Ruestung, Umhang, Gesamt) " +
+                string insertIntoWaffen = " INSERT INTO Abwehr(Schild, Ruestung, Umhang, Gesamt) " +
                                               " VALUES(@schild, @ruestung, @umhang, @gesamt);";
 
-                    SqliteCommand Command = new SqliteCommand(insertIntoWaffen, dbConnection);
-                    Command.Parameters.Add("@schild", System.Data.DbType.Int32).Value = schild[0];
-                    Command.Parameters.Add("@ruestung", System.Data.DbType.Int32).Value = ruestung[0];
-                    Command.Parameters.Add("@umhang", System.Data.DbType.Int32).Value = umhang[0];
-                    Command.Parameters.Add("@gesamt", System.Data.DbType.String).Value = gesamt[0];
+                SqliteCommand Command = new SqliteCommand(insertIntoWaffen, dbConnection);
+                Command.Parameters.Add("@schild", System.Data.DbType.Int32).Value = schild[0];
+                Command.Parameters.Add("@ruestung", System.Data.DbType.Int32).Value = ruestung[0];
+                Command.Parameters.Add("@umhang", System.Data.DbType.Int32).Value = umhang[0];
+                Command.Parameters.Add("@gesamt", System.Data.DbType.String).Value = gesamt[0];
 
-                    Command.ExecuteNonQuery();
-                    Command.Parameters.Clear();
-                    Debug.Log("Inserted values successfuly!");
-                }
-
-                catch (Exception e)
-                {
-                    Debug.Log("Error! ");
-                    Debug.Log(e);
-                }
+                Command.ExecuteNonQuery();
+                Command.Parameters.Clear();
+                Debug.Log("Inserted values successfuly!");
             }
+
+            catch (Exception e)
+            {
+                Debug.Log("Error! ");
+                Debug.Log(e);
+            }
+            
         }
         #endregion
 
         #region Select
-        public static void SelectingColumns()
+        public void SelectingColumns()
         {
-            if (Input.GetKeyDown(KeyCode.S))
+            Debug.Log("Searching...");
+
+            try
             {
-                Debug.Log("Searching...");
+                string selecting = "SELECT * FROM Abwehr;";
+                SqliteCommand command = new SqliteCommand(selecting, dbConnection);
+                SqliteDataReader output = command.ExecuteReader();
 
-                try
+                while (output.Read())
                 {
-                    string selecting = "SELECT * FROM Abwehr;";
-                    SqliteCommand command = new SqliteCommand(selecting, dbConnection);
-                    SqliteDataReader output = command.ExecuteReader();
-
-                    while (output.Read())
-                    {
-                        Debug.Log("Schild: " + output["Schild"]);
-                        Debug.Log("Rüstung: " + output["Ruestung"]);
-                        Debug.Log("Umhang: " + output["Umhang"]);
-                        Debug.Log("Gesamt: " + output["Gesamt"]);
-                    }
-
-                    Debug.Log("Searching completed!");
+                    Debug.Log("Schild: " + output["Schild"]);
+                    Debug.Log("Rüstung: " + output["Ruestung"]);
+                    Debug.Log("Umhang: " + output["Umhang"]);
+                    Debug.Log("Gesamt: " + output["Gesamt"]);
                 }
 
-                catch (Exception e)
-                {
-                    Debug.Log("Error!   ");
-                    Debug.Log(e);
-                }
+                Debug.Log("Searching completed!");
             }
+
+            catch (Exception e)
+            {
+                Debug.Log("Error!   ");
+                Debug.Log(e);
+            }
+        
         }
         #endregion
 
         #region DELETE
 
-        public static void DeleteColumns()
+        public void DeleteColumns()
         {
-            if (Input.GetKeyDown(KeyCode.D))
+            try
             {
-                try
-                {
-                    string deleteColumn = "DELETE FROM Abwehr " +
-                                          " WHERE Gesamt = 10;";
+                string deleteColumn = " DELETE FROM Abwehr " +
+                                      " WHERE Gesamt = 10;";
 
-                    SqliteCommand Command = new SqliteCommand(deleteColumn, dbConnection);
-                    //Command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = //arrayname[0];
+                SqliteCommand Command = new SqliteCommand(deleteColumn, dbConnection);
+                //Command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = //arrayname[0];
 
-                    Command.ExecuteNonQuery();
-                    Command.Parameters.Clear();
-                    Debug.Log("Deleted Row/s successfully!");
-                }
+                Command.ExecuteNonQuery();
+                Command.Parameters.Clear();
+                Debug.Log("Deleted Row/s successfully!");
+            }
 
-                catch (Exception e)
-                {
-                    Debug.Log("Error! ");
-                    Debug.Log(e);
-                }
+            catch (Exception e)
+            {
+                Debug.Log("Error! ");
+                Debug.Log(e);
             }
         }
 
         #endregion
 
         #region Connection
-        public static void ConnectionDB()
+        public void ConnectionDB()
         {
-            if (Input.GetKeyDown(KeyCode.C))
+            //Tries to get a connection with the database and if there is an path-error, it will catch it
+            try
             {
-                //Tries to get a connection with the database and if there is an path-error, it will catch it
-                try
-                {
-                    dbConnection = new SqliteConnection("Data Source = " + databasepath + "; " + " Version = 3;");
-                    dbConnection.Open();
+                dbConnection = new SqliteConnection("Data Source = " + databasepath + "; " + " Version = 3;");
+                dbConnection.Open();
 
-                    if (File.Exists(databasepath))
+                if (File.Exists(databasepath))
+                {
+                    if (dbConnection != null)
                     {
-                        if (dbConnection != null)
-                        {
-                            Debug.Log("Connected to the database!");
+                        Debug.Log("Connected to the database!");
                             Debug.Log("Table: " + table_abwehr[0]);
-                        }
                     }
                 }
-
-                catch (Exception e)
-                {
-                    Debug.Log("Not Connected!    Error:    ");
-                    Debug.Log(e);
-                }
             }
+
+            catch (Exception e)
+            {
+                Debug.Log("Not Connected!    Error:    ");
+                Debug.Log(e);
+            }
+            
         }
         #endregion
 
@@ -185,11 +176,8 @@ namespace SqliteAbwehrController
         #region Exit
        public void Exit()
        {
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                dbConnection.Close();
-                Debug.Log("Verbindung beendet");
-            }
+            dbConnection.Close();
+            Debug.Log("Verbindung beendet");
        }
         #endregion
 

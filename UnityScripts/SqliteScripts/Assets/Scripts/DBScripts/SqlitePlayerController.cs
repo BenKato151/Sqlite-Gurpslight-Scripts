@@ -1,4 +1,4 @@
-﻿    using System.Collections;
+﻿using System.Collections;
     using System.Collections.Generic;
     using System;
     using System.IO;
@@ -50,15 +50,13 @@ namespace SqliteplayerControll
         #endregion
 
         #region Insert
-        private static void InsertingValues()
+        public void InsertingValues()
         {
-            if (Input.GetKeyDown(KeyCode.I))
+            try
             {
-                try
-                {
-                    string insertIntoSpieler = "INSERT INTO Spieler(name, geschlecht, rasse, haar, augen, gewicht, groese, beschreibung, SpielerID)" +
-                                               "VALUES(@name, @geschlecht, @rasse, @haar, @augen, @gewicht," +
-                                               "@groese, @beschreibung, @SpielerID)";
+                string insertIntoSpieler = " INSERT INTO Spieler(name, geschlecht, rasse, haar, augen, gewicht, groese, beschreibung, SpielerID)" +
+                                           " VALUES(@name, @geschlecht, @rasse, @haar, @augen, @gewicht," +
+                                           " @groese, @beschreibung, @SpielerID)";
                     /* string insertIntoSpielerArray = "INSERT INTO Spieler(name) VALUES("; foreach (var item in player_name)
                      {
                          insertIntoSpielerArray += item + ",";
@@ -66,57 +64,52 @@ namespace SqliteplayerControll
                      insertIntoSpielerArray = insertIntoSpielerArray.Remove(insertIntoSpielerArray.Length - 1);
                      insertIntoSpielerArray += ")";
                      */
-                    SqliteCommand Command = new SqliteCommand(insertIntoSpieler, dbConnection);
-                    Command.Parameters.Add("@name", System.Data.DbType.String).Value = player_name[0];
-                    Command.Parameters.Add("@geschlecht", System.Data.DbType.String).Value = gender[0];
-                    Command.Parameters.Add("@rasse", System.Data.DbType.String).Value = race[0];
-                    Command.Parameters.Add("@haar", System.Data.DbType.String).Value = haircolor[0];
-                    Command.Parameters.Add("@augen", System.Data.DbType.String).Value = eyecolor[0];
-                    Command.Parameters.Add("@gewicht", System.Data.DbType.Double).Value = mass[0];
-                    Command.Parameters.Add("@groese", System.Data.DbType.Decimal).Value = height[0];
-                    Command.Parameters.Add("@beschreibung", System.Data.DbType.String).Value = player_desc[0];
-                    Command.Parameters.Add("@SpielerID", System.Data.DbType.Int32).Value = player_ID[0];
-                    Command.ExecuteNonQuery();
-                    Command.Parameters.Clear();
-                    Debug.Log("Inserted values into " + table_player[0] + " successfuly!");
-                }
-                //func paramaterAdder(string, string[]){  for       }
-                catch (Exception e)
-                {
-                    Debug.Log("Error! ");
-                    Debug.Log(e);
-                }
+                SqliteCommand Command = new SqliteCommand(insertIntoSpieler, dbConnection);
+                Command.Parameters.Add("@name", System.Data.DbType.String).Value = player_name[0];
+                Command.Parameters.Add("@geschlecht", System.Data.DbType.String).Value = gender[0];
+                Command.Parameters.Add("@rasse", System.Data.DbType.String).Value = race[0];
+                Command.Parameters.Add("@haar", System.Data.DbType.String).Value = haircolor[0];
+                Command.Parameters.Add("@augen", System.Data.DbType.String).Value = eyecolor[0];
+                Command.Parameters.Add("@gewicht", System.Data.DbType.Double).Value = mass[0];
+                Command.Parameters.Add("@groese", System.Data.DbType.Decimal).Value = height[0];
+                Command.Parameters.Add("@beschreibung", System.Data.DbType.String).Value = player_desc[0];
+                Command.Parameters.Add("@SpielerID", System.Data.DbType.Int32).Value = player_ID[0];
+                Command.ExecuteNonQuery();
+                Command.Parameters.Clear();
+                Debug.Log("Inserted values into " + table_player[0] + " successfuly!");
+            }
+            //func paramaterAdder(string, string[]){  for       }
+            catch (Exception e)
+            {
+                Debug.Log("Error! ");
+                Debug.Log(e);
             }
         }
         #endregion
 
         #region Select
-        private static void SelectingColumns()
+        public void SelectingColumns()
         {
             try
             {
                 string selecting = "SELECT * FROM Spieler;";
                 SqliteCommand command = new SqliteCommand(selecting, dbConnection);
             
-                if (Input.GetKeyDown(KeyCode.S))
+                Debug.Log("Searching...");
+                SqliteDataReader output = command.ExecuteReader();
+                while (output.Read())
                 {
-                    Debug.Log("Searching...");
-                    SqliteDataReader output = command.ExecuteReader();
-                    while (output.Read())
-                    {
-                        Debug.Log("Name: " + output["name"]);
-                        Debug.Log("Geschlecht: " + output["geschlecht"]);
-                        Debug.Log("Rasse: " + output["rasse"]);
-                        Debug.Log("Haar: " + output["haar"]);
-                        Debug.Log("Augen: " + output["augen"]);
-                        Debug.Log("Gewicht: " + output["gewicht"]);
-                        Debug.Log("Größe: " + output["groese"]);
-                        Debug.Log("Beschreibung: " + output["beschreibung"]);
-                        Debug.Log("Spieler ID: " + output["SpielerID"]);
-                    
-                    }
-                    Debug.Log("Searching in table " + table_player[0] + " completed!");
+                    Debug.Log("Name: " + output["name"]);
+                    Debug.Log("Geschlecht: " + output["geschlecht"]);
+                    Debug.Log("Rasse: " + output["rasse"]);
+                    Debug.Log("Haar: " + output["haar"]);
+                    Debug.Log("Augen: " + output["augen"]);
+                    Debug.Log("Gewicht: " + output["gewicht"]);
+                    Debug.Log("Größe: " + output["groese"]);
+                    Debug.Log("Beschreibung: " + output["beschreibung"]);
+                    Debug.Log("Spieler ID: " + output["SpielerID"]);
                 }
+                Debug.Log("Searching in table " + table_player[0] + " completed!");
             }
 
             catch (Exception e)
@@ -129,59 +122,53 @@ namespace SqliteplayerControll
 
         #region DELETE
 
-        private static void DeleteColumns()
+        public void DeleteColumns()
         {
-            if (Input.GetKeyDown(KeyCode.D))
+            try
             {
-                try
-                {
-                    string deleteColumn = "DELETE FROM Spieler " +
-                                          " WHERE SpielerID = @IDvalue";
+                string deleteColumn = " DELETE FROM Spieler " +
+                                      " WHERE SpielerID = @IDvalue";
 
-                    SqliteCommand Command = new SqliteCommand(deleteColumn, dbConnection);
-                    Command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = player_ID[0];
-                    Command.ExecuteNonQuery();
-                    Command.Parameters.Clear();
-                    Debug.Log("Deleted Row/s in " + table_player[0] + " successfully!");
+                SqliteCommand Command = new SqliteCommand(deleteColumn, dbConnection);
+                Command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = player_ID[0];
+                Command.ExecuteNonQuery();
+                Command.Parameters.Clear();
+                Debug.Log("Deleted Row/s in " + table_player[0] + " successfully!");
 
-                }
+            }
 
-                catch (Exception e)
-                {
-                    Debug.Log("Error! ");
-                    Debug.Log(e);
-                }
+            catch (Exception e)
+            {
+                Debug.Log("Error! ");
+                Debug.Log(e);
             }
         }
 
         #endregion
 
         #region Connection
-        private static void ConnectionDB()
+        public void ConnectionDB()
         { 
-            if (Input.GetKeyDown(KeyCode.C))
+            //Tries to get a connection with the database and if there is an path-error, it will catch it
+            try
             {
-                //Tries to get a connection with the database and if there is an path-error, it will catch it
-                try
-                {
-                    dbConnection = new SqliteConnection("Data Source = " + databasepath + "; " + " Version = 3;");
-                    dbConnection.Open();
+                dbConnection = new SqliteConnection("Data Source = " + databasepath + "; " + " Version = 3;");
+                dbConnection.Open();
 
-                    if (File.Exists(databasepath))
+                if (File.Exists(databasepath))
+                {
+                    if (dbConnection != null)
                     {
-                        if (dbConnection != null)
-                        {
                         Debug.Log("Connected to the database!");
                         Debug.Log("Table: " + table_player[0]);
-                        }
                     }
                 }
+            }
 
-                catch (Exception e)
-                {
-                    Debug.Log("Not Connected!    Error:    ");
-                    Debug.Log(e);
-                }
+            catch (Exception e)
+            {
+                Debug.Log("Not Connected!    Error:    ");
+                Debug.Log(e);
             }
         }
         #endregion
@@ -198,15 +185,12 @@ namespace SqliteplayerControll
         #endregion
 
         #region Exit
-        void Exit()
+        public void Exit()
         {
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                dbConnection.Close();
-                Debug.Log("Verbindung beendet");
-            }
+            dbConnection.Close();
+            Debug.Log("Verbindung beendet");
         }
+    }
         #endregion
 
-    }
 }

@@ -5,16 +5,14 @@ using Mono.Data.Sqlite;
 using System;
 using System.IO;
 
-namespace MyNamespace
+namespace SqliteWaffenController
 {
     public class SqliteWaffenController : MonoBehaviour
     {
-
-
         #region ConnectionVars
         public static SqliteConnection dbConnection;
         //absolute path required
-        static private readonly string databasepath = @"D:\Scripts\Sqlitecontroller\DataBase\new_Char_Bogen1.sqlite";
+        static private readonly string databasepath = @"D:\Scripts\UnityScripts\SqliteScripts\Assets\Scripts\Database\new_Char_Bogen1.sqlite";
         #endregion
 
         #region SqlVars
@@ -42,84 +40,72 @@ namespace MyNamespace
         // Use this for initialization
         public void Start()
         {
-            Description();
+           // Description();
         }
         #endregion
 
         #region Main
         // Update is called once per frame
        public void Update()
-        {
-            ConnectionDB();
-            InsertingValues();
-            SelectingColumns();
-            DeleteColumns();
-            Exit();
-        }
+       {
+       }
         #endregion
 
         #region Insert
-        public static void InsertingValues()
+        public void InsertingValues()
         {
-            if (Input.GetKeyDown(KeyCode.I))
+            try
             {
+                string insertIntoWaffen = " INSERT INTO Waffen(Waffenname, WaffenID, FW, Schaden, Mod, " +
+                                          " Ort, ZG, SS, EINHALBS, RW, FG, MAG, RS, ST, LZ, BM) " +
+                                          " VALUES(@waffenname, @waffenID, @fw, @schaden, @mod, @ort, @zg, " +
+                                          " @ss, @einhalbs, @rw, @fg, @mag, @rs, @st, @lz, @bm" +
+                                          " );";
 
-            
-                try
-                {
-                    string insertIntoWaffen = " INSERT INTO Waffen(Waffenname, WaffenID, FW, Schaden, Mod, " +
-                                              " Ort, ZG, SS, EINHALBS, RW, FG, MAG, RS, ST, LZ, BM) " +
-                                              " VALUES(@waffenname, @waffenID, @fw, @schaden, @mod, @ort, @zg, " +
-                                              "@ss, @einhalbs, @rw, @fg, @mag, @rs, @st, @lz, @bm" +
-                                              ");";
+                SqliteCommand Command = new SqliteCommand(insertIntoWaffen, dbConnection);
+                Command.Parameters.Add("@waffenname", System.Data.DbType.String).Value = waffenname[0];
+                Command.Parameters.Add("@waffenID", System.Data.DbType.Int32).Value = waffenID[0];
+                Command.Parameters.Add("@ort", System.Data.DbType.String).Value = ort[0];
+                Command.Parameters.Add("@fw", System.Data.DbType.Int32).Value = fw[0];
+                Command.Parameters.Add("@schaden", System.Data.DbType.Int32).Value = schaden[0];
+                Command.Parameters.Add("@mod", System.Data.DbType.Int32).Value = mod[0];
+                Command.Parameters.Add("@zg", System.Data.DbType.Int32).Value = zg[0];
+                Command.Parameters.Add("@ss", System.Data.DbType.Int32).Value = ss[0];
+                Command.Parameters.Add("@einhalbs", System.Data.DbType.Int32).Value = einhalbs[0];
+                Command.Parameters.Add("@rw", System.Data.DbType.Int32).Value = rw[0];
+                Command.Parameters.Add("@fg", System.Data.DbType.Int32).Value = fg[0];
+                Command.Parameters.Add("@mag", System.Data.DbType.Int32).Value = mag[0];
+                Command.Parameters.Add("@rs", System.Data.DbType.Int32).Value = rs[0];
+                Command.Parameters.Add("@st", System.Data.DbType.Int32).Value = st[0];
+                Command.Parameters.Add("@lz", System.Data.DbType.Int32).Value = lz[0];
+                Command.Parameters.Add("@bm", System.Data.DbType.Int32).Value = bm[0];
 
-                    SqliteCommand Command = new SqliteCommand(insertIntoWaffen, dbConnection);
-                    Command.Parameters.Add("@waffenname", System.Data.DbType.String).Value = waffenname[0];
-                    Command.Parameters.Add("@waffenID", System.Data.DbType.Int32).Value = waffenID[0];
-                    Command.Parameters.Add("@ort", System.Data.DbType.String).Value = ort[0];
-                    Command.Parameters.Add("@fw", System.Data.DbType.Int32).Value = fw[0];
-                    Command.Parameters.Add("@schaden", System.Data.DbType.Int32).Value = schaden[0];
-                    Command.Parameters.Add("@mod", System.Data.DbType.Int32).Value = mod[0];
-                    Command.Parameters.Add("@zg", System.Data.DbType.Int32).Value = zg[0];
-                    Command.Parameters.Add("@ss", System.Data.DbType.Int32).Value = ss[0];
-                    Command.Parameters.Add("@einhalbs", System.Data.DbType.Int32).Value = einhalbs[0];
-                    Command.Parameters.Add("@rw", System.Data.DbType.Int32).Value = rw[0];
-                    Command.Parameters.Add("@fg", System.Data.DbType.Int32).Value = fg[0];
-                    Command.Parameters.Add("@mag", System.Data.DbType.Int32).Value = mag[0];
-                    Command.Parameters.Add("@rs", System.Data.DbType.Int32).Value = rs[0];
-                    Command.Parameters.Add("@st", System.Data.DbType.Int32).Value = st[0];
-                    Command.Parameters.Add("@lz", System.Data.DbType.Int32).Value = lz[0];
-                    Command.Parameters.Add("@bm", System.Data.DbType.Int32).Value = bm[0];
+                Command.ExecuteNonQuery();
+                Command.Parameters.Clear();
+                Debug.Log("Inserted values successfuly!");
+            }
 
-                    Command.ExecuteNonQuery();
-                    Command.Parameters.Clear();
-                    Debug.Log("Inserted values successfuly!");
-                }
-
-                catch (Exception e)
-                {
-                    Debug.Log("Error! ");
-                    Debug.Log(e);
-                }
+            catch (Exception e)
+            {
+                Debug.Log("Error! ");
+                Debug.Log(e);
             }
         }
         #endregion
 
         #region Select
-        public static void SelectingColumns()
+        public void SelectingColumns()
         {
-            if (Input.GetKeyDown(KeyCode.S))
+            Debug.Log("Searching...");
+
+            try
             {
-                Debug.Log("Searching...");
+                string selecting = "SELECT * FROM Waffen";
+                SqliteCommand command = new SqliteCommand(selecting, dbConnection);
+                SqliteDataReader output = command.ExecuteReader();
 
-                try
+                while (output.Read())
                 {
-                    string selecting = "SELECT * FROM Waffen";
-                    SqliteCommand command = new SqliteCommand(selecting, dbConnection);
-                    SqliteDataReader output = command.ExecuteReader();
-
-                    while (output.Read())
-                    {
                         Debug.Log("Waffenname: " + output["Waffenname"]);
                         Debug.Log("WaffenID: " + output["WaffenID"]);
                         Debug.Log("FW: " + output["FW"]);
@@ -136,75 +122,66 @@ namespace MyNamespace
                         Debug.Log("ST: " + output["ST"]);
                         Debug.Log("LZ: " + output["LZ"]);
                         Debug.Log("BM: " + output["BM"]);
-                    }
-                    Debug.Log("Searching completed!");
                 }
+                Debug.Log("Searching completed!");
+            }
 
-                catch (Exception e)
-                {
-                    Debug.Log("Error!   ");
-                    Debug.Log(e);
-                }
+            catch (Exception e)
+            {
+                Debug.Log("Error!   ");
+                Debug.Log(e);
             }
         }
         #endregion
 
         #region DELETE
 
-        public static void DeleteColumns()
+        public void DeleteColumns()
         {
-            if (Input.GetKeyDown(KeyCode.D))
+            try
             {
-                try
-                {
-                    string deleteColumn = "DELETE FROM Waffen " +
-                                          " WHERE WaffenID = 1";
+                string deleteColumn = " DELETE FROM Waffen " +
+                                      " WHERE WaffenID = 1";
 
-                    SqliteCommand Command = new SqliteCommand(deleteColumn, dbConnection);
-                    //Command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = //arrayname[0];
+                SqliteCommand Command = new SqliteCommand(deleteColumn, dbConnection);
+                //Command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = //arrayname[0];
 
+                Command.ExecuteNonQuery();
+                Command.Parameters.Clear();
+                Debug.Log("Deleted Row/s successfully!");
+            }
 
-                    Command.ExecuteNonQuery();
-                    Command.Parameters.Clear();
-                    Debug.Log("Deleted Row/s successfully!");
-                }
-
-                catch (Exception e)
-                {
-                    Debug.Log("Error! ");
-                    Debug.Log(e);
-                }
+            catch (Exception e)
+            {
+                Debug.Log("Error! ");
+                Debug.Log(e);
             }
         }
 
         #endregion
 
         #region Connection
-        public static void ConnectionDB()
+        public void ConnectionDB()
         {
-            if (Input.GetKeyDown(KeyCode.C))
+            //Tries to get a connection with the database and if there is an path-error, it will catch it
+            try
             {
+                dbConnection = new SqliteConnection("Data Source = " + databasepath + "; " + " Version = 3;");
+                dbConnection.Open();
 
-                //Tries to get a connection with the database and if there is an path-error, it will catch it
-                try
+                if (File.Exists(databasepath))
                 {
-                    dbConnection = new SqliteConnection("Data Source = " + databasepath + "; " + " Version = 3;");
-                    dbConnection.Open();
-
-                    if (File.Exists(databasepath))
+                    if (dbConnection != null)
                     {
-                        if (dbConnection != null)
-                        {
-                            Debug.Log("Connected to the database!");
-                        }
+                        Debug.Log("Connected to the database!");
                     }
                 }
+            }
 
-                catch (Exception e)
-                {
-                    Debug.Log("Not Connected!    Error:    ");
-                    Debug.Log(e);
-                }
+            catch (Exception e)
+            {
+                Debug.Log("Not Connected!    Error:    ");
+                Debug.Log(e);
             }
         }
         #endregion
@@ -223,10 +200,8 @@ namespace MyNamespace
         #region Exit
         public void Exit()
         {
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                dbConnection.Close();
-            }
+            dbConnection.Close();
+            Debug.Log("Connection closed!");
         }
         #endregion
 

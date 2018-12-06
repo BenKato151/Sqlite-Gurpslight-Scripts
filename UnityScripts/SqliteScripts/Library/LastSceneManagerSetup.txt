@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/SqliteScripts.unity
+- path: Assets/Scenes/SqliteWaffen.unity
   isLoaded: 1
   isActive: 1
