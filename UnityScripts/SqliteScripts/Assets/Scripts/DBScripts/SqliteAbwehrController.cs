@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 using System.IO;
 using Mono.Data.Sqlite;
@@ -22,30 +20,6 @@ namespace SqliteAbwehrController
         static private readonly int[] gesamt = new int[] { schild[0] + ruestung[0] + umhang[0], schild[1] + ruestung[1] + umhang[1], schild[2] + ruestung[2] + umhang[2] };
         //Database Query
         static private readonly string[] table_abwehr = new string[] { "Abwehr" };
-        #endregion
-
-        #region Start
-        // Use this for initialization
-       public void Start () {
-            Description();
-	   }
-        #endregion
-
-        #region Main
-        // Update is called once per frame
-       public void Update () {
-            ConnectionDB();
-            InsertingValues();
-            SelectingColumns();
-            DeleteColumns();
-            #region Description();
-            if (Input.GetKeyDown(KeyCode.H))
-            {
-                Description();
-            }
-            #endregion
-            Exit();
-       }
         #endregion
 
         #region Insert
@@ -80,7 +54,6 @@ namespace SqliteAbwehrController
         public void SelectingColumns()
         {
             Debug.Log("Searching...");
-
             try
             {
                 string selecting = "SELECT * FROM Abwehr;";
@@ -94,7 +67,6 @@ namespace SqliteAbwehrController
                     Debug.Log("Umhang: " + output["Umhang"]);
                     Debug.Log("Gesamt: " + output["Gesamt"]);
                 }
-
                 Debug.Log("Searching completed!");
             }
 
@@ -103,12 +75,10 @@ namespace SqliteAbwehrController
                 Debug.Log("Error!   ");
                 Debug.Log(e);
             }
-        
         }
         #endregion
 
         #region DELETE
-
         public void DeleteColumns()
         {
             try
@@ -117,7 +87,6 @@ namespace SqliteAbwehrController
                                       " WHERE Gesamt = 10;";
 
                 SqliteCommand Command = new SqliteCommand(deleteColumn, dbConnection);
-                //Command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = //arrayname[0];
 
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();
@@ -147,7 +116,7 @@ namespace SqliteAbwehrController
                     if (dbConnection != null)
                     {
                         Debug.Log("Connected to the database!");
-                            Debug.Log("Table: " + table_abwehr[0]);
+                        Debug.Log("Table: " + table_abwehr[0]);
                     }
                 }
             }
@@ -159,18 +128,6 @@ namespace SqliteAbwehrController
             }
             
         }
-        #endregion
-
-        #region Description
-       public void Description()
-       {
-            Debug.Log("Press 'C' to connect with the database table " + table_abwehr[0] + ".");
-            Debug.Log("Drücke 'S' zum Abfragen der Werte in " + table_abwehr[0] + ".");
-            Debug.Log("Drücke 'I' zum Einfügen von Werten in " + table_abwehr[0] + ".");
-            Debug.Log("Drücke 'D' zum Löschen von Werten in " + table_abwehr[0] + ".");
-            Debug.Log("Drücke 'X' zum Verlassen der Datenbank.");
-            Debug.Log("Drücke 'H' für diese Anzeige.");
-       }
         #endregion
 
         #region Exit

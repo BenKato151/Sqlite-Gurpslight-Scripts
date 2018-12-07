@@ -25,30 +25,6 @@ namespace SqliteAttributeController
         static private readonly string[] table_attribute = new string[] { "Attribute" };
         #endregion
 
-        #region Start
-        // Use this for initialization
-        void Start () {
-            Description();
-	    }
-        #endregion
-
-        #region Main
-        // Update is called once per frame
-        void Update () {
-            ConnectionDB();
-            InsertingValues();
-            SelectingColumns();
-            DeleteColumns();
-            #region Description();
-            if (Input.GetKeyDown(KeyCode.H))
-            {
-                Description();
-            }
-            #endregion
-            Exit();
-        }
-        #endregion
-
         #region Insert
         public void InsertingValues()
         {
@@ -80,7 +56,6 @@ namespace SqliteAttributeController
         public void SelectingColumns()
         {
             Debug.Log("Searching...");
-
             try
             {
                 string selecting = "SELECT * FROM Attribute;";
@@ -115,7 +90,6 @@ namespace SqliteAttributeController
                                           " WHERE Intelligenz = 2;";
 
                 SqliteCommand Command = new SqliteCommand(deleteColumn, dbConnection);
-                //Command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = //arrayname[0];
 
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();
@@ -128,7 +102,6 @@ namespace SqliteAttributeController
                 Debug.Log(e);
             }
         }
-
         #endregion
 
         #region Connection
@@ -158,18 +131,6 @@ namespace SqliteAttributeController
         }
         #endregion
 
-        #region Description
-        void Description()
-        {
-            Debug.Log("Press 'C' to connect with the database table " + table_attribute[0] + ".");
-            Debug.Log("Drücke 'S' zum Abfragen der Werte in " + table_attribute[0] + ".");
-            Debug.Log("Drücke 'I' zum Einfügen von Werten in " + table_attribute[0] + ".");
-            Debug.Log("Drücke 'D' zum Löschen von Werten in " + table_attribute[0] + ".");
-            Debug.Log("Drücke 'X' zum Verlassen der Datenbank.");
-            Debug.Log("Drücke 'H' für diese Anzeige.");
-        }
-        #endregion
-
         #region Exit
        public void Exit()
        {
@@ -177,7 +138,6 @@ namespace SqliteAttributeController
             Debug.Log("Verbindung beendet");
        }
         #endregion
-
 
     }
 }

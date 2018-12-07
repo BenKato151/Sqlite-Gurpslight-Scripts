@@ -1,14 +1,10 @@
-﻿using System.Collections;
-    using System.Collections.Generic;
-    using System;
-    using System.IO;
-    using UnityEngine;
-    using Mono.Data.Sqlite;
+﻿using System;
+using System.IO;
+using UnityEngine;
+using Mono.Data.Sqlite;
 
 namespace SqliteplayerControll
 {
-
-
     public class SqlitePlayerController : MonoBehaviour {
 
         #region SqlConnection Vars
@@ -32,23 +28,6 @@ namespace SqliteplayerControll
         static private readonly string[] table_player = new string[] { "Spieler" };
         #endregion
 
-        #region Start
-        void Start () {
-            Description();
-	    }
-        #endregion
-
-        #region Update
-        void Update()
-        {
-            ConnectionDB();
-            InsertingValues();
-            SelectingColumns();
-            DeleteColumns();
-            Exit();
-        }
-        #endregion
-
         #region Insert
         public void InsertingValues()
         {
@@ -57,13 +36,7 @@ namespace SqliteplayerControll
                 string insertIntoSpieler = " INSERT INTO Spieler(name, geschlecht, rasse, haar, augen, gewicht, groese, beschreibung, SpielerID)" +
                                            " VALUES(@name, @geschlecht, @rasse, @haar, @augen, @gewicht," +
                                            " @groese, @beschreibung, @SpielerID)";
-                    /* string insertIntoSpielerArray = "INSERT INTO Spieler(name) VALUES("; foreach (var item in player_name)
-                     {
-                         insertIntoSpielerArray += item + ",";
-                     }
-                     insertIntoSpielerArray = insertIntoSpielerArray.Remove(insertIntoSpielerArray.Length - 1);
-                     insertIntoSpielerArray += ")";
-                     */
+                   
                 SqliteCommand Command = new SqliteCommand(insertIntoSpieler, dbConnection);
                 Command.Parameters.Add("@name", System.Data.DbType.String).Value = player_name[0];
                 Command.Parameters.Add("@geschlecht", System.Data.DbType.String).Value = gender[0];
@@ -78,7 +51,7 @@ namespace SqliteplayerControll
                 Command.Parameters.Clear();
                 Debug.Log("Inserted values into " + table_player[0] + " successfuly!");
             }
-            //func paramaterAdder(string, string[]){  for       }
+
             catch (Exception e)
             {
                 Debug.Log("Error! ");
@@ -90,12 +63,12 @@ namespace SqliteplayerControll
         #region Select
         public void SelectingColumns()
         {
+            Debug.Log("Searching...");
             try
             {
                 string selecting = "SELECT * FROM Spieler;";
                 SqliteCommand command = new SqliteCommand(selecting, dbConnection);
-            
-                Debug.Log("Searching...");
+                
                 SqliteDataReader output = command.ExecuteReader();
                 while (output.Read())
                 {
@@ -121,7 +94,6 @@ namespace SqliteplayerControll
         #endregion
 
         #region DELETE
-
         public void DeleteColumns()
         {
             try
@@ -134,7 +106,6 @@ namespace SqliteplayerControll
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();
                 Debug.Log("Deleted Row/s in " + table_player[0] + " successfully!");
-
             }
 
             catch (Exception e)
@@ -143,7 +114,6 @@ namespace SqliteplayerControll
                 Debug.Log(e);
             }
         }
-
         #endregion
 
         #region Connection
@@ -173,24 +143,13 @@ namespace SqliteplayerControll
         }
         #endregion
 
-        #region Description
-        void Description()
-        {
-            Debug.Log("Press 'C' to connect with the database table " + table_player[0] + "." );
-            Debug.Log("Drücke 'S' zum Abfragen der Werte in "+ table_player[0] + ".");
-            Debug.Log("Drücke 'I' zum Einfügen von Werten in " + table_player[0] + ".");
-            Debug.Log("Drücke 'D' zum Löschen von Werten in " + table_player[0] + ".");
-            Debug.Log("Drücke 'X' zum Verlassen der Datenbank.");
-        }
-        #endregion
-
         #region Exit
         public void Exit()
         {
             dbConnection.Close();
             Debug.Log("Verbindung beendet");
         }
-    }
         #endregion
 
+    }
 }

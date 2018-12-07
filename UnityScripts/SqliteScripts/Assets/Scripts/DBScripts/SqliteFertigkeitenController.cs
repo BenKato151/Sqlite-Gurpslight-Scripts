@@ -27,30 +27,6 @@ namespace SqliteFertigkeitencontroller
 
         #endregion
 
-        #region Start
-        // Use this for initialization
-        void Start () {
-            Description();
-	    }
-        #endregion
-
-        #region main
-        // Update is called once per frame
-        void Update () {
-            ConnectionDB();
-            SelectingColumns();
-            InsertingValues();
-            DeleteColumns();
-            Exit();
-            #region Description();
-            if (Input.GetKeyDown(KeyCode.H))
-            {
-                Description();
-            }
-            #endregion
-        }
-        #endregion
-
         #region Insert
         public void InsertingValues()
         {
@@ -84,7 +60,6 @@ namespace SqliteFertigkeitencontroller
         public void SelectingColumns()
         {
             Debug.Log("Searching...");
-
             try
             {
                 string selecting = "SELECT * FROM Fertigkeiten;";
@@ -121,7 +96,6 @@ namespace SqliteFertigkeitencontroller
                                       " WHERE ID = 1;";
 
                 SqliteCommand Command = new SqliteCommand(deleteColumn, dbConnection);
-                //Command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = //arrayname[0];
 
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();
@@ -163,19 +137,7 @@ namespace SqliteFertigkeitencontroller
             }
         }
         #endregion
-
-        #region Description
-        void Description()
-        {
-            Debug.Log("Press 'C' to connect with the database table " + table_fertigkeiten[0] + ".");
-            Debug.Log("Drücke 'S' zum Abfragen der Werte in " + table_fertigkeiten[0] + ".");
-            Debug.Log("Drücke 'I' zum Einfügen von Werten in " + table_fertigkeiten[0] + ".");
-            Debug.Log("Drücke 'D' zum Löschen von Werten in " + table_fertigkeiten[0] + ".");
-            Debug.Log("Drücke 'X' zum Verlassen der Datenbank.");
-            Debug.Log("Drücke 'H' für diese Anzeige.");
-        }
-        #endregion
-
+        
         #region Exit
         public void Exit()
         {
@@ -183,7 +145,6 @@ namespace SqliteFertigkeitencontroller
             Debug.Log("Verbindung beendet");
         }
         #endregion
-
 
     }
 }

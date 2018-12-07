@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Mono.Data.Sqlite;
 using System;
 using System.IO;
@@ -34,21 +32,6 @@ namespace SqliteWaffenController
         static private readonly int[] bm = new int[] { 7, 8, 1 };
 
         static private readonly string[] table_waffen = new string[] { "Waffen" };
-        #endregion
-
-        #region Start
-        // Use this for initialization
-        public void Start()
-        {
-           // Description();
-        }
-        #endregion
-
-        #region Main
-        // Update is called once per frame
-       public void Update()
-       {
-       }
         #endregion
 
         #region Insert
@@ -97,7 +80,6 @@ namespace SqliteWaffenController
         public void SelectingColumns()
         {
             Debug.Log("Searching...");
-
             try
             {
                 string selecting = "SELECT * FROM Waffen";
@@ -135,7 +117,6 @@ namespace SqliteWaffenController
         #endregion
 
         #region DELETE
-
         public void DeleteColumns()
         {
             try
@@ -144,7 +125,6 @@ namespace SqliteWaffenController
                                       " WHERE WaffenID = 1";
 
                 SqliteCommand Command = new SqliteCommand(deleteColumn, dbConnection);
-                //Command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = //arrayname[0];
 
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();
@@ -157,7 +137,6 @@ namespace SqliteWaffenController
                 Debug.Log(e);
             }
         }
-
         #endregion
 
         #region Connection
@@ -174,6 +153,8 @@ namespace SqliteWaffenController
                     if (dbConnection != null)
                     {
                         Debug.Log("Connected to the database!");
+                        Debug.Log("Table: " + table_waffen[0]);
+
                     }
                 }
             }
@@ -183,17 +164,6 @@ namespace SqliteWaffenController
                 Debug.Log("Not Connected!    Error:    ");
                 Debug.Log(e);
             }
-        }
-        #endregion
-
-        #region Description
-        public static void Description()
-        {
-            Debug.Log("Press 'C' to connect with the database table " + table_waffen[0] + ".");
-            Debug.Log("Drücke 'S' zum Abfragen der Werte in " + table_waffen[0] + ".");
-            Debug.Log("Drücke 'I' zum Einfügen von Werten in " + table_waffen[0] + ".");
-            Debug.Log("Drücke 'D' zum Löschen von Werten in " + table_waffen[0] + ".");
-            Debug.Log("Drücke 'X' zum Verlassen der Datenbank.");
         }
         #endregion
 

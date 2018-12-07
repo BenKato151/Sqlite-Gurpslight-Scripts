@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 using System.IO;
 using Mono.Data.Sqlite;
@@ -20,20 +18,6 @@ namespace AttributskostenController
         static private readonly int[] kosten = new int[] { 3, 5, 7 };
         //Database Query
         static private readonly string[] table_attrik = new string[] { "Attributskosten" };
-        #endregion
-
-        #region Start
-        // Use this for initialization
-        void Start () {
-            Description();
-	    }
-        #endregion
-
-        #region Main
-        // Update is called once per frame
-        void Update () {
-            
-        }
         #endregion
 
         #region Insert
@@ -65,7 +49,6 @@ namespace AttributskostenController
         public void SelectingColumns()
         {
             Debug.Log("Searching...");
-
             try
             {
                 string selecting = "SELECT * FROM Attributskosten;";
@@ -98,7 +81,6 @@ namespace AttributskostenController
                                       " WHERE Wert = 1";
 
                 SqliteCommand Command = new SqliteCommand(deleteColumn, dbConnection);
-                //Command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = //arrayname[0];
 
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();
@@ -111,7 +93,6 @@ namespace AttributskostenController
                 Debug.Log(e);
             }
         }
-
         #endregion
 
         #region Connection
@@ -138,18 +119,6 @@ namespace AttributskostenController
                 Debug.Log("Not Connected!    Error:    ");
                 Debug.Log(e);
             }
-        }
-        #endregion
-
-        #region Description
-        void Description()
-        {
-            Debug.Log("Press 'C' to connect with the database table " + table_attrik[0] + ".");
-            Debug.Log("Drücke 'S' zum Abfragen der Werte in " + table_attrik[0] + ".");
-            Debug.Log("Drücke 'I' zum Einfügen von Werten in " + table_attrik[0] + ".");
-            Debug.Log("Drücke 'D' zum Löschen von Werten in " + table_attrik[0] + ".");
-            Debug.Log("Drücke 'X' zum Verlassen der Datenbank.");
-            Debug.Log("Drücke 'H' für diese Anzeige.");
         }
         #endregion
 

@@ -22,24 +22,6 @@ namespace SqliteRuestungSchutzController
         static private readonly string[] table_RS = new string[] { "Ruestung_Schutz" };
         #endregion
 
-        #region Start
-        // Use this for initialization
-        void Start () {
-            Description();
-	    }
-        #endregion
-
-        #region Main!
-        // Update is called once per frame
-        void Update () {
-            ConnectionDB();
-            SelectingColumns();
-            InsertingValues();
-            DeleteColumns();
-            Exit();
-	    }
-        #endregion
-
         #region Insert
         public void InsertingValues()
         {
@@ -71,7 +53,6 @@ namespace SqliteRuestungSchutzController
         public void SelectingColumns()
         {
             Debug.Log("Searching...");
-
             try
             {
                 string selecting = "SELECT * FROM Ruestung_Schutz;";
@@ -97,7 +78,6 @@ namespace SqliteRuestungSchutzController
         #endregion
 
         #region DELETE
-
         public void DeleteColumns()
         {
             try
@@ -106,7 +86,6 @@ namespace SqliteRuestungSchutzController
                                       " WHERE ID = 1";
 
                 SqliteCommand Command = new SqliteCommand(deleteColumn, dbConnection);
-                //Command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = //arrayname[0];
 
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();
@@ -149,24 +128,13 @@ namespace SqliteRuestungSchutzController
         }
         #endregion
 
-        #region Description
-        void Description()
-        {
-            Debug.Log("Press 'C' to connect with the database table " + table_RS[0] + ".");
-            Debug.Log("Drücke 'S' zum Abfragen der Werte in " + table_RS[0] + ".");
-            Debug.Log("Drücke 'I' zum Einfügen von Werten in " + table_RS[0] + ".");
-            Debug.Log("Drücke 'D' zum Löschen von Werten in " + table_RS[0] + ".");
-            Debug.Log("Drücke 'X' zum Verlassen der Datenbank.");
-        }
-        #endregion
-
         #region Exit
         public void Exit()
         {
             dbConnection.Close();
             Debug.Log("Connection closed!");
         }
-        
         #endregion
+
     }
 }
