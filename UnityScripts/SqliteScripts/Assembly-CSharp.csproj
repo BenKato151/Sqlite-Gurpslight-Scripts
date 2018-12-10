@@ -59,6 +59,7 @@
      <Compile Include="Assets\Scripts\DBScripts\SqlitePlayerController.cs" />
      <Compile Include="Assets\Scripts\DBScripts\SqliteRuestungSchutzController.cs" />
      <Compile Include="Assets\Scripts\DBScripts\SqliteWaffenController.cs" />
+     <Compile Include="Assets\Scripts\UIScripts\SchildValueInsert.cs" />
  <Reference Include="UnityEditor.StandardEvents">
  <HintPath>D:/Scripts/UnityScripts/SqliteScripts/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
  </Reference>
