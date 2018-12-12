@@ -517,7 +517,7 @@ GameObject:
   - component: {fileID: 224953794}
   - component: {fileID: 224953793}
   m_Layer: 5
-  m_Name: Text
+  m_Name: AttributeGeschicklText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -591,7 +591,7 @@ GameObject:
   - component: {fileID: 310260288}
   - component: {fileID: 310260287}
   m_Layer: 5
-  m_Name: Text
+  m_Name: AttributeIntellText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -820,6 +820,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f04275f9505c104f8bd691f537dc0d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FieldStaerke: {fileID: 1575295100}
+  FieldGeschickl: {fileID: 224953793}
+  FieldIntelli: {fileID: 310260287}
+  FieldKonst: {fileID: 954344256}
 --- !u!4 &416400686
 Transform:
   m_ObjectHideFlags: 0
@@ -1260,7 +1264,7 @@ GameObject:
   - component: {fileID: 954344257}
   - component: {fileID: 954344256}
   m_Layer: 5
-  m_Name: Text
+  m_Name: AttributeKonstitText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2106,7 +2110,7 @@ GameObject:
   - component: {fileID: 1575295101}
   - component: {fileID: 1575295100}
   m_Layer: 5
-  m_Name: Text
+  m_Name: AttributeStaerkeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

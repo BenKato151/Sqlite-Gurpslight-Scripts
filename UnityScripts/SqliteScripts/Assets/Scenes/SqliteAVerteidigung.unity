@@ -973,6 +973,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfc1f9315e6534e4ba249502c0c36dac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FieldParieren: {fileID: 1673824516}
+  FieldAusweichen: {fileID: 2042305397}
+  FieldAbblocken: {fileID: 1268726915}
+  FieldAbblockenUmh: {fileID: 1436642927}
 --- !u!4 &756321056
 Transform:
   m_ObjectHideFlags: 0
@@ -1750,7 +1754,7 @@ GameObject:
   - component: {fileID: 1268726916}
   - component: {fileID: 1268726915}
   m_Layer: 5
-  m_Name: Text
+  m_Name: AVERAbblockenText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1893,7 +1897,7 @@ GameObject:
   - component: {fileID: 1436642928}
   - component: {fileID: 1436642927}
   m_Layer: 5
-  m_Name: Text
+  m_Name: AVERAbblockenUmhText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2457,7 +2461,7 @@ GameObject:
   - component: {fileID: 1673824517}
   - component: {fileID: 1673824516}
   m_Layer: 5
-  m_Name: Text
+  m_Name: AVERParierenText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2707,7 +2711,7 @@ GameObject:
   - component: {fileID: 2042305398}
   - component: {fileID: 2042305397}
   m_Layer: 5
-  m_Name: Text
+  m_Name: AVERAusweichenText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

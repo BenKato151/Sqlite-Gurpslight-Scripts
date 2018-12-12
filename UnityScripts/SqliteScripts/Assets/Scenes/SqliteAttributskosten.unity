@@ -869,6 +869,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0d7f56b4781d5d4c96b1f75deb35d8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FieldKosten: {fileID: 1307882837}
+  FieldWert: {fileID: 1112347011}
 --- !u!4 &614307130
 Transform:
   m_ObjectHideFlags: 0
@@ -1149,7 +1151,7 @@ GameObject:
   - component: {fileID: 1112347012}
   - component: {fileID: 1112347011}
   m_Layer: 5
-  m_Name: Text
+  m_Name: AKWertText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1357,7 +1359,7 @@ GameObject:
   - component: {fileID: 1307882838}
   - component: {fileID: 1307882837}
   m_Layer: 5
-  m_Name: Text
+  m_Name: AKKostenText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

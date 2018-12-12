@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 using System.IO;
 using Mono.Data.Sqlite;
+using UnityEngine.UI;
 
 namespace SqliteFertigkeitencontroller
 {
@@ -15,16 +14,17 @@ namespace SqliteFertigkeitencontroller
         #endregion
 
         #region SqlVars
-        static private readonly int[] cp = new int[] { 2, 6, 8 };
-        static private readonly int[] id = new int[] { 1, 2, 3 };
-        static private readonly int[] fw = new int[] { 7, 13, 16 };
-        static private readonly string[] art = new string[] { "mentale", "physisch", "physisch" };
-        static private readonly string[] typ = new string[] { "Typ1", "Typ2", "Typ3" };
-        private new static readonly string[] name = new string[] { "Widerstehen", "Angreifen", "Fangen" };
-
         //Database Query
-        static private readonly string[] table_fertigkeiten = new string[] { "Fertigkeiten" };
+        static private readonly string table_fertigkeiten = "Fertigkeiten";
+        #endregion
 
+        #region InputVars
+        public Text Fieldname;
+        public Text FieldCP;
+        public Text FieldID;
+        public Text FieldFW;
+        public Text FieldArt;
+        public Text FieldTyp;
         #endregion
 
         #region Insert
@@ -36,16 +36,16 @@ namespace SqliteFertigkeitencontroller
                                           " VALUES(@cp, @id, @fw, @art, @typ, @name);";
 
                 SqliteCommand Command = new SqliteCommand(insertIntoWaffen, dbConnection);
-                Command.Parameters.Add("@cp", System.Data.DbType.Int32).Value = cp[0];
-                Command.Parameters.Add("@id", System.Data.DbType.Int32).Value = id[0];
-                Command.Parameters.Add("@fw", System.Data.DbType.Int32).Value = fw[0];
-                Command.Parameters.Add("@art", System.Data.DbType.String).Value = art[0];
-                Command.Parameters.Add("@typ", System.Data.DbType.String).Value = typ[0];
-                Command.Parameters.Add("@name", System.Data.DbType.String).Value = name[0];
+                Command.Parameters.Add("@cp", System.Data.DbType.Int32).Value = FieldCP.text;
+                Command.Parameters.Add("@id", System.Data.DbType.Int32).Value = FieldID.text;
+                Command.Parameters.Add("@fw", System.Data.DbType.Int32).Value = FieldFW.text;
+                Command.Parameters.Add("@art", System.Data.DbType.String).Value = FieldArt.text;
+                Command.Parameters.Add("@typ", System.Data.DbType.String).Value = FieldTyp.text;
+                Command.Parameters.Add("@name", System.Data.DbType.String).Value = Fieldname.text;
 
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();
-                Debug.Log("Inserted values successfuly!");
+                Debug.Log("Inserted values into " + table_fertigkeiten + " successfuly!");
             }
 
             catch (Exception e)
@@ -125,7 +125,7 @@ namespace SqliteFertigkeitencontroller
                     if (dbConnection != null)
                     {
                         Debug.Log("Connected to the database!");
-                        Debug.Log("Table: " + table_fertigkeiten[0]);
+                        Debug.Log("Table: " + table_fertigkeiten);
                     }
                 }
             }

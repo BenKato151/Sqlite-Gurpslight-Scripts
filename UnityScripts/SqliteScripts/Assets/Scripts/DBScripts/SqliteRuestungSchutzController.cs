@@ -2,7 +2,7 @@
 using System;
 using Mono.Data.Sqlite;
 using System.IO;
-
+using UnityEngine.UI;
 
 namespace SqliteRuestungSchutzController
 {
@@ -15,11 +15,15 @@ namespace SqliteRuestungSchutzController
         #endregion
 
         #region SqlVars
-        static private readonly int[] sr = new int[] { 2, 6, 8 };
-        static private readonly int[] id = new int[] { 1, 2, 3 };
-        static private readonly int[] pv = new int[] { 7, 13, 16 };
-        static private readonly string[] ort = new string[] { "Ebene 1", "Ebene 3", "Ebene 4" };
-        static private readonly string[] table_RS = new string[] { "Ruestung_Schutz" };
+        //Database Query
+        static private readonly string table_RS = "Fertigkeiten";
+        #endregion
+
+        #region InputVars
+        public Text FieldOrt;
+        public Text FieldSR;
+        public Text FieldPV;
+        public Text FieldID;
         #endregion
 
         #region Insert
@@ -31,14 +35,14 @@ namespace SqliteRuestungSchutzController
                                           " VALUES(@Ort, @SR, @PV, @ID);";
 
                 SqliteCommand Command = new SqliteCommand(insertIntoWaffen, dbConnection);
-                Command.Parameters.Add("@Ort", System.Data.DbType.String).Value = ort[0];
-                Command.Parameters.Add("@SR", System.Data.DbType.Int32).Value = sr[0];
-                Command.Parameters.Add("@PV", System.Data.DbType.Int32).Value = pv[0];
-                Command.Parameters.Add("@ID", System.Data.DbType.Int32).Value = id[0];
+                Command.Parameters.Add("@Ort", System.Data.DbType.String).Value = FieldOrt.text;
+                Command.Parameters.Add("@SR", System.Data.DbType.Int32).Value = FieldSR.text;
+                Command.Parameters.Add("@PV", System.Data.DbType.Int32).Value = FieldPV.text;
+                Command.Parameters.Add("@ID", System.Data.DbType.Int32).Value = FieldID.text;
 
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();
-                Debug.Log("Inserted values successfuly!");
+                Debug.Log("Inserted values into " + table_RS + " successfuly!");
             }
 
             catch (Exception e)
@@ -115,7 +119,7 @@ namespace SqliteRuestungSchutzController
                     if (dbConnection != null)
                     {
                         Debug.Log("Connected to the database!");
-                        Debug.Log("Table: " + table_RS[0]);
+                        Debug.Log("Table: " + table_RS);
                     }
                 }
             }

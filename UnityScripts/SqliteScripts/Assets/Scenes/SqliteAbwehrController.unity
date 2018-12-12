@@ -494,6 +494,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de15c6c53123bc045a8229e04c19c0eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FieldSchild: {fileID: 1356818279}
+  FieldRuestung: {fileID: 1580839664}
+  FieldUmhang: {fileID: 1052433279}
 --- !u!4 &157124936
 Transform:
   m_ObjectHideFlags: 0
@@ -1423,7 +1426,7 @@ GameObject:
   - component: {fileID: 1052433280}
   - component: {fileID: 1052433279}
   m_Layer: 5
-  m_Name: Text
+  m_Name: AbwehrUmhangText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1827,7 +1830,7 @@ GameObject:
   - component: {fileID: 1356818280}
   - component: {fileID: 1356818279}
   m_Layer: 5
-  m_Name: Text
+  m_Name: AbwehrSchildText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1901,7 +1904,7 @@ GameObject:
   - component: {fileID: 1580839665}
   - component: {fileID: 1580839664}
   m_Layer: 5
-  m_Name: Text
+  m_Name: AbwehrRuestungText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

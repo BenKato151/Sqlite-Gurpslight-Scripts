@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using Mono.Data.Sqlite;
+using UnityEngine.UI;
 
 namespace AttributskostenController
 {
@@ -14,10 +15,13 @@ namespace AttributskostenController
         #endregion
 
         #region SqlVars
-        static private readonly int[] wert = new int[] { 5, 6, 8 };
-        static private readonly int[] kosten = new int[] { 3, 5, 7 };
         //Database Query
-        static private readonly string[] table_attrik = new string[] { "Attributskosten" };
+        static private readonly string table_attrik = "Attributskosten";
+        #endregion
+
+        #region InputVars
+        public Text FieldKosten;
+        public Text FieldWert;
         #endregion
 
         #region Insert
@@ -29,12 +33,12 @@ namespace AttributskostenController
                                           " VALUES(@wert, @kosten);";
 
                 SqliteCommand Command = new SqliteCommand(insertIntoWaffen, dbConnection);
-                Command.Parameters.Add("@wert", System.Data.DbType.Int32).Value = wert[0];
-                Command.Parameters.Add("@kosten", System.Data.DbType.Int32).Value = kosten[0];
+                Command.Parameters.Add("@wert", System.Data.DbType.Int32).Value = FieldWert.text;
+                Command.Parameters.Add("@kosten", System.Data.DbType.Int32).Value = FieldKosten.text;
 
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();
-                Debug.Log("Inserted values successfuly!");
+                Debug.Log("Inserted values into " + table_attrik + " successfuly!");
             }
 
             catch (Exception e)
@@ -109,7 +113,7 @@ namespace AttributskostenController
                     if (dbConnection != null)
                     {
                         Debug.Log("Connected to the database!");
-                        Debug.Log("Table: " + table_attrik[0]);
+                        Debug.Log("Table: " + table_attrik);
                     }
                 }
             }

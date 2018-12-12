@@ -2,6 +2,7 @@
 using Mono.Data.Sqlite;
 using System;
 using System.IO;
+using UnityEngine.UI;
 
 namespace SqliteWaffenController
 {
@@ -14,24 +15,26 @@ namespace SqliteWaffenController
         #endregion
 
         #region SqlVars
-        static private readonly string[] waffenname = new string[] { "Waffe1", "Waffe2", "Waffe3" };
-        static private readonly string[] ort = new string[] { "Ebene 1", "Ebene 2", "Ebene 3" };
-        static private readonly int[] waffenID = new int[] { 1, 2, 3 };
-        static private readonly int[] fw = new int[] { 3, 4, 6 };
-        static private readonly int[] schaden = new int[] { 2, 4, 9 };
-        static private readonly int[] mod = new int[] { 1, 2, 3 };
-        static private readonly int[] zg = new int[] { 1, 2, 3 };
-        static private readonly int[] ss = new int[] { 4, 5, 6 };
-        static private readonly int[] einhalbs = new int[] { 1, 2, 3 };
-        static private readonly int[] rw = new int[] { 5, 6, 7 };
-        static private readonly int[] fg = new int[] { 3, 4, 5 };
-        static private readonly int[] mag = new int[] { 3, 4, 5 };
-        static private readonly int[] rs = new int[] { 6, 7, 8 };
-        static private readonly int[] st = new int[] { 4, 5, 7 };
-        static private readonly int[] lz = new int[] { 1, 2, 3 };
-        static private readonly int[] bm = new int[] { 7, 8, 1 };
+        static private readonly string table_waffen = "Waffen";
+        #endregion
 
-        static private readonly string[] table_waffen = new string[] { "Waffen" };
+        #region InputVars
+        public Text Fieldwaffenname;
+        public Text FieldFW;
+        public Text FieldWaffenID;
+        public Text Fieldmod;
+        public Text Fieldst;
+        public Text Fieldschaden;
+        public Text FieldOrt;
+        public Text Fieldzg;
+        public Text Fieldbm;
+        public Text Fieldmag;
+        public Text Fieldfg;
+        public Text Fieldrw;
+        public Text Fieldeinhalbs;
+        public Text Fieldss;
+        public Text Fieldrs;
+        public Text Fieldlz;
         #endregion
 
         #region Insert
@@ -46,26 +49,26 @@ namespace SqliteWaffenController
                                           " );";
 
                 SqliteCommand Command = new SqliteCommand(insertIntoWaffen, dbConnection);
-                Command.Parameters.Add("@waffenname", System.Data.DbType.String).Value = waffenname[0];
-                Command.Parameters.Add("@waffenID", System.Data.DbType.Int32).Value = waffenID[0];
-                Command.Parameters.Add("@ort", System.Data.DbType.String).Value = ort[0];
-                Command.Parameters.Add("@fw", System.Data.DbType.Int32).Value = fw[0];
-                Command.Parameters.Add("@schaden", System.Data.DbType.Int32).Value = schaden[0];
-                Command.Parameters.Add("@mod", System.Data.DbType.Int32).Value = mod[0];
-                Command.Parameters.Add("@zg", System.Data.DbType.Int32).Value = zg[0];
-                Command.Parameters.Add("@ss", System.Data.DbType.Int32).Value = ss[0];
-                Command.Parameters.Add("@einhalbs", System.Data.DbType.Int32).Value = einhalbs[0];
-                Command.Parameters.Add("@rw", System.Data.DbType.Int32).Value = rw[0];
-                Command.Parameters.Add("@fg", System.Data.DbType.Int32).Value = fg[0];
-                Command.Parameters.Add("@mag", System.Data.DbType.Int32).Value = mag[0];
-                Command.Parameters.Add("@rs", System.Data.DbType.Int32).Value = rs[0];
-                Command.Parameters.Add("@st", System.Data.DbType.Int32).Value = st[0];
-                Command.Parameters.Add("@lz", System.Data.DbType.Int32).Value = lz[0];
-                Command.Parameters.Add("@bm", System.Data.DbType.Int32).Value = bm[0];
-
+                Command.Parameters.Add("@waffenname", System.Data.DbType.String).Value = Fieldwaffenname.text;
+                Command.Parameters.Add("@waffenID", System.Data.DbType.Int32).Value = FieldWaffenID.text;
+                Command.Parameters.Add("@ort", System.Data.DbType.String).Value = FieldOrt.text;
+                Command.Parameters.Add("@fw", System.Data.DbType.Int32).Value = FieldFW.text;
+                Command.Parameters.Add("@schaden", System.Data.DbType.Int32).Value = Fieldschaden.text;
+                Command.Parameters.Add("@mod", System.Data.DbType.Int32).Value = Fieldmod.text;
+                Command.Parameters.Add("@zg", System.Data.DbType.Int32).Value = Fieldzg.text;
+                Command.Parameters.Add("@ss", System.Data.DbType.Int32).Value = Fieldss.text;
+                Command.Parameters.Add("@einhalbs", System.Data.DbType.Int32).Value = Fieldeinhalbs.text;
+                Command.Parameters.Add("@rw", System.Data.DbType.Int32).Value = Fieldrw.text;
+                Command.Parameters.Add("@fg", System.Data.DbType.Int32).Value = Fieldfg.text;
+                Command.Parameters.Add("@mag", System.Data.DbType.Int32).Value = Fieldmag.text;
+                Command.Parameters.Add("@rs", System.Data.DbType.Int32).Value = Fieldrs.text;
+                Command.Parameters.Add("@st", System.Data.DbType.Int32).Value = Fieldst.text;
+                Command.Parameters.Add("@lz", System.Data.DbType.Int32).Value = Fieldlz.text;
+                Command.Parameters.Add("@bm", System.Data.DbType.Int32).Value = Fieldbm.text;
+                
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();
-                Debug.Log("Inserted values successfuly!");
+                Debug.Log("Inserted values into " + table_waffen + " successfuly!");
             }
 
             catch (Exception e)
@@ -153,7 +156,7 @@ namespace SqliteWaffenController
                     if (dbConnection != null)
                     {
                         Debug.Log("Connected to the database!");
-                        Debug.Log("Table: " + table_waffen[0]);
+                        Debug.Log("Table: " + table_waffen);
 
                     }
                 }

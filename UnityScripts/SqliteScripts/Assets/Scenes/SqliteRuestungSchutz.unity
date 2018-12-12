@@ -1126,7 +1126,7 @@ GameObject:
   - component: {fileID: 1027150516}
   - component: {fileID: 1027150515}
   m_Layer: 5
-  m_Name: Text
+  m_Name: RUSRText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1263,7 +1263,7 @@ GameObject:
   - component: {fileID: 1238042734}
   - component: {fileID: 1238042733}
   m_Layer: 5
-  m_Name: Text
+  m_Name: RUPVText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2185,7 +2185,7 @@ GameObject:
   - component: {fileID: 1763481490}
   - component: {fileID: 1763481489}
   m_Layer: 5
-  m_Name: Text
+  m_Name: RuOrtText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2344,6 +2344,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7acc26a54a3e94042948ced241b79d1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FieldOrt: {fileID: 1763481489}
+  FieldSR: {fileID: 1027150515}
+  FieldPV: {fileID: 1238042733}
+  FieldID: {fileID: 2076594793}
 --- !u!4 &1792171591
 Transform:
   m_ObjectHideFlags: 0
@@ -2650,7 +2654,7 @@ GameObject:
   - component: {fileID: 2076594794}
   - component: {fileID: 2076594793}
   m_Layer: 5
-  m_Name: Text
+  m_Name: RUIDText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

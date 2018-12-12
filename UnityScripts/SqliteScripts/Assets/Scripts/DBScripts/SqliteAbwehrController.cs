@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using Mono.Data.Sqlite;
+using UnityEngine.UI;
 
 namespace SqliteAbwehrController
 {
@@ -13,13 +14,15 @@ namespace SqliteAbwehrController
         static private readonly string databasepath = @"D:\Scripts\UnityScripts\SqliteScripts\Assets\Scripts\Database\new_Char_Bogen1.sqlite";
         #endregion
         
-        #region SqlVars
-        static private readonly int[] schild = new int[] { 2, 6, 8 };
-        static private readonly int[] ruestung = new int[] { 1, 2, 3 };
-        static private readonly int[] umhang = new int[] { 7, 13, 16 };
-        static private readonly int[] gesamt = new int[] { schild[0] + ruestung[0] + umhang[0], schild[1] + ruestung[1] + umhang[1], schild[2] + ruestung[2] + umhang[2] };
+        #region SqlVar        
         //Database Query
-        static private readonly string[] table_abwehr = new string[] { "Abwehr" };
+        static private readonly string table_abwehr = "Abwehr";
+        #endregion
+
+        #region InputVars
+        public Text FieldSchild;
+        public Text FieldRuestung;
+        public Text FieldUmhang;
         #endregion
 
         #region Insert
@@ -31,14 +34,14 @@ namespace SqliteAbwehrController
                                               " VALUES(@schild, @ruestung, @umhang, @gesamt);";
 
                 SqliteCommand Command = new SqliteCommand(insertIntoWaffen, dbConnection);
-                Command.Parameters.Add("@schild", System.Data.DbType.Int32).Value = schild[0];
-                Command.Parameters.Add("@ruestung", System.Data.DbType.Int32).Value = ruestung[0];
-                Command.Parameters.Add("@umhang", System.Data.DbType.Int32).Value = umhang[0];
-                Command.Parameters.Add("@gesamt", System.Data.DbType.String).Value = gesamt[0];
+                Command.Parameters.Add("@schild", System.Data.DbType.Int32).Value = FieldSchild.text;
+                Command.Parameters.Add("@ruestung", System.Data.DbType.Int32).Value = FieldRuestung.text;
+                Command.Parameters.Add("@umhang", System.Data.DbType.Int32).Value = FieldUmhang.text;
+                Command.Parameters.Add("@gesamt", System.Data.DbType.Int32).Value = Int32.Parse(FieldRuestung.text) + Int32.Parse (FieldSchild.text) + Int32.Parse(FieldUmhang.text);
 
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();
-                Debug.Log("Inserted values successfuly!");
+                Debug.Log("Inserted values " + table_abwehr + " successfuly!");
             }
 
             catch (Exception e)
@@ -116,7 +119,7 @@ namespace SqliteAbwehrController
                     if (dbConnection != null)
                     {
                         Debug.Log("Connected to the database!");
-                        Debug.Log("Table: " + table_abwehr[0]);
+                        Debug.Log("Table: " + table_abwehr);
                     }
                 }
             }
