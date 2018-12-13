@@ -25,6 +25,7 @@ namespace SqliteFertigkeitencontroller
         public Text FieldFW;
         public Text FieldArt;
         public Text FieldTyp;
+        public Text FieldDelete;
         #endregion
 
         #region Insert
@@ -93,9 +94,10 @@ namespace SqliteFertigkeitencontroller
             try
             {
                 string deleteColumn = " DELETE FROM Fertigkeiten " +
-                                      " WHERE ID = 1;";
+                                      " WHERE ID = @idwert;";
 
                 SqliteCommand Command = new SqliteCommand(deleteColumn, dbConnection);
+                Command.Parameters.Add("@idwert", System.Data.DbType.Int32).Value = FieldDelete.text;
 
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();

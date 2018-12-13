@@ -35,6 +35,7 @@ namespace SqliteWaffenController
         public Text Fieldss;
         public Text Fieldrs;
         public Text Fieldlz;
+        public Text FieldDelete;
         #endregion
 
         #region Insert
@@ -125,9 +126,10 @@ namespace SqliteWaffenController
             try
             {
                 string deleteColumn = " DELETE FROM Waffen " +
-                                      " WHERE WaffenID = 1";
+                                      " WHERE WaffenID = @id";
 
                 SqliteCommand Command = new SqliteCommand(deleteColumn, dbConnection);
+                Command.Parameters.Add("@id", System.Data.DbType.Int32).Value = FieldDelete.text;
 
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();

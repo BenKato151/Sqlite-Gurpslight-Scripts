@@ -24,6 +24,8 @@ namespace SqliteAttributeController
         public Text FieldGeschickl;
         public Text FieldIntelli;
         public Text FieldKonst;
+        public Text FieldDelete;
+        public Text FieldID;
         #endregion
 
         #region Insert
@@ -31,14 +33,15 @@ namespace SqliteAttributeController
         {
             try
             {
-                string insertIntoWaffen = " INSERT INTO Attribute(Staerke, Geschicklichkeit, Intelligenz, Konstitution) " +
-                                          " VALUES(@starke, @geschicklichkeit, @intelligenz, @konstitution);";
+                string insertIntoWaffen = " INSERT INTO Attribute(Staerke, Geschicklichkeit, Intelligenz, Konstitution, ID) " +
+                                          " VALUES(@starke, @geschicklichkeit, @intelligenz, @konstitution, @id);";
 
                 SqliteCommand Command = new SqliteCommand(insertIntoWaffen, dbConnection);
                 Command.Parameters.Add("@starke", System.Data.DbType.Int32).Value = FieldStaerke.text;
                 Command.Parameters.Add("@geschicklichkeit", System.Data.DbType.Int32).Value = FieldGeschickl.text;
                 Command.Parameters.Add("@intelligenz", System.Data.DbType.Int32).Value = FieldIntelli.text;
                 Command.Parameters.Add("@konstitution", System.Data.DbType.Int32).Value = FieldKonst.text;
+                Command.Parameters.Add("@id", System.Data.DbType.Int32).Value = FieldDelete.text;
 
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();
@@ -69,8 +72,8 @@ namespace SqliteAttributeController
                     Debug.Log("Geschicklichkeit: " + output["Geschicklichkeit"]);
                     Debug.Log("Intelligenz: " + output["Intelligenz"]);
                     Debug.Log("Konstitution: " + output["Konstitution"]);
+                    Debug.Log("ID: " + output["ID"]);
                 }
-                
                 Debug.Log("Searching completed!");
             }
 
@@ -87,10 +90,11 @@ namespace SqliteAttributeController
         {
             try
             {
-                string deleteColumn = "DELETE FROM Attribute " +
-                                          " WHERE Intelligenz = 2;";
+                string deleteColumn = " DELETE FROM Attribute " +
+                                      " WHERE ID = @id;";
 
                 SqliteCommand Command = new SqliteCommand(deleteColumn, dbConnection);
+                Command.Parameters.Add("@id", System.Data.DbType.Int32).Value = FieldDelete.text;
 
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();

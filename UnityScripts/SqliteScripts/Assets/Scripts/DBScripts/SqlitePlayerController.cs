@@ -28,6 +28,7 @@ namespace SqliteplayerControll
         public Text FieldGewicht;
         public Text FieldGroese;
         public Text FieldDesc;
+        public Text FieldDelete;
         #endregion
 
         #region Insert
@@ -104,7 +105,8 @@ namespace SqliteplayerControll
                                       " WHERE SpielerID = @IDvalue";
 
                 SqliteCommand Command = new SqliteCommand(deleteColumn, dbConnection);
-                //Command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value =;
+                Command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = FieldDelete.text;
+
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();
                 Debug.Log("Deleted Row/s in " + table_player + " successfully!");

@@ -22,6 +22,8 @@ namespace AttributskostenController
         #region InputVars
         public Text FieldKosten;
         public Text FieldWert;
+        public Text FieldID;
+        public Text FieldDelete;
         #endregion
 
         #region Insert
@@ -29,12 +31,13 @@ namespace AttributskostenController
         {
             try
             {
-                string insertIntoWaffen = " INSERT INTO Attributskosten(Wert, Kosten) " +
-                                          " VALUES(@wert, @kosten);";
+                string insertIntoWaffen = " INSERT INTO Attributskosten(Wert, Kosten, ID) " +
+                                          " VALUES(@wert, @kosten, @id);";
 
                 SqliteCommand Command = new SqliteCommand(insertIntoWaffen, dbConnection);
                 Command.Parameters.Add("@wert", System.Data.DbType.Int32).Value = FieldWert.text;
                 Command.Parameters.Add("@kosten", System.Data.DbType.Int32).Value = FieldKosten.text;
+                Command.Parameters.Add("@id", System.Data.DbType.Int32).Value = FieldID.text;
 
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();
@@ -63,6 +66,7 @@ namespace AttributskostenController
                 {
                     Debug.Log("Wert: " + output["Wert"]);
                     Debug.Log("Kosten: " + output["Kosten"]);
+                    Debug.Log("ID: " + output["ID"]);
                 }
 
                 Debug.Log("Searching completed!");
@@ -81,10 +85,11 @@ namespace AttributskostenController
         {
             try
             {
-                string deleteColumn = "DELETE FROM Attributskosten " +
-                                      " WHERE Wert = 1";
+                string deleteColumn = " DELETE FROM Attributskosten " +
+                                      " WHERE ID = @id";
 
                 SqliteCommand Command = new SqliteCommand(deleteColumn, dbConnection);
+                Command.Parameters.Add("@id", System.Data.DbType.Int32).Value = FieldDelete.text;
 
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();

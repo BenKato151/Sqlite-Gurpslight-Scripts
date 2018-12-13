@@ -24,6 +24,8 @@ namespace SqliteAVerteidigungcontroller
         public Text FieldAusweichen;
         public Text FieldAbblocken;
         public Text FieldAbblockenUmh;
+        public Text FieldID;
+        public Text FieldDelete;
         #endregion
 
         #region Insert
@@ -31,15 +33,17 @@ namespace SqliteAVerteidigungcontroller
         {
             try
             {
-                string insertIntoWaffen = " INSERT INTO Aktive_Verteidigung(Parieren, Ausweichen, Abblocken, " +
-                                          " AblockenUmh) VALUES(" +
-                                          " @parieren, @ausweichen, @abblocken, @abblockenUmh);";
+                string insertIntoWaffen = " INSERT INTO Aktive_Verteidigung(Parieren, Ausweichen, " +
+                                          " Abblocken, AblockenUmh, ID) " +
+                                          "VALUES(@parieren, @ausweichen, @abblocken, @abblockenUmh, @idwert)" +
+                                          ";";
 
                 SqliteCommand Command = new SqliteCommand(insertIntoWaffen, dbConnection);
                 Command.Parameters.Add("@parieren", System.Data.DbType.Int32).Value = FieldParieren.text;
                 Command.Parameters.Add("@ausweichen", System.Data.DbType.Int32).Value = FieldAusweichen.text;
                 Command.Parameters.Add("@abblocken", System.Data.DbType.Int32).Value = FieldAbblocken.text;
                 Command.Parameters.Add("@abblockenUmh", System.Data.DbType.String).Value = FieldAbblockenUmh.text;
+                Command.Parameters.Add("@idwert", System.Data.DbType.Int32).Value = FieldID.text;
 
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();
@@ -70,6 +74,7 @@ namespace SqliteAVerteidigungcontroller
                     Debug.Log("Ausweichen: " + output["Ausweichen"]);
                     Debug.Log("Abblocken: " + output["Abblocken"]);
                     Debug.Log("Abblocken Unhang: " + output["AblockenUmh"]);
+                    Debug.Log("ID: " + output["ID"]);
                 }
                 Debug.Log("Searching completed!");
             }
@@ -88,9 +93,10 @@ namespace SqliteAVerteidigungcontroller
             try
             {
                 string deleteColumn = " DELETE FROM Aktive_Verteidigung " +
-                                      " WHERE Parieren = 2;";
+                                      " WHERE ID = @id;";
 
                 SqliteCommand Command = new SqliteCommand(deleteColumn, dbConnection);
+                Command.Parameters.Add("@id", System.Data.DbType.Int32).Value = FieldDelete.text;
 
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();

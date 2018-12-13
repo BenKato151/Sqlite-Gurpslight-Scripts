@@ -23,6 +23,8 @@ namespace SqliteAbwehrController
         public Text FieldSchild;
         public Text FieldRuestung;
         public Text FieldUmhang;
+        public Text FieldID;
+        public Text FieldBekannterWert;
         #endregion
 
         #region Insert
@@ -30,14 +32,15 @@ namespace SqliteAbwehrController
         {
             try
             {
-                string insertIntoWaffen = " INSERT INTO Abwehr(Schild, Ruestung, Umhang, Gesamt) " +
-                                              " VALUES(@schild, @ruestung, @umhang, @gesamt);";
+                string insertIntoWaffen = " INSERT INTO Abwehr(Schild, Ruestung, Umhang, Gesamt, ID) " +
+                                              " VALUES(@schild, @ruestung, @umhang, @gesamt, @ID);";
 
                 SqliteCommand Command = new SqliteCommand(insertIntoWaffen, dbConnection);
                 Command.Parameters.Add("@schild", System.Data.DbType.Int32).Value = FieldSchild.text;
                 Command.Parameters.Add("@ruestung", System.Data.DbType.Int32).Value = FieldRuestung.text;
                 Command.Parameters.Add("@umhang", System.Data.DbType.Int32).Value = FieldUmhang.text;
                 Command.Parameters.Add("@gesamt", System.Data.DbType.Int32).Value = Int32.Parse(FieldRuestung.text) + Int32.Parse (FieldSchild.text) + Int32.Parse(FieldUmhang.text);
+                Command.Parameters.Add("@ID", System.Data.DbType.Int32).Value = Int32.Parse(FieldID.text);
 
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();
@@ -69,6 +72,7 @@ namespace SqliteAbwehrController
                     Debug.Log("Rüstung: " + output["Ruestung"]);
                     Debug.Log("Umhang: " + output["Umhang"]);
                     Debug.Log("Gesamt: " + output["Gesamt"]);
+                    Debug.Log("ID: " + output["ID"]);
                 }
                 Debug.Log("Searching completed!");
             }
@@ -87,9 +91,10 @@ namespace SqliteAbwehrController
             try
             {
                 string deleteColumn = " DELETE FROM Abwehr " +
-                                      " WHERE Gesamt = 10;";
+                                      " WHERE ID = @wert;";
 
                 SqliteCommand Command = new SqliteCommand(deleteColumn, dbConnection);
+                Command.Parameters.Add("@wert", System.Data.DbType.Int32).Value = FieldBekannterWert.text;
 
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();
