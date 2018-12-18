@@ -38,6 +38,12 @@ namespace SqliteWaffenController
         public Text FieldDelete;
         #endregion
 
+        #region UpdateVars
+        public Text Fieldwert;
+        public Text Fieldcolumn;
+        public Text FieldIDvalue;
+        #endregion
+
         #region Insert
         public void InsertingValues()
         {
@@ -70,6 +76,32 @@ namespace SqliteWaffenController
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();
                 Debug.Log("Inserted values into " + table_waffen + " successfuly!");
+            }
+
+            catch (Exception e)
+            {
+                Debug.Log("Error! ");
+                Debug.Log(e);
+            }
+        }
+        #endregion
+
+        #region Update
+        public void UpdatingValues()
+        {
+            try
+            {
+                string updatecommand = " UPDATE Waffen " +
+                                       " SET " + Fieldcolumn.text + " = @wert " +
+                                       " WHERE WaffenID = @IDvalue;";
+
+                SqliteCommand Command = new SqliteCommand(updatecommand, dbConnection);
+                Command.Parameters.Add("@wert", System.Data.DbType.String).Value = Fieldwert.text;
+                Command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = FieldIDvalue.text;
+
+                Command.ExecuteNonQuery();
+                Command.Parameters.Clear();
+                Debug.Log("Updated value in " + table_waffen + " successfuly!");
             }
 
             catch (Exception e)

@@ -27,13 +27,19 @@ namespace SqliteAbwehrController
         public Text FieldBekannterWert;
         #endregion
 
+        #region UpdateVars
+        public Text Fieldwert;
+        public Text Fieldcolumn;
+        public Text FieldIDvalue;
+        #endregion
+
         #region Insert
         public void InsertingValues()
         {
             try
             {
                 string insertIntoWaffen = " INSERT INTO Abwehr(Schild, Ruestung, Umhang, Gesamt, ID) " +
-                                              " VALUES(@schild, @ruestung, @umhang, @gesamt, @ID);";
+                                          " VALUES(@schild, @ruestung, @umhang, @gesamt, @ID);";
 
                 SqliteCommand Command = new SqliteCommand(insertIntoWaffen, dbConnection);
                 Command.Parameters.Add("@schild", System.Data.DbType.Int32).Value = FieldSchild.text;
@@ -80,6 +86,32 @@ namespace SqliteAbwehrController
             catch (Exception e)
             {
                 Debug.Log("Error!   ");
+                Debug.Log(e);
+            }
+        }
+        #endregion
+
+        #region Update
+        public void UpdatingValues()
+        {
+            try
+            {
+                string updatecommand = " UPDATE Abwehr " +
+                                       " SET " + Fieldcolumn.text + " = @wert " +
+                                       " WHERE ID = @IDvalue;";
+
+                SqliteCommand Command = new SqliteCommand(updatecommand, dbConnection);
+                Command.Parameters.Add("@wert", System.Data.DbType.Int32).Value = Fieldwert.text;
+                Command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = FieldIDvalue.text;
+
+                Command.ExecuteNonQuery();
+                Command.Parameters.Clear();
+                Debug.Log("Updated value in " + table_abwehr + " successfuly!");
+            }
+
+            catch (Exception e)
+            {
+                Debug.Log("Error! ");
                 Debug.Log(e);
             }
         }

@@ -31,6 +31,12 @@ namespace SqliteplayerControll
         public Text FieldDelete;
         #endregion
 
+        #region UpdateVars
+        public Text Fieldwert;
+        public Text Fieldcolumn;
+        public Text FieldIDvalue;
+        #endregion
+
         #region Insert
         public void InsertingValues()
         {
@@ -53,6 +59,32 @@ namespace SqliteplayerControll
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();
                 Debug.Log("Inserted values into " + table_player + " successfuly!");
+            }
+
+            catch (Exception e)
+            {
+                Debug.Log("Error! ");
+                Debug.Log(e);
+            }
+        }
+        #endregion
+
+        #region Update
+        public void UpdatingValues()
+        {
+            try
+            {
+                string updatecommand = " UPDATE Spieler " +
+                                       " SET " + Fieldcolumn.text + " = @wert " +
+                                       " WHERE SpielerID = @IDvalue;";
+
+                SqliteCommand Command = new SqliteCommand(updatecommand, dbConnection);
+                Command.Parameters.Add("@wert", System.Data.DbType.String).Value = Fieldwert.text;
+                Command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = FieldIDvalue.text;
+
+                Command.ExecuteNonQuery();
+                Command.Parameters.Clear();
+                Debug.Log("Updated value in " + table_player + " successfuly!");
             }
 
             catch (Exception e)

@@ -28,6 +28,12 @@ namespace SqliteAttributeController
         public Text FieldID;
         #endregion
 
+        #region UpdateVars
+        public Text Fieldwert;
+        public Text Fieldcolumn;
+        public Text FieldIDvalue;
+        #endregion
+
         #region Insert
         public void InsertingValues()
         {
@@ -37,11 +43,11 @@ namespace SqliteAttributeController
                                           " VALUES(@starke, @geschicklichkeit, @intelligenz, @konstitution, @id);";
 
                 SqliteCommand Command = new SqliteCommand(insertIntoWaffen, dbConnection);
-                Command.Parameters.Add("@starke", System.Data.DbType.Int32).Value = FieldStaerke.text;
-                Command.Parameters.Add("@geschicklichkeit", System.Data.DbType.Int32).Value = FieldGeschickl.text;
-                Command.Parameters.Add("@intelligenz", System.Data.DbType.Int32).Value = FieldIntelli.text;
-                Command.Parameters.Add("@konstitution", System.Data.DbType.Int32).Value = FieldKonst.text;
-                Command.Parameters.Add("@id", System.Data.DbType.Int32).Value = FieldDelete.text;
+                Command.Parameters.Add("@starke", System.Data.DbType.Int32).Value = Int32.Parse(FieldStaerke.text);
+                Command.Parameters.Add("@geschicklichkeit", System.Data.DbType.Int32).Value = Int32.Parse(FieldGeschickl.text);
+                Command.Parameters.Add("@intelligenz", System.Data.DbType.Int32).Value = Int32.Parse(FieldIntelli.text);
+                Command.Parameters.Add("@konstitution", System.Data.DbType.Int32).Value = Int32.Parse(FieldKonst.text);
+                Command.Parameters.Add("@id", System.Data.DbType.Int32).Value = Int32.Parse(FieldID.text);
 
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();
@@ -80,6 +86,32 @@ namespace SqliteAttributeController
             catch (Exception e)
             {
                 Debug.Log("Error!   ");
+                Debug.Log(e);
+            }
+        }
+        #endregion
+
+        #region Update
+        public void UpdatingValues()
+        {
+            try
+            {
+                string updatecommand = " UPDATE Attribute " +
+                                       " SET " + Fieldcolumn.text + " = @wert " +
+                                       " WHERE ID = @IDvalue;";
+
+                SqliteCommand Command = new SqliteCommand(updatecommand, dbConnection);
+                Command.Parameters.Add("@wert", System.Data.DbType.Int32).Value = Fieldwert.text;
+                Command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = FieldIDvalue.text;
+
+                Command.ExecuteNonQuery();
+                Command.Parameters.Clear();
+                Debug.Log("Updated value in " + table_attribute + " successfuly!");
+            }
+
+            catch (Exception e)
+            {
+                Debug.Log("Error! ");
                 Debug.Log(e);
             }
         }
