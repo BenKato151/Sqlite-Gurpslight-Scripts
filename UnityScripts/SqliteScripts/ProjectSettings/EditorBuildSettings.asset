@@ -6,6 +6,54 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Scenes/Loading.unity
+    guid: ef473f7dd84d9ee46bcd1b97322244f5
+  - enabled: 1
+    path: Assets/Scenes/InsertCustomController/SqliteInsertAbwehr.unity
+    guid: c28c44f7775034a429e7659ef7416b21
+  - enabled: 1
+    path: Assets/Scenes/InsertCustomController/SqliteInsertAttribute.unity
+    guid: 9a37727be446f064593e1418165c0b40
+  - enabled: 1
+    path: Assets/Scenes/InsertCustomController/SqliteInsertAttributskosten.unity
+    guid: a801bd13a7976e145aab9f53277d38c8
+  - enabled: 1
+    path: Assets/Scenes/InsertCustomController/SqliteInsertAVerteidigung.unity
+    guid: e92b46964f0187648bdb00cee13e9bee
+  - enabled: 1
+    path: Assets/Scenes/InsertCustomController/SqliteInsertFertigkeiten.unity
+    guid: 8a74a7630e2f26a4dab6f5f2e0f3db06
+  - enabled: 1
+    path: Assets/Scenes/InsertCustomController/SqliteInsertPlayer.unity
+    guid: 43ef5b3e0dbdeca448b7338160e7ebb2
+  - enabled: 1
+    path: Assets/Scenes/InsertCustomController/SqliteInsertRuestungSchutz.unity
+    guid: 8ddeb9f78ccfe2943839df7541cccda4
+  - enabled: 1
+    path: Assets/Scenes/InsertCustomController/SqliteInsertWaffen.unity
+    guid: a5bfa9fa77727f849a7768e5333e2cbf
+  - enabled: 1
+    path: Assets/Scenes/UpdateControllerUpdate/SqliteUpdateAbwehr.unity
+    guid: 0757c96708dc31245a04e8d31e38daf3
+  - enabled: 1
+    path: Assets/Scenes/UpdateControllerUpdate/SqliteUpdateAttribute.unity
+    guid: bc620c553b842c9438f624804b554970
+  - enabled: 1
+    path: Assets/Scenes/UpdateControllerUpdate/SqliteUpdateAttributskosten.unity
+    guid: ebe93a3b89569664e97d3348c42c039c
+  - enabled: 1
+    path: Assets/Scenes/UpdateControllerUpdate/SqliteUpdateAVerteidigung.unity
+    guid: cf0998e83bfc3664f982fcb7c8902ccb
+  - enabled: 1
+    path: Assets/Scenes/UpdateControllerUpdate/SqliteUpdateFertigkeiten.unity
+    guid: 98ccd6c7e28ca024a81b8638e0e7e27d
+  - enabled: 1
+    path: Assets/Scenes/UpdateControllerUpdate/SqliteUpdatePlayer.unity
+    guid: 296fd16f362cb3f488b91b09c4fd31a1
+  - enabled: 1
+    path: Assets/Scenes/UpdateControllerUpdate/SqliteUpdateRuestungSchutz.unity
+    guid: 9fa375eb3341cc847a68bbf7cc41c452
+  - enabled: 1
+    path: Assets/Scenes/UpdateControllerUpdate/SqliteUpdateWaffen.unity
+    guid: 5df10effcf2872d448ec1d96712a7bcf
   m_configObjects: {}
