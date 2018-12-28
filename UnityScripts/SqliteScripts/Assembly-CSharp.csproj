@@ -51,8 +51,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Layer.cs" />
-     <Compile Include="Assets\Scripts\DBScripts\ScenesScripts\ScenesScripts.cs" />
      <Compile Include="Assets\Scripts\DBScripts\SqliteAbwehrController.cs" />
      <Compile Include="Assets\Scripts\DBScripts\SqliteAttributeController.cs" />
      <Compile Include="Assets\Scripts\DBScripts\SqliteAttributskostenController.cs" />
@@ -61,6 +59,7 @@
      <Compile Include="Assets\Scripts\DBScripts\SqlitePlayerController.cs" />
      <Compile Include="Assets\Scripts\DBScripts\SqliteRuestungSchutzController.cs" />
      <Compile Include="Assets\Scripts\DBScripts\SqliteWaffenController.cs" />
+     <Compile Include="Assets\Scripts\ScenesScripts\ScenesScripts.cs" />
  <Reference Include="UnityEditor.StandardEvents">
  <HintPath>D:/Scripts/UnityScripts/SqliteScripts/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
  </Reference>
