@@ -1,0 +1,13 @@
+﻿TODO:
+
+		Add:
+					Toggle-Checkbox for Console MSG (Connected, Loaded, Error)
+					Dropdown-List for Loading Scene
+					Sqlite-Triggers Controller
+
+		Edit:
+					SQL-Output in Console to Scroll View Text
+					Text-Margin
+
+		Delete:		
+				
