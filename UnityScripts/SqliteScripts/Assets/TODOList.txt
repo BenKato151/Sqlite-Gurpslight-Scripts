@@ -7,7 +7,6 @@
 
 		Edit:
 					SQL-Output in Console to Scroll View Text
-					Text-Margin
 
 		Delete:		
 				
