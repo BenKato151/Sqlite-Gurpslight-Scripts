@@ -15,8 +15,13 @@ namespace SqliteAVerteidigungcontroller
 
         #region SqlVars
         //Database Query
-        static private readonly string table_aver = "Aktive_Verteidigung";
+        static private readonly string table = "Aktive_Verteidigung";
 
+        #endregion
+
+        #region MsgVars
+        public Text console_msg;
+        public Text sqlOutput_msg;
         #endregion
 
         #region InputVars
@@ -53,13 +58,14 @@ namespace SqliteAVerteidigungcontroller
 
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();
-                Debug.Log("Inserted values into " + table_aver + " successfuly!");
+                console_msg.text = "Inserted values in table:\n         " + table
+                                 + "\nsuccessfuly!";
             }
 
             catch (Exception e)
             {
-                Debug.Log("Error! ");
                 Debug.Log(e);
+                console_msg.text = "Error:\nFailed to insert values!";
             }
         }
         #endregion
@@ -79,13 +85,14 @@ namespace SqliteAVerteidigungcontroller
 
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();
-                Debug.Log("Updated value in " + table_aver + " successfuly!");
+                console_msg.text = "Updated value in \n         " + table +
+                                   "\nsuccessfuly!";
             }
 
             catch (Exception e)
             {
-                Debug.Log("Error! ");
                 Debug.Log(e);
+                console_msg.text = "Error:\nFailed to update values!";
             }
         }
         #endregion
@@ -93,7 +100,6 @@ namespace SqliteAVerteidigungcontroller
         #region Select
         public void SelectingColumns()
         {
-            Debug.Log("Searching...");
             try
             {
                 string selecting = "SELECT * FROM Aktive_Verteidigung;";
@@ -102,19 +108,20 @@ namespace SqliteAVerteidigungcontroller
 
                 while (output.Read())
                 {
-                    Debug.Log("Parieren: " + output["Parieren"]);
-                    Debug.Log("Ausweichen: " + output["Ausweichen"]);
-                    Debug.Log("Abblocken: " + output["Abblocken"]);
-                    Debug.Log("Abblocken Unhang: " + output["AblockenUmh"]);
-                    Debug.Log("ID: " + output["ID"]);
+                    sqlOutput_msg.text = "Parieren: " + output["Parieren"] + "\n" +
+                                         "Ausweichen: " + output["Ausweichen"] + "\n" +
+                                         "Abblocken: " + output["Abblocken"] + "\n" +
+                                         "Abblocken Unhang: " + output["AblockenUmh"] + "\n" +
+                                         "ID: " + output["ID"];
                 }
-                Debug.Log("Searching completed!");
+                console_msg.text = "Searching in column:\n         " + table
+                                 + "\ncompleted!";
             }
 
             catch (Exception e)
             {
-                Debug.Log("Error!   ");
                 Debug.Log(e);
+                console_msg.text = "Error:\nFailed to search values!";
             }
         }
         #endregion
@@ -132,13 +139,13 @@ namespace SqliteAVerteidigungcontroller
 
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();
-                Debug.Log("Deleted Row/s successfully!");
+                console_msg.text = "Deleted Row/s successfully!";
             }
 
             catch (Exception e)
             {
-                Debug.Log("Error! ");
                 Debug.Log(e);
+                console_msg.text = "Error:\nFailed to delete rows";
             }
         }
         #endregion
@@ -156,16 +163,15 @@ namespace SqliteAVerteidigungcontroller
                 {
                     if (dbConnection != null)
                     {
-                        Debug.Log("Connected to the database!");
-                        Debug.Log("Table: " + table_aver);
+                        console_msg.text = "Connected to the database!\n Table: " + table;
                     }
                 }
             }
 
             catch (Exception e)
             {
-                Debug.Log("Not Connected!    Error:    ");
                 Debug.Log(e);
+                console_msg.text = "Error:\nFailed to connect!";
             }
         }
         #endregion
@@ -173,8 +179,17 @@ namespace SqliteAVerteidigungcontroller
         #region Exit
         public void Exit()
         {
-            dbConnection.Close();
-            Debug.Log("Verbindung beendet");
+            try
+            {
+                dbConnection.Close();
+                console_msg.text = "\nConnection closed!";
+                sqlOutput_msg.text = " ";
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+                console_msg.text = "Error:\nFailed to close the connection!";
+            }
         }
         #endregion
 

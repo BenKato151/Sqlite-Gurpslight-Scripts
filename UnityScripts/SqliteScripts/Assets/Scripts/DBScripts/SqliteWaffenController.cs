@@ -15,7 +15,7 @@ namespace SqliteWaffenController
         #endregion
 
         #region SqlVars
-        static private readonly string table_waffen = "Waffen";
+        static private readonly string table = "Waffen";
         #endregion
 
         #region InputVars
@@ -36,6 +36,11 @@ namespace SqliteWaffenController
         public Text Fieldrs;
         public Text Fieldlz;
         public Text FieldDelete;
+        #endregion
+
+        #region MsgVars
+        public Text console_msg;
+        public Text sqlOutput_msg;
         #endregion
 
         #region UpdateVars
@@ -75,13 +80,14 @@ namespace SqliteWaffenController
                 
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();
-                Debug.Log("Inserted values into " + table_waffen + " successfuly!");
+                console_msg.text = "Inserted values in table:\n         " + table
+                                  + "\nsuccessfuly!";
             }
 
             catch (Exception e)
             {
-                Debug.Log("Error! ");
                 Debug.Log(e);
+                console_msg.text = "Error:\nFailed to insert values!";
             }
         }
         #endregion
@@ -101,13 +107,14 @@ namespace SqliteWaffenController
 
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();
-                Debug.Log("Updated value in " + table_waffen + " successfuly!");
+                console_msg.text = "Updated value in \n         " + table +
+                                   "\nsuccessfuly!";
             }
 
             catch (Exception e)
             {
-                Debug.Log("Error! ");
                 Debug.Log(e);
+                console_msg.text = "Error:\nFailed to update values!";
             }
         }
         #endregion
@@ -115,7 +122,6 @@ namespace SqliteWaffenController
         #region Select
         public void SelectingColumns()
         {
-            Debug.Log("Searching...");
             try
             {
                 string selecting = "SELECT * FROM Waffen";
@@ -124,30 +130,31 @@ namespace SqliteWaffenController
 
                 while (output.Read())
                 {
-                        Debug.Log("Waffenname: " + output["Waffenname"]);
-                        Debug.Log("WaffenID: " + output["WaffenID"]);
-                        Debug.Log("FW: " + output["FW"]);
-                        Debug.Log("Schaden: " + output["Schaden"]);
-                        Debug.Log("Mod: " + output["Mod"]);
-                        Debug.Log("Ort: " + output["Ort"]);
-                        Debug.Log("ZG: " + output["ZG"]);
-                        Debug.Log("SS: " + output["SS"]);
-                        Debug.Log("EINHALBS: " + output["EINHALBS"]);
-                        Debug.Log("RW: " + output["RW"]);
-                        Debug.Log("FG: " + output["FG"]);
-                        Debug.Log("MAG: " + output["MAG"]);
-                        Debug.Log("RS: " + output["RS"]);
-                        Debug.Log("ST: " + output["ST"]);
-                        Debug.Log("LZ: " + output["LZ"]);
-                        Debug.Log("BM: " + output["BM"]);
+                    sqlOutput_msg.text = "Waffenname: " + output["Waffenname"] + "\n" +
+                                         "WaffenID: " + output["WaffenID"] + "\n" +
+                                         "FW: " + output["FW"] + "\n" +
+                                         "Schaden: " + output["Schaden"] + "\n" +
+                                         "Mod: " + output["Mod"] + "\n" +
+                                         "Ort: " + output["Ort"] + "\n" +
+                                         "ZG: " + output["ZG"] + "\n" +
+                                         "SS: " + output["SS"] + "\n" +
+                                         "EINHALBS: " + output["EINHALBS"] + "\n" +
+                                         "RW: " + output["RW"] + "\n" +
+                                         "FG: " + output["FG"] + "\n" +
+                                         "MAG: " + output["MAG"] + "\n" +
+                                         "RS: " + output["RS"] + "\n" +
+                                         "ST: " + output["ST"] + "\n" +
+                                         "LZ: " + output["LZ"] + "\n" +
+                                         "BM: " + output["BM"];
                 }
-                Debug.Log("Searching completed!");
+                console_msg.text = "Searching in column:\n         " + table
+                                 + "\ncompleted!";
             }
 
             catch (Exception e)
             {
-                Debug.Log("Error!   ");
                 Debug.Log(e);
+                console_msg.text = "Error:\nFailed to search values!";
             }
         }
         #endregion
@@ -165,13 +172,13 @@ namespace SqliteWaffenController
 
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();
-                Debug.Log("Deleted Row/s successfully!");
+                console_msg.text = "Deleted Row/s successfully!";
             }
 
             catch (Exception e)
             {
-                Debug.Log("Error! ");
                 Debug.Log(e);
+                console_msg.text = "Error:\nFailed to delete rows";
             }
         }
         #endregion
@@ -189,17 +196,15 @@ namespace SqliteWaffenController
                 {
                     if (dbConnection != null)
                     {
-                        Debug.Log("Connected to the database!");
-                        Debug.Log("Table: " + table_waffen);
-
+                        console_msg.text = "Connected to the database!\n Table: " + table;
                     }
                 }
             }
 
             catch (Exception e)
             {
-                Debug.Log("Not Connected!    Error:    ");
                 Debug.Log(e);
+                console_msg.text = "Error:\nFailed to connect!";
             }
         }
         #endregion
@@ -207,8 +212,17 @@ namespace SqliteWaffenController
         #region Exit
         public void Exit()
         {
-            dbConnection.Close();
-            Debug.Log("Connection closed!");
+            try
+            {
+                dbConnection.Close();
+                console_msg.text = "\nConnection closed!";
+                sqlOutput_msg.text = " ";
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+                console_msg.text = "Error:\nFailed to close the connection!";
+            }
         }
         #endregion
 

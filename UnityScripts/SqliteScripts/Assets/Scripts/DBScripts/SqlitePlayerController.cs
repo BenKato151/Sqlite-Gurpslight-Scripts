@@ -15,7 +15,7 @@ namespace SqliteplayerControll
 
         #region SqlVars
         //Database Query
-        static private readonly string table_player = "Spieler";
+        static private readonly string table = "Spieler";
         #endregion
 
         #region InputVars
@@ -29,6 +29,11 @@ namespace SqliteplayerControll
         public Text FieldGroese;
         public Text FieldDesc;
         public Text FieldDelete;
+        #endregion
+
+        #region MsgVars
+        public Text console_msg;
+        public Text sqlOutput_msg;
         #endregion
 
         #region UpdateVars
@@ -58,13 +63,14 @@ namespace SqliteplayerControll
                 Command.Parameters.Add("@SpielerID", System.Data.DbType.Int32).Value = FieldID.text;
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();
-                Debug.Log("Inserted values into " + table_player + " successfuly!");
+                console_msg.text = "Inserted values in table:\n         " + table
+                                  + "\nsuccessfuly!";
             }
 
             catch (Exception e)
             {
-                Debug.Log("Error! ");
                 Debug.Log(e);
+                console_msg.text = "Error:\nFailed to insert values!";
             }
         }
         #endregion
@@ -84,13 +90,14 @@ namespace SqliteplayerControll
 
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();
-                Debug.Log("Updated value in " + table_player + " successfuly!");
+                console_msg.text = "Updated value in \n         " + table +
+                                   "\nsuccessfuly!";
             }
 
             catch (Exception e)
             {
-                Debug.Log("Error! ");
                 Debug.Log(e);
+                console_msg.text = "Error:\nFailed to update values!";
             }
         }
         #endregion
@@ -98,7 +105,6 @@ namespace SqliteplayerControll
         #region Select
         public void SelectingColumns()
         {
-            Debug.Log("Searching...");
             try
             {
                 string selecting = "SELECT * FROM Spieler;";
@@ -107,23 +113,24 @@ namespace SqliteplayerControll
                 SqliteDataReader output = command.ExecuteReader();
                 while (output.Read())
                 {
-                    Debug.Log("Name: " + output["name"]);
-                    Debug.Log("Geschlecht: " + output["geschlecht"]);
-                    Debug.Log("Rasse: " + output["rasse"]);
-                    Debug.Log("Haar: " + output["haar"]);
-                    Debug.Log("Augen: " + output["augen"]);
-                    Debug.Log("Gewicht: " + output["gewicht"]);
-                    Debug.Log("Größe: " + output["groese"]);
-                    Debug.Log("Beschreibung: " + output["beschreibung"]);
-                    Debug.Log("Spieler ID: " + output["SpielerID"]);
+                    sqlOutput_msg.text = "Name: " + output["name"] + "\n" +
+                                         "Geschlecht: " + output["geschlecht"] + "\n" +
+                                         "Rasse: " + output["rasse"] + "\n" +
+                                         "Haar: " + output["haar"] + "\n" +
+                                         "Augen: " + output["augen"] + "\n" +
+                                         "Gewicht: " + output["gewicht"] + "\n" +
+                                         "Größe: " + output["groese"] + "\n" +
+                                         "Beschreibung: " + output["beschreibung"] + "\n" +
+                                         "Spieler ID: " + output["SpielerID"];
                 }
-                Debug.Log("Searching in table " + table_player + " completed!");
+                console_msg.text = "Searching in column:\n         " + table
+                                 + "\ncompleted!";
             }
 
             catch (Exception e)
             {
-                Debug.Log("Error!");
                 Debug.Log(e);
+                console_msg.text = "Error:\nFailed to search values!";
             }
         }
         #endregion
@@ -141,13 +148,13 @@ namespace SqliteplayerControll
 
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();
-                Debug.Log("Deleted Row/s in " + table_player + " successfully!");
+                console_msg.text = "Deleted Row/s successfully!";
             }
 
             catch (Exception e)
             {
-                Debug.Log("Error! ");
                 Debug.Log(e);
+                console_msg.text = "Error:\nFailed to delete rows";
             }
         }
         #endregion
@@ -165,16 +172,15 @@ namespace SqliteplayerControll
                 {
                     if (dbConnection != null)
                     {
-                        Debug.Log("Connected to the database!");
-                        Debug.Log("Table: " + table_player);
+                        console_msg.text = "Connected to the database!\n Table: " + table;
                     }
                 }
             }
 
             catch (Exception e)
             {
-                Debug.Log("Not Connected!    Error:    ");
                 Debug.Log(e);
+                console_msg.text = "Error:\nFailed to connect!";
             }
         }
         #endregion
@@ -182,8 +188,17 @@ namespace SqliteplayerControll
         #region Exit
         public void Exit()
         {
-            dbConnection.Close();
-            Debug.Log("Verbindung beendet");
+            try
+            {
+                dbConnection.Close();
+                console_msg.text = "\nConnection closed!";
+                sqlOutput_msg.text = " ";
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+                console_msg.text = "Error:\nFailed to close the connection!";
+            }
         }
         #endregion
 

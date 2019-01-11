@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.Threading;
 using System.IO;
 using Mono.Data.Sqlite;
 using UnityEngine.UI;
@@ -16,7 +17,7 @@ namespace SqliteAttributeController
 
         #region SqlVars
         //Database Query
-        static private readonly string table_attribute = "Attribute";
+        static private readonly string table = "Attribute";
         #endregion
 
         #region InputVars
@@ -26,6 +27,11 @@ namespace SqliteAttributeController
         public Text FieldKonst;
         public Text FieldDelete;
         public Text FieldID;
+        #endregion
+
+        #region MsgVars
+        public Text console_msg;
+        public Text sqlOutput_msg;
         #endregion
 
         #region UpdateVars
@@ -51,13 +57,14 @@ namespace SqliteAttributeController
 
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();
-                Debug.Log("Inserted values into " + table_attribute +" successfuly!");
+                console_msg.text = "Inserted values in table:\n         " + table
+                                 + "\nsuccessfuly!";
             }
 
             catch (Exception e)
-            {
-                Debug.Log("Error! ");
+            {                
                 Debug.Log(e);
+                console_msg.text = "Error:\nFailed to insert values!";
             }
         }
         #endregion
@@ -65,7 +72,6 @@ namespace SqliteAttributeController
         #region Select
         public void SelectingColumns()
         {
-            Debug.Log("Searching...");
             try
             {
                 string selecting = "SELECT * FROM Attribute;";
@@ -74,19 +80,20 @@ namespace SqliteAttributeController
 
                 while (output.Read())
                 {
-                    Debug.Log("Stärke: " + output["Staerke"]);
-                    Debug.Log("Geschicklichkeit: " + output["Geschicklichkeit"]);
-                    Debug.Log("Intelligenz: " + output["Intelligenz"]);
-                    Debug.Log("Konstitution: " + output["Konstitution"]);
-                    Debug.Log("ID: " + output["ID"]);
+                    sqlOutput_msg.text = "Stärke: " + output["Staerke"] + "\n" +
+                                         "Geschicklichkeit: " + output["Geschicklichkeit"] + "\n" +
+                                         "Intelligenz: " + output["Intelligenz"] + "\n" +
+                                         "Konstitution: " + output["Konstitution"] + "\n" +
+                                         "ID: " + output["ID"];
                 }
-                Debug.Log("Searching completed!");
+                console_msg.text = "Searching in column:\n         " + table
+                                 + "\ncompleted!";
             }
 
             catch (Exception e)
             {
-                Debug.Log("Error!   ");
                 Debug.Log(e);
+                console_msg.text = "Error:\nFailed to search values!";
             }
         }
         #endregion
@@ -106,13 +113,14 @@ namespace SqliteAttributeController
 
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();
-                Debug.Log("Updated value in " + table_attribute + " successfuly!");
+                console_msg.text = "Updated value in \n         " + table +
+                                   "\nsuccessfuly!";
             }
 
             catch (Exception e)
             {
-                Debug.Log("Error! ");
                 Debug.Log(e);
+                console_msg.text = "Error:\nFailed to update values!";
             }
         }
         #endregion
@@ -130,13 +138,13 @@ namespace SqliteAttributeController
 
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();
-                Debug.Log("Deleted Row/s successfully!");
+                console_msg.text = "Deleted Row/s successfully!";
             }
 
             catch (Exception e)
             {
-                Debug.Log("Error! ");
                 Debug.Log(e);
+                console_msg.text = "Error:\nFailed to delete rows";
             }
         }
         #endregion
@@ -154,26 +162,34 @@ namespace SqliteAttributeController
                 {
                     if (dbConnection != null)
                     {
-                        Debug.Log("Connected to the database!");
-                        Debug.Log("Table: " + table_attribute);
+                        console_msg.text = "Connected to the database!\n Table: " + table;
                     }
                 }
             }
 
             catch (Exception e)
             {
-                Debug.Log("Not Connected!    Error:    ");
                 Debug.Log(e);
+                console_msg.text = "Error:\nFailed to connect!";
             }
         }
         #endregion
 
         #region Exit
-       public void Exit()
-       {
-            dbConnection.Close();
-            Debug.Log("Verbindung beendet");
-       }
+        public void Exit()
+        {
+            try
+            {
+                dbConnection.Close();
+                console_msg.text = "\nConnection closed!";
+                sqlOutput_msg.text = " ";
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+                console_msg.text = "Error:\nFailed to close the connection!";
+            }
+        }
         #endregion
 
     }

@@ -1844,7 +1844,7 @@ GameObject:
   - component: {fileID: 905794931}
   - component: {fileID: 905794930}
   m_Layer: 0
-  m_Name: Script
+  m_Name: Scripts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1861,7 +1861,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02d22d06d5a9e064cb83c39800ec52b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  msgShow: 1
+  msgShow: 0
 --- !u!4 &905794931
 Transform:
   m_ObjectHideFlags: 0

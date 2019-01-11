@@ -16,7 +16,7 @@ namespace SqliteRuestungSchutzController
 
         #region SqlVars
         //Database Query
-        static private readonly string table_RS = "Fertigkeiten";
+        static private readonly string table = "Fertigkeiten";
         #endregion
 
         #region InputVars
@@ -25,6 +25,11 @@ namespace SqliteRuestungSchutzController
         public Text FieldPV;
         public Text FieldID;
         public Text FieldDelete;
+        #endregion
+
+        #region MsgVars
+        public Text console_msg;
+        public Text sqlOutput_msg;
         #endregion
 
         #region UpdateVars
@@ -49,13 +54,14 @@ namespace SqliteRuestungSchutzController
 
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();
-                Debug.Log("Inserted values into " + table_RS + " successfuly!");
+                console_msg.text = "Inserted values in table:\n         " + table
+                                  + "\nsuccessfuly!";
             }
 
             catch (Exception e)
             {
-                Debug.Log("Error! ");
                 Debug.Log(e);
+                console_msg.text = "Error:\nFailed to insert values!";
             }
         }
         #endregion
@@ -75,13 +81,14 @@ namespace SqliteRuestungSchutzController
 
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();
-                Debug.Log("Updated value in " + table_RS + " successfuly!");
+                console_msg.text = "Updated value in \n         " + table +
+                                   "\nsuccessfuly!";
             }
 
             catch (Exception e)
             {
-                Debug.Log("Error! ");
                 Debug.Log(e);
+                console_msg.text = "Error:\nFailed to update values!";
             }
         }
         #endregion
@@ -89,7 +96,6 @@ namespace SqliteRuestungSchutzController
         #region Select
         public void SelectingColumns()
         {
-            Debug.Log("Searching...");
             try
             {
                 string selecting = "SELECT * FROM Ruestung_Schutz;";
@@ -98,18 +104,20 @@ namespace SqliteRuestungSchutzController
 
                 while (output.Read())
                 {
-                    Debug.Log("Ort: " + output["Ort"]);
-                    Debug.Log("SR: " + output["SR"]);
-                    Debug.Log("PV: " + output["PV"]);
-                    Debug.Log("ID: " + output["ID"]);
+
+                    sqlOutput_msg.text = "Ort: " + output["Ort"] + "\n" +
+                                         "SR: " + output["SR"] + "\n" +
+                                         "PV: " + output["PV"] + "\n" +
+                                         "ID: " + output["ID"];
                 }
-                Debug.Log("Searching completed!");
+                console_msg.text = "Searching in column:\n         " + table
+                                 + "\ncompleted!";
             }
 
             catch (Exception e)
             {
-                Debug.Log("Error!   ");
                 Debug.Log(e);
+                console_msg.text = "Error:\nFailed to search values!";
             }
         }
         #endregion
@@ -127,13 +135,13 @@ namespace SqliteRuestungSchutzController
 
                 Command.ExecuteNonQuery();
                 Command.Parameters.Clear();
-                Debug.Log("Deleted Row/s successfully!");
+                console_msg.text = "Deleted Row/s successfully!";
             }
 
             catch (Exception e)
             {
-                Debug.Log("Error! ");
                 Debug.Log(e);
+                console_msg.text = "Error:\nFailed to delete rows";
             }
         }
 
@@ -152,16 +160,15 @@ namespace SqliteRuestungSchutzController
                 {
                     if (dbConnection != null)
                     {
-                        Debug.Log("Connected to the database!");
-                        Debug.Log("Table: " + table_RS);
+                        console_msg.text = "Connected to the database!\n Table: " + table;
                     }
                 }
             }
 
             catch (Exception e)
             {
-                Debug.Log("Not Connected!    Error:    ");
                 Debug.Log(e);
+                console_msg.text = "Error:\nFailed to connect!";
             }
         }
         #endregion
@@ -169,8 +176,17 @@ namespace SqliteRuestungSchutzController
         #region Exit
         public void Exit()
         {
-            dbConnection.Close();
-            Debug.Log("Connection closed!");
+            try
+            {
+                dbConnection.Close();
+                console_msg.text = "\nConnection closed!";
+                sqlOutput_msg.text = " ";
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+                console_msg.text = "Error:\nFailed to close the connection!";
+            }
         }
         #endregion
 

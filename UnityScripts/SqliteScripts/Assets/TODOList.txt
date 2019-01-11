@@ -6,7 +6,7 @@
 					Sqlite-Triggers Controller
 
 		Edit:
-					SQL-Output in Console to Scroll View Text
+					Fix the size of "Select"-Textbox
 
 		Delete:		
-				
+					
