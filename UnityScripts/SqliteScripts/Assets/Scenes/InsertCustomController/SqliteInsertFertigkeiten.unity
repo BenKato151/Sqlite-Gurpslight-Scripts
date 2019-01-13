@@ -1195,7 +1195,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02d22d06d5a9e064cb83c39800ec52b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  msgShow: 0
 --- !u!1 &490387144
 GameObject:
   m_ObjectHideFlags: 0
@@ -3372,7 +3371,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Loaded:
 
-    SqliteInsertAttributeScene'
+    SqliteInsertFertigkeitenScene'
 --- !u!222 &1757014294
 CanvasRenderer:
   m_ObjectHideFlags: 0
