@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\DropDown.cs" />
      <Compile Include="Assets\Scripts\DBScripts\SqliteAbwehrController.cs" />
      <Compile Include="Assets\Scripts\DBScripts\SqliteAttributeController.cs" />
      <Compile Include="Assets\Scripts\DBScripts\SqliteAttributskostenController.cs" />

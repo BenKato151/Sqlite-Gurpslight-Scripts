@@ -2,7 +2,7 @@
 
 		Add:
 					Toggle-Checkbox for Console MSG (Connected, Loaded, Error)
-					Dropdown-List for Loading Scene
+					
 					Sqlite-Triggers Controller
 					relative Datapath
 
@@ -11,3 +11,12 @@
 
 		Delete:		
 					absolute datapath
+
+
+FINISHES:	Added:
+					First Dropdown-Button for Loading Scene
+	
+		Edited:
+
+
+		Deleted:			Old loading "Insert" Menu
