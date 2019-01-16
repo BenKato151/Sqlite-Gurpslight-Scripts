@@ -12,7 +12,8 @@ namespace SqliteAttributeController
         #region ConnectionVars
         static SqliteConnection dbConnection;
         //absolute path required
-        static private readonly string databasepath = @"D:\Scripts\UnityScripts\SqliteScripts\Assets\Scripts\Database\new_Char_Bogen1.sqlite";
+        private string databasepath;
+        private readonly string relativePath = @"/Scripts/Database/new_Char_Bogen1.sqlite";
         #endregion
 
         #region SqlVars
@@ -152,6 +153,7 @@ namespace SqliteAttributeController
         #region Connection
         public void ConnectionDB()
         {
+            databasepath = Application.dataPath + relativePath;
             //Tries to get a connection with the database and if there is an path-error, it will catch it
             try
             {

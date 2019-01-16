@@ -5,22 +5,24 @@ ______
 					Toggle-Checkbox for Console MSG (Connected, Loaded, Error)
 					
 					Sqlite-Triggers Controller
-					relative Datapath
+					
 
 		Edit:
 					Fix the size of "Select"-Textbox
 
 		Delete:		
-					absolute datapath
+					
 
 
 FINISHES:	
 _________
 
 		Added:
-					Second Dropdown-Button for Loading Scene
+					Relative Datapath 
+
 	
-		Edited:
+		Edited:		
+					
 
 
-		Deleted:			Old loading "Insert" & "Updating" Menu
+		Deleted:			
