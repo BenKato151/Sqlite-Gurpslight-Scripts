@@ -1,4 +1,5 @@
 ﻿TODO:
+______
 
 		Add:
 					Toggle-Checkbox for Console MSG (Connected, Loaded, Error)
@@ -13,10 +14,13 @@
 					absolute datapath
 
 
-FINISHES:	Added:
-					First Dropdown-Button for Loading Scene
+FINISHES:	
+_________
+
+		Added:
+					Second Dropdown-Button for Loading Scene
 	
 		Edited:
 
 
-		Deleted:			Old loading "Insert" Menu
+		Deleted:			Old loading "Insert" & "Updating" Menu
