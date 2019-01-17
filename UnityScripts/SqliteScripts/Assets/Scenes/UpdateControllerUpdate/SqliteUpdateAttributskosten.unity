@@ -1044,6 +1044,7 @@ MonoBehaviour:
   FieldWert: {fileID: 0}
   FieldID: {fileID: 0}
   FieldDelete: {fileID: 2064507302}
+  FieldSelectID: {fileID: 2064507302}
   console_msg: {fileID: 755080169}
   sqlOutput_msg: {fileID: 1493417114}
   Fieldwert: {fileID: 1933896167}
@@ -1257,8 +1258,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 345.29993, y: -173.3}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 20.200073, y: 16.899963}
+  m_SizeDelta: {x: 195.88, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &830490129
 MonoBehaviour:
@@ -2256,7 +2257,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Enter ID to delete
+  m_Text: Enter ID to delete or select
 --- !u!222 &1795731354
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -2,13 +2,11 @@
 ______
 
 		Add:
-					Toggle-Checkbox for Console MSG (Connected, Loaded, Error)
-					
 					Sqlite-Triggers Controller
 					
 
 		Edit:
-					Fix the size of "Select"-Textbox
+					
 
 		Delete:		
 					
@@ -18,11 +16,12 @@ FINISHES:
 _________
 
 		Added:
-					Relative Datapath 
+					 
 
 	
 		Edited:		
-					
+					WHERE Clause in SELECT-Command
+					InputField for Select/Delete
 
 
 		Deleted:			

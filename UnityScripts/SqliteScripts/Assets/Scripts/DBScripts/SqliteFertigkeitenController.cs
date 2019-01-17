@@ -27,6 +27,7 @@ namespace SqliteFertigkeitencontroller
         public Text FieldArt;
         public Text FieldTyp;
         public Text FieldDelete;
+        public Text FieldSelectID;
         #endregion
 
         #region MsgVars
@@ -102,7 +103,7 @@ namespace SqliteFertigkeitencontroller
         {
             try
             {
-                string selecting = "SELECT * FROM Fertigkeiten;";
+                string selecting = "SELECT * FROM Fertigkeiten WHERE ID = " + FieldSelectID.text;
                 SqliteCommand command = new SqliteCommand(selecting, dbConnection);
                 SqliteDataReader output = command.ExecuteReader();
 

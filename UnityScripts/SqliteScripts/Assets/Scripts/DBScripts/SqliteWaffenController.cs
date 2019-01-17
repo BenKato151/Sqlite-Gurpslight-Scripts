@@ -37,6 +37,7 @@ namespace SqliteWaffenController
         public Text Fieldrs;
         public Text Fieldlz;
         public Text FieldDelete;
+        public Text FieldSelectID;
         #endregion
 
         #region MsgVars
@@ -125,7 +126,7 @@ namespace SqliteWaffenController
         {
             try
             {
-                string selecting = "SELECT * FROM Waffen";
+                string selecting = "SELECT * FROM Waffen WHERE WaffenID = " + FieldSelectID.text;
                 SqliteCommand command = new SqliteCommand(selecting, dbConnection);
                 SqliteDataReader output = command.ExecuteReader();
 

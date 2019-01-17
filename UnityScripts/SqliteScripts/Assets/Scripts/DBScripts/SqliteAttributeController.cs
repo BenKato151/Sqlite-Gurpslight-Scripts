@@ -27,6 +27,7 @@ namespace SqliteAttributeController
         public Text FieldIntelli;
         public Text FieldKonst;
         public Text FieldDelete;
+        public Text FieldSelectID;
         public Text FieldID;
         #endregion
 
@@ -75,7 +76,7 @@ namespace SqliteAttributeController
         {
             try
             {
-                string selecting = "SELECT * FROM Attribute;";
+                string selecting = "SELECT * FROM Attribute WHERE ID = " + FieldSelectID.text;
                 SqliteCommand command = new SqliteCommand(selecting, dbConnection);
                 SqliteDataReader output = command.ExecuteReader();
 

@@ -32,6 +32,7 @@ namespace SqliteAVerteidigungcontroller
         public Text FieldAbblockenUmh;
         public Text FieldID;
         public Text FieldDelete;
+        public Text FieldSelectID;
         #endregion
 
         #region UpdateVars
@@ -103,7 +104,7 @@ namespace SqliteAVerteidigungcontroller
         {
             try
             {
-                string selecting = "SELECT * FROM Aktive_Verteidigung;";
+                string selecting = "SELECT * FROM Aktive_Verteidigung WHERE ID = " + FieldSelectID.text;
                 SqliteCommand command = new SqliteCommand(selecting, dbConnection);
                 SqliteDataReader output = command.ExecuteReader();
 

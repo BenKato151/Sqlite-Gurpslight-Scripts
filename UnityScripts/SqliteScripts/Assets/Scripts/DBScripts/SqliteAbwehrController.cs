@@ -26,6 +26,7 @@ namespace SqliteAbwehrController
         public Text FieldUmhang;
         public Text FieldID;
         public Text FieldBekannterWert;
+        public Text FieldSelect;
         #endregion
 
         #region MsgVars
@@ -74,7 +75,8 @@ namespace SqliteAbwehrController
         {
             try
             {
-                string selecting = "SELECT * FROM Abwehr;";
+                string selecting = "SELECT * FROM Abwehr WHERE ID = " + FieldSelect.text;
+                
                 SqliteCommand command = new SqliteCommand(selecting, dbConnection);
                 SqliteDataReader output = command.ExecuteReader();
 

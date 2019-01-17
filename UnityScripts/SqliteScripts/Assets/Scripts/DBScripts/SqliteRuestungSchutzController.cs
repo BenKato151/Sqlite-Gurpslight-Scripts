@@ -26,6 +26,7 @@ namespace SqliteRuestungSchutzController
         public Text FieldPV;
         public Text FieldID;
         public Text FieldDelete;
+        public Text FieldSelectID;
         #endregion
 
         #region MsgVars
@@ -99,7 +100,7 @@ namespace SqliteRuestungSchutzController
         {
             try
             {
-                string selecting = "SELECT * FROM Ruestung_Schutz;";
+                string selecting = "SELECT * FROM Ruestung_Schutz WHERE ID = " + FieldSelectID.text;
                 SqliteCommand command = new SqliteCommand(selecting, dbConnection);
                 SqliteDataReader output = command.ExecuteReader();
 

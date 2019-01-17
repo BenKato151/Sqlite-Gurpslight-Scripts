@@ -30,6 +30,7 @@ namespace SqliteplayerControll
         public Text FieldGroese;
         public Text FieldDesc;
         public Text FieldDelete;
+        public Text FieldSelectID;
         #endregion
 
         #region MsgVars
@@ -108,7 +109,7 @@ namespace SqliteplayerControll
         {
             try
             {
-                string selecting = "SELECT * FROM Spieler;";
+                string selecting = "SELECT * FROM Spieler WHERE SpielerID = " + FieldSelectID.text;
                 SqliteCommand command = new SqliteCommand(selecting, dbConnection);
                 
                 SqliteDataReader output = command.ExecuteReader();
