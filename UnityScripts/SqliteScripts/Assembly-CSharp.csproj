@@ -51,7 +51,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\DBScripts\NewBehaviourScript.cs" />
      <Compile Include="Assets\Scripts\DBScripts\SqliteAbwehrController.cs" />
      <Compile Include="Assets\Scripts\DBScripts\SqliteAttributeController.cs" />
      <Compile Include="Assets\Scripts\DBScripts\SqliteAttributskostenController.cs" />
@@ -60,14 +59,15 @@
      <Compile Include="Assets\Scripts\DBScripts\SqlitePlayerController.cs" />
      <Compile Include="Assets\Scripts\DBScripts\SqliteRuestungSchutzController.cs" />
      <Compile Include="Assets\Scripts\DBScripts\SqliteWaffenController.cs" />
+     <Compile Include="Assets\Scripts\DBScripts\XMLController.cs" />
      <Compile Include="Assets\Scripts\ScenesScripts\DropDown.cs" />
      <Compile Include="Assets\Scripts\ScenesScripts\ScenesScripts.cs" />
      <None Include="Assets\TODOList.txt" />
  <Reference Include="UnityEditor.StandardEvents">
- <HintPath>D:/Scripts/UnityScripts/SqliteScripts/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+ <HintPath>D:/Faecher/DBG/Unity Programm/UnityScripts/SqliteScripts/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
  </Reference>
  <Reference Include="Unity.PackageManagerUI.Editor">
- <HintPath>D:/Scripts/UnityScripts/SqliteScripts/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+ <HintPath>D:/Faecher/DBG/Unity Programm/UnityScripts/SqliteScripts/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -265,10 +265,10 @@
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
  </Reference>
  <Reference Include="Mono.Data.Sqlite">
- <HintPath>D:/Scripts/UnityScripts/SqliteScripts/Assets/Sqlite/Mono.Data.Sqlite.dll</HintPath>
+ <HintPath>D:/Faecher/DBG/Unity Programm/UnityScripts/SqliteScripts/Assets/Sqlite/Mono.Data.Sqlite.dll</HintPath>
  </Reference>
  <Reference Include="System.Data">
- <HintPath>D:/Scripts/UnityScripts/SqliteScripts/Assets/Sqlite/System.Data.dll</HintPath>
+ <HintPath>D:/Faecher/DBG/Unity Programm/UnityScripts/SqliteScripts/Assets/Sqlite/System.Data.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Analytics">
  <HintPath>C:/Users/homeuser/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>
