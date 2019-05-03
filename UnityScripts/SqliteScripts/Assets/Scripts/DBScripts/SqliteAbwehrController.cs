@@ -1,8 +1,9 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 using System.IO;
-using Mono.Data.Sqlite;
+using System.Xml.Linq;
+using UnityEngine;
 using UnityEngine.UI;
+using Mono.Data.Sqlite;
 
 namespace SqliteAbwehrController
 {
@@ -179,8 +180,65 @@ namespace SqliteAbwehrController
         }
         #endregion
 
+        #region ExportXML
+        public void ExportXML()
+        {
+            try
+            {
+                string schildtext = "";
+                string ruestungtext = "";
+                string umhangtext = "";
+                string gesamttext = "";
+                string idtext = "";
+                string selecting = "SELECT * FROM Abwehr";
+
+                SqliteCommand command = new SqliteCommand(selecting, dbConnection);
+                SqliteDataReader output = command.ExecuteReader();
+
+                while (output.Read())
+                {
+                    schildtext = "" + output["Schild"];
+                    ruestungtext = "" + output["Ruestung"];
+                    umhangtext = "" + output["Umhang"];
+                    gesamttext = "" + output["Gesamt"];
+                    idtext = "" + output["ID"];
+                }
+
+                XDocument abwehrXML = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XComment(" Table: " + table + " "),
+                new XElement("table_" + table,
+                    new XElement("Schild", schildtext),
+                    new XElement("Ruestung", ruestungtext),
+                    new XElement("Umhang", umhangtext),
+                    new XElement("Gesamt", gesamttext),
+                    new XElement("ID", idtext)
+                    )
+                );
+                abwehrXML.Save(Application.dataPath + "/XMLDocuments/" + table + "_export.xml");
+                console_msg.text = "Export XML in column:\n         " + table
+                                 + "\ncompleted!\n"
+                                 + "saved file in: \n" 
+                                 + Application.dataPath + "/XMLDocuments/" + table + "_export.xml";
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+                console_msg.text = "Error:\nFailed to export values!";
+            }
+            
+        }
+        #endregion
+
+        #region ImportXML
+        public void ImportXML()
+        {
+
+        }
+        #endregion
+
         #region Exit
-       public void Exit()
+        public void Exit()
        {
             try
             {

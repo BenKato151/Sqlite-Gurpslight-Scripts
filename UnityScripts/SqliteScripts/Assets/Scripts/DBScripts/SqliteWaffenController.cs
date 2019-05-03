@@ -1,8 +1,9 @@
-﻿using UnityEngine;
-using Mono.Data.Sqlite;
-using System;
+﻿using System;
 using System.IO;
+using System.Xml.Linq;
+using UnityEngine;
 using UnityEngine.UI;
+using Mono.Data.Sqlite;
 
 namespace SqliteWaffenController
 {
@@ -209,6 +210,89 @@ namespace SqliteWaffenController
                 Debug.Log(e);
                 console_msg.text = "Error:\nFailed to connect!";
             }
+        }
+        #endregion
+
+        #region ExportXML
+        public void ExportXML()
+        {
+            try
+            {
+                string waffennametext = "";
+                string fwtext = "";
+                string schadentext = "";
+                string modtext = "";
+                string orttext = "";
+                string waffenidtext = "";
+                string zgtext = "";
+                string sstext = "";
+                string einhalbstext = "";
+                string rwtext = "";
+                string fgtext = "";
+                string magtext = "";
+                string rstext = "";
+                string sttext = "";
+                string lztext = "";
+                string bmtext = "";
+                string selecting = "SELECT * FROM Waffen";
+
+                SqliteCommand command = new SqliteCommand(selecting, dbConnection);
+                SqliteDataReader output = command.ExecuteReader();
+
+                while (output.Read())
+                {
+                    waffennametext = "" + output["Waffenname"];
+                    waffenidtext = "" + output["WaffenID"];
+                    fwtext = "" + output["FW"];
+                    schadentext = "" + output["Schaden"];
+                    modtext = "" + output["Mod"];
+                    orttext = "" + output["Ort"];
+                    zgtext = "" + output["ZG"];
+                    sstext = "" + output["SS"];
+                    einhalbstext = "" + output["EINHALBS"];
+                    rwtext = "" + output["RW"];
+                    fgtext = "" + output["FG"];
+                    magtext = "" + output["MAG"];
+                    rstext = "" + output["RS"];
+                    sttext = "" + output["ST"];
+                    lztext = "" + output["LZ"];
+                    bmtext = "" + output["BM"];
+                }
+
+                XDocument abwehrXML = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XComment(" Table: " + table + " "),
+                new XElement("table_" + table,
+                    new XElement("Waffenname", waffennametext),
+                    new XElement("WaffenID", waffenidtext),
+                    new XElement("FW", fwtext),
+                    new XElement("Schaden",schadentext),
+                    new XElement("Mod",modtext),
+                    new XElement("Ort",orttext),
+                    new XElement("ZG",zgtext),
+                    new XElement("SS",sstext),
+                    new XElement("Einhalbs",einhalbstext),
+                    new XElement("RW",rwtext),
+                    new XElement("FG",fgtext),
+                    new XElement("MAG",magtext),
+                    new XElement("RS",rstext),
+                    new XElement("ST",sttext),
+                    new XElement("LZ",lztext),
+                    new XElement("BM",bmtext)
+                    )
+                );
+                abwehrXML.Save(Application.dataPath + "/XMLDocuments/" + table + "_export.xml");
+                console_msg.text = "Export XML in column:\n         " + table
+                                 + "\ncompleted!\n"
+                                 + "saved file in: \n"
+                                 + Application.dataPath + "/XMLDocuments/" + table + "_export.xml";
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+                console_msg.text = "Error:\nFailed to export values!";
+            }
+
         }
         #endregion
 

@@ -59,7 +59,6 @@
      <Compile Include="Assets\Scripts\DBScripts\SqlitePlayerController.cs" />
      <Compile Include="Assets\Scripts\DBScripts\SqliteRuestungSchutzController.cs" />
      <Compile Include="Assets\Scripts\DBScripts\SqliteWaffenController.cs" />
-     <Compile Include="Assets\Scripts\DBScripts\XMLController.cs" />
      <Compile Include="Assets\Scripts\ScenesScripts\DropDown.cs" />
      <Compile Include="Assets\Scripts\ScenesScripts\ScenesScripts.cs" />
      <None Include="Assets\TODOList.txt" />

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.IO;
+using System.Xml.Linq;
 using UnityEngine;
-using Mono.Data.Sqlite;
 using UnityEngine.UI;
+using Mono.Data.Sqlite;
 
 namespace SqliteplayerControll
 {
@@ -185,6 +186,68 @@ namespace SqliteplayerControll
                 Debug.Log(e);
                 console_msg.text = "Error:\nFailed to connect!";
             }
+        }
+        #endregion
+
+        #region ExportXML
+        public void ExportXML()
+        {
+            try
+            {
+                string geschlechttext = "";
+                string rassetext = "";
+                string haartext = "";
+                string augentext = "";
+                string nametext = "";
+                string idtext = "";
+                string gewichttext = "";
+                string groesettext = "";
+                string beschreibungtext = "";
+                string selecting = "SELECT * FROM Spieler";
+
+                SqliteCommand command = new SqliteCommand(selecting, dbConnection);
+                SqliteDataReader output = command.ExecuteReader();
+
+                while (output.Read())
+                {
+                    geschlechttext = "" + output["geschlecht"];
+                    rassetext = "" + output["rasse"];
+                    haartext = "" + output["haar"];
+                    augentext = "" + output["augen"];
+                    gewichttext = "" + output["gewicht"];
+                    groesettext = "" + output["groese"];
+                    beschreibungtext = "" + output["beschreibung"];
+                    nametext = "" + output["name"];
+                    idtext = "" + output["SpielerID"];
+                }
+
+                XDocument abwehrXML = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XComment(" Table: " + table + " "),
+                new XElement("table_" + table,
+                    new XElement("Name", nametext),
+                    new XElement("Geschlecht", geschlechttext),
+                    new XElement("Rasse", rassetext),
+                    new XElement("Haar", haartext),
+                    new XElement("Augen", augentext),
+                    new XElement("Gewicht", gewichttext),
+                    new XElement("Groese", groesettext),
+                    new XElement("Beschreibung", beschreibungtext),
+                    new XElement("ID", idtext)
+                    )
+                );
+                abwehrXML.Save(Application.dataPath + "/XMLDocuments/" + table + "_export.xml");
+                console_msg.text = "Export XML in column:\n         " + table
+                                 + "\ncompleted!\n"
+                                 + "saved file in: \n"
+                                 + Application.dataPath + "/XMLDocuments/" + table + "_export.xml";
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+                console_msg.text = "Error:\nFailed to export values!";
+            }
+
         }
         #endregion
 

@@ -2,26 +2,25 @@
 ______
 
 		Add:
-					Sqlite-Triggers Controller
+					XML Import
 					
 
-		Edit:
+		Edit:		clean code XML-Imports
 					
 
 		Delete:		
 					
 
 
-FINISHES:	
+FINISHED:	
 _________
 
-		Added:
+		Added:		XML Export for one table
 					 
 
 	
 		Edited:		
-					WHERE Clause in SELECT-Command
-					InputField for Select/Delete
+					
 
 
 		Deleted:			
