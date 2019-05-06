@@ -1,11 +1,14 @@
 ﻿TODO:
 ______
 
-		Add:
-					XML Import
+		Add:		
+					XML Import (In Lesson)
+					using List<> for everything instead of new Objects 
+					case for select statement
 					
 
 		Edit:		clean code XML-Imports
+					Background Color
 					
 
 		Delete:		
@@ -15,8 +18,8 @@ ______
 FINISHED:	
 _________
 
-		Added:		XML Export for one table
-					 
+		Added:		One single XML file -> Loading Scene: "Export All"
+		
 
 	
 		Edited:		

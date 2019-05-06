@@ -236,11 +236,11 @@ namespace SqliteplayerControll
                     new XElement("ID", idtext)
                     )
                 );
-                abwehrXML.Save(Application.dataPath + "/XMLDocuments/" + table + "_export.xml");
+                abwehrXML.Save(Application.dataPath + "/XMLDocuments/Exports/" + table + "_export.xml");
                 console_msg.text = "Export XML in column:\n         " + table
                                  + "\ncompleted!\n"
                                  + "saved file in: \n"
-                                 + Application.dataPath + "/XMLDocuments/" + table + "_export.xml";
+                                 + Application.dataPath + "/XMLDocuments/Exports/" + table + "_export.xml";
             }
             catch (Exception e)
             {

@@ -10,29 +10,29 @@ namespace SqliteAbwehrController
     public class SqliteAbwehrController : MonoBehaviour {
         
         #region ConnectionVars
-        static SqliteConnection dbConnection;
+        private static SqliteConnection dbConnection;
         //absolute path required
-        private string databasepath;
-        private readonly string relativePath = @"/Scripts/Database/new_Char_Bogen1.sqlite";
+        private static string databasepath;
+        private static readonly string relativePath = @"/Scripts/Database/new_Char_Bogen1.sqlite";
         #endregion
 
         #region SqlVar        
         //Database Query
-        static private readonly string table = "Abwehr";
+        private static readonly string table = "Abwehr";
         #endregion
 
         #region InputVars
-        public Text FieldSchild;
-        public Text FieldRuestung;
-        public Text FieldUmhang;
-        public Text FieldID;
-        public Text FieldBekannterWert;
-        public Text FieldSelect;
+        public static Text FieldSchild;
+        public static Text FieldRuestung;
+        public static Text FieldUmhang;
+        public static Text FieldID;
+        public static Text FieldBekannterWert;
+        public static Text FieldSelect;
         #endregion
 
         #region MsgVars
-        public Text console_msg;
-        public Text sqlOutput_msg;
+        public static Text console_msg;
+        public static Text sqlOutput_msg;
         #endregion
 
         #region UpdateVars
@@ -42,7 +42,7 @@ namespace SqliteAbwehrController
         #endregion
 
         #region Insert
-        public void InsertingValues()
+        public static void InsertingValues()
         {
             try
             {
@@ -72,7 +72,7 @@ namespace SqliteAbwehrController
         #endregion
 
         #region Select
-        public void SelectingColumns()
+        public static void SelectingColumns()
         {
             try
             {
@@ -88,11 +88,18 @@ namespace SqliteAbwehrController
                                          "Umhang: " + output["Umhang"] + "\n" +
                                          "Gesamt: " + output["Gesamt"] + "\n" +
                                          "ID: " + output["ID"];
+
                 }
                 console_msg.text = "Searching in column:\n         " + table 
                                  + "\ncompleted!";
-            }
 
+                if (sqlOutput_msg.text.Length < 1)
+                {
+                    console_msg.text = "Error:\nFailed to search values!\nID: " 
+                                     + FieldSelect.text + " is out of range.";
+                }
+            }
+            
             catch (Exception e)
             {
                 Debug.Log(e);
@@ -129,7 +136,7 @@ namespace SqliteAbwehrController
         #endregion
 
         #region DELETE
-        public void DeleteColumns()
+        public static void DeleteColumns()
         {
             try
             {
@@ -154,7 +161,7 @@ namespace SqliteAbwehrController
         #endregion
 
         #region Connection
-        public void ConnectionDB()
+        public static void ConnectionDB()
         {
             databasepath = Application.dataPath + relativePath;
             //Tries to get a connection with the database and if there is an path-error, it will catch it
@@ -181,7 +188,7 @@ namespace SqliteAbwehrController
         #endregion
 
         #region ExportXML
-        public void ExportXML()
+        public static void ExportXML()
         {
             try
             {
@@ -215,11 +222,11 @@ namespace SqliteAbwehrController
                     new XElement("ID", idtext)
                     )
                 );
-                abwehrXML.Save(Application.dataPath + "/XMLDocuments/" + table + "_export.xml");
+                abwehrXML.Save(Application.dataPath + "/XMLDocuments/Exports/" + table + "_export.xml");
                 console_msg.text = "Export XML in column:\n         " + table
                                  + "\ncompleted!\n"
                                  + "saved file in: \n" 
-                                 + Application.dataPath + "/XMLDocuments/" + table + "_export.xml";
+                                 + Application.dataPath + "/XMLDocuments/Exports/" + table + "_export.xml";
             }
             catch (Exception e)
             {
@@ -233,13 +240,35 @@ namespace SqliteAbwehrController
         #region ImportXML
         public void ImportXML()
         {
+            //Unterricht
+            XDocument abwehrtableFile = XDocument.Load(Application.dataPath + @"/XMLDocuments/Imports/gurbslight_character_export.xml");
+            SqliteConnection.CreateFile(Application.dataPath + @"/Scripts/Database/new.sqlite");
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         }
         #endregion
 
         #region Exit
-        public void Exit()
-       {
+        public static void Exit()
+        {
             try
             {
                 dbConnection.Close();
