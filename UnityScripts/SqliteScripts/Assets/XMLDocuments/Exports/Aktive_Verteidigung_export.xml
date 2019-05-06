@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<!-- Table: Aktive_Verteidigung -->
-<table_Aktive_Verteidigung>
-  <Parieren>10</Parieren>
-  <Ausweichen>10</Ausweichen>
-  <Abblocken>9</Abblocken>
-  <AblockenUmh>9</AblockenUmh>
-  <ID>1</ID>
-</table_Aktive_Verteidigung>

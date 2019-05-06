@@ -19,6 +19,7 @@ FINISHED:
 _________
 
 		Added:		One single XML file -> Loading Scene: "Export All"
+					One table XML import
 		
 
 	

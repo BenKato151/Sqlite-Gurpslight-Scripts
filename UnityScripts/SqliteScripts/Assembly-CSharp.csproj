@@ -64,7 +64,6 @@
      <Compile Include="Assets\Scripts\ScenesScripts\ScenesScripts.cs" />
      <None Include="Assets\XMLDocuments\Imports\gurbslight_character_export.xml" />
      <None Include="Assets\TODOList.txt" />
-     <None Include="Assets\XMLDocuments\Exports\Aktive_Verteidigung_export.xml" />
      <None Include="Assets\XMLDocuments\Exports\gurbslight_character_export.xml" />
  <Reference Include="UnityEditor.StandardEvents">
  <HintPath>D:/Faecher/DBG/Unity Programm/UnityScripts/SqliteScripts/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
