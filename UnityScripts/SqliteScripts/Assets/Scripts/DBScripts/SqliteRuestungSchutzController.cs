@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Xml;
 using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -46,10 +47,10 @@ namespace SqliteRuestungSchutzController
         {
             try
             {
-                string insertIntoWaffen = " INSERT INTO Ruestung_Schutz(Ort, SR, PV, ID) " +
+                string insertIntoruestungSchutz = " INSERT INTO Ruestung_Schutz(Ort, SR, PV, ID) " +
                                           " VALUES(@Ort, @SR, @PV, @ID);";
 
-                SqliteCommand Command = new SqliteCommand(insertIntoWaffen, dbConnection);
+                SqliteCommand Command = new SqliteCommand(insertIntoruestungSchutz, dbConnection);
                 Command.Parameters.Add("@Ort", System.Data.DbType.String).Value = FieldOrt.text;
                 Command.Parameters.Add("@SR", System.Data.DbType.Int32).Value = FieldSR.text;
                 Command.Parameters.Add("@PV", System.Data.DbType.Int32).Value = FieldPV.text;
@@ -199,7 +200,7 @@ namespace SqliteRuestungSchutzController
                     idtext = "" + output["ID"];
                 }
 
-                XDocument abwehrXML = new XDocument(
+                XDocument ruestungSchutzXML = new XDocument(
                 new XDeclaration("1.0", "utf-8", "yes"),
                 new XComment(" Table: " + table + " "),
                 new XElement("table_" + table,
@@ -209,7 +210,7 @@ namespace SqliteRuestungSchutzController
                     new XElement("ID", idtext)
                     )
                 );
-                abwehrXML.Save(Application.dataPath + "/XMLDocuments/Exports/" + table + "_export.xml");
+                ruestungSchutzXML.Save(Application.dataPath + "/XMLDocuments/Exports/" + table + "_export.xml");
                 console_msg.text = "Export XML in column:\n         " + table
                                  + "\ncompleted!\n"
                                  + "saved file in: \n"
@@ -219,6 +220,60 @@ namespace SqliteRuestungSchutzController
             {
                 Debug.Log(e);
                 console_msg.text = "Error:\nFailed to export values!";
+            }
+        }
+        #endregion
+
+        #region ImportXML
+        public void ImportXML()
+        {
+            try
+            {
+                int generateName = UnityEngine.Random.Range(0, 1000);
+                string dbpath = Application.dataPath + @"/Scripts/Database/ruestungSchutz_table_Num" + generateName + ".sqlite";
+                string xmlpath = Application.dataPath + @"/XMLDocuments/Imports/gurbslight_character_export.xml";
+                XmlDocument attributeXMLFile = new XmlDocument();
+                attributeXMLFile.Load(xmlpath);
+
+                XmlNode selectOrt = attributeXMLFile.SelectNodes("/GurpsLightCharacter/RüstungSchutz")[0].ChildNodes[0];
+                XmlNode selectSR = attributeXMLFile.SelectNodes("/GurpsLightCharacter/RüstungSchutz")[0].ChildNodes[1];
+                XmlNode selectPV = attributeXMLFile.SelectNodes("/GurpsLightCharacter/RüstungSchutz")[0].ChildNodes[2];
+                XmlNode selectID = attributeXMLFile.SelectNodes("/GurpsLightCharacter/RüstungSchutz")[0].ChildNodes[3];
+                
+                SqliteConnection dbconnect = new SqliteConnection("Data Source = " + dbpath + "; " + " Version = 3;");
+                if (!File.Exists(dbpath))
+                {
+                    SqliteConnection.CreateFile(dbpath);
+
+                    if (dbconnect != null)
+                    {
+                        dbconnect.Open();
+                        string createtable = "CREATE TABLE Ruestung_Schutz(Ort string, SR int, PV int, ID int, augen string, gewicht double, groese decimal, beschreibung string, SpielerID int);";
+                        SqliteCommand commandCreateTable = new SqliteCommand(createtable, dbconnect);
+                        commandCreateTable.ExecuteNonQuery();
+
+                        string insertinto = " INSERT INTO Ruestung_Schutz(Ort, SR, PV, ID) " +
+                                          " VALUES(@Ort, @SR, @PV, @ID);";
+                        SqliteCommand commandinsert = new SqliteCommand(insertinto, dbconnect);
+                        commandinsert.Parameters.Add("@Ort", System.Data.DbType.String).Value = selectOrt.InnerText;
+                        commandinsert.Parameters.Add("@SR", System.Data.DbType.String).Value = selectSR.InnerText;
+                        commandinsert.Parameters.Add("@PV", System.Data.DbType.String).Value = selectPV.InnerText;
+                        commandinsert.Parameters.Add("@ID", System.Data.DbType.String).Value = selectID.InnerText;
+                        
+                        commandinsert.ExecuteNonQuery();
+                        commandinsert.Parameters.Clear();
+
+                        console_msg.text = "Successfully imported into: " + dbpath;
+                    }
+                }
+                else
+                {
+                    Debug.Log("Please delete the existing file in: " + dbpath);
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
             }
         }
         #endregion

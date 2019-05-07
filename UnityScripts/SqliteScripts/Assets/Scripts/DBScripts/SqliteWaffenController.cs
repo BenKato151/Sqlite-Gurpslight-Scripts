@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Xml;
 using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -218,6 +219,7 @@ namespace SqliteWaffenController
         {
             try
             {
+                #region Vars
                 string waffennametext = "";
                 string fwtext = "";
                 string schadentext = "";
@@ -235,10 +237,12 @@ namespace SqliteWaffenController
                 string lztext = "";
                 string bmtext = "";
                 string selecting = "SELECT * FROM Waffen";
+                #endregion
 
                 SqliteCommand command = new SqliteCommand(selecting, dbConnection);
                 SqliteDataReader output = command.ExecuteReader();
 
+                #region Read
                 while (output.Read())
                 {
                     waffennametext = "" + output["Waffenname"];
@@ -258,8 +262,10 @@ namespace SqliteWaffenController
                     lztext = "" + output["LZ"];
                     bmtext = "" + output["BM"];
                 }
+                #endregion
 
-                XDocument abwehrXML = new XDocument(
+                #region save
+                XDocument WaffenXML = new XDocument(
                 new XDeclaration("1.0", "utf-8", "yes"),
                 new XComment(" Table: " + table + " "),
                 new XElement("table_" + table,
@@ -281,7 +287,9 @@ namespace SqliteWaffenController
                     new XElement("BM",bmtext)
                     )
                 );
-                abwehrXML.Save(Application.dataPath + "/XMLDocuments/Exports/" + table + "_export.xml");
+                #endregion
+
+                WaffenXML.Save(Application.dataPath + "/XMLDocuments/Exports/" + table + "_export.xml");
                 console_msg.text = "Export XML in column:\n         " + table
                                  + "\ncompleted!\n"
                                  + "saved file in: \n"
@@ -292,7 +300,88 @@ namespace SqliteWaffenController
                 Debug.Log(e);
                 console_msg.text = "Error:\nFailed to export values!";
             }
+        }
+        #endregion
 
+        #region ImportXML
+        public void ImportXML()
+        {
+            try
+            {
+                int generateName = UnityEngine.Random.Range(0, 1000);
+                string dbpath = Application.dataPath + @"/Scripts/Database/waffen_table_Num" + generateName + ".sqlite";
+                string xmlpath = Application.dataPath + @"/XMLDocuments/Imports/gurbslight_character_export.xml";
+                XmlDocument attributeXMLFile = new XmlDocument();
+                attributeXMLFile.Load(xmlpath);
+
+                XmlNode selectname = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Waffen")[0].ChildNodes[0];
+                XmlNode selectID = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Waffen")[0].ChildNodes[1];
+                XmlNode selectfw = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Waffen")[0].ChildNodes[2];
+                XmlNode selectschaden = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Waffen")[0].ChildNodes[3];
+                XmlNode selectmod = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Waffen")[0].ChildNodes[4];
+                XmlNode selectOrt = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Waffen")[0].ChildNodes[5];
+                XmlNode selectzg = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Waffen")[0].ChildNodes[6];
+                XmlNode selectss = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Waffen")[0].ChildNodes[7];
+                XmlNode selecteinhalbs = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Waffen")[0].ChildNodes[8];
+                XmlNode selectrw = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Waffen")[0].ChildNodes[9];
+                XmlNode selectfg = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Waffen")[0].ChildNodes[10];
+                XmlNode selectmag = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Waffen")[0].ChildNodes[11];
+                XmlNode selectrs = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Waffen")[0].ChildNodes[12];
+                XmlNode selectst = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Waffen")[0].ChildNodes[13];
+                XmlNode selectlz = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Waffen")[0].ChildNodes[14];
+                XmlNode selectbm = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Waffen")[0].ChildNodes[15];
+
+                SqliteConnection dbconnect = new SqliteConnection("Data Source = " + dbpath + "; " + " Version = 3;");
+                if (!File.Exists(dbpath))
+                {
+                    SqliteConnection.CreateFile(dbpath);
+
+                    if (dbconnect != null)
+                    {
+                        dbconnect.Open();
+                        string createtable = "CREATE TABLE Waffen(Waffenname string, WaffenID int, FW int, Schaden int, Mod int, " +
+                                          " Ort string, ZG int, SS int, EINHALBS int, RW int, FG int, MAG int, RS int, ST int, LZ int, BM int);";
+                        SqliteCommand commandCreateTable = new SqliteCommand(createtable, dbconnect);
+                        commandCreateTable.ExecuteNonQuery();
+
+                        string insertinto = " INSERT INTO Waffen(Waffenname, WaffenID, FW, Schaden, Mod, " +
+                                          " Ort, ZG, SS, EINHALBS, RW, FG, MAG, RS, ST, LZ, BM) " +
+                                          " VALUES(@waffenname, @waffenID, @fw, @schaden, @mod, @ort, @zg, " +
+                                          " @ss, @einhalbs, @rw, @fg, @mag, @rs, @st, @lz, @bm" +
+                                          " );";
+                        SqliteCommand commandinsert = new SqliteCommand(insertinto, dbconnect);
+                        commandinsert.Parameters.Add("@waffenname", System.Data.DbType.String).Value = selectname.InnerText;
+                        commandinsert.Parameters.Add("@waffenID", System.Data.DbType.String).Value = selectID.InnerText;
+                        commandinsert.Parameters.Add("@fw", System.Data.DbType.String).Value = selectfw.InnerText;
+                        commandinsert.Parameters.Add("@schaden", System.Data.DbType.String).Value = selectschaden.InnerText;
+                        commandinsert.Parameters.Add("@mod", System.Data.DbType.String).Value = selectmod.InnerText;
+                        commandinsert.Parameters.Add("@ort", System.Data.DbType.String).Value = selectOrt.InnerText;
+                        commandinsert.Parameters.Add("@zg", System.Data.DbType.String).Value = selectzg.InnerText;
+                        commandinsert.Parameters.Add("@ss", System.Data.DbType.String).Value = selectss.InnerText;
+                        commandinsert.Parameters.Add("@einhalbs", System.Data.DbType.String).Value = selecteinhalbs.InnerText;
+                        commandinsert.Parameters.Add("@rw", System.Data.DbType.String).Value = selectrw.InnerText;
+                        commandinsert.Parameters.Add("@fg", System.Data.DbType.String).Value = selectfg.InnerText;
+                        commandinsert.Parameters.Add("@mag", System.Data.DbType.String).Value = selectmag.InnerText;
+                        commandinsert.Parameters.Add("@rs", System.Data.DbType.String).Value = selectrs.InnerText;
+                        commandinsert.Parameters.Add("@st", System.Data.DbType.String).Value = selectst.InnerText;
+                        commandinsert.Parameters.Add("@lz", System.Data.DbType.String).Value = selectlz.InnerText;
+                        commandinsert.Parameters.Add("@bm", System.Data.DbType.String).Value = selectbm.InnerText;
+
+                        commandinsert.ExecuteNonQuery();
+                        commandinsert.Parameters.Clear();
+
+                        console_msg.text = "Successfully imported into: " + dbpath;
+                    }
+                }
+                else
+                {
+                    Debug.Log("Please delete the existing file in: " + dbpath);
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+            }
         }
         #endregion
 

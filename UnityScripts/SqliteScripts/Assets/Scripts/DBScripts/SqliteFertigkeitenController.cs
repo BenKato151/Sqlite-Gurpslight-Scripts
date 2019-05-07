@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Xml;
 using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -47,10 +48,10 @@ namespace SqliteFertigkeitencontroller
         {
             try
             {
-                string insertIntoWaffen = " INSERT INTO Fertigkeiten(CP, ID, FW, Art, Typ, Name) " +
+                string insertIntoFertigkeiten = " INSERT INTO Fertigkeiten(CP, ID, FW, Art, Typ, Name) " +
                                           " VALUES(@cp, @id, @fw, @art, @typ, @name);";
 
-                SqliteCommand Command = new SqliteCommand(insertIntoWaffen, dbConnection);
+                SqliteCommand Command = new SqliteCommand(insertIntoFertigkeiten, dbConnection);
                 Command.Parameters.Add("@cp", System.Data.DbType.Int32).Value = FieldCP.text;
                 Command.Parameters.Add("@id", System.Data.DbType.Int32).Value = FieldID.text;
                 Command.Parameters.Add("@fw", System.Data.DbType.Int32).Value = FieldFW.text;
@@ -207,7 +208,7 @@ namespace SqliteFertigkeitencontroller
                     idtext = "" + output["ID"];
                 }
 
-                XDocument abwehrXML = new XDocument(
+                XDocument FertigkeitenXML = new XDocument(
                 new XDeclaration("1.0", "utf-8", "yes"),
                 new XComment(" Table: " + table + " "),
                 new XElement("table_" + table,
@@ -219,7 +220,7 @@ namespace SqliteFertigkeitencontroller
                     new XElement("ID", idtext)
                     )
                 );
-                abwehrXML.Save(Application.dataPath + "/XMLDocuments/Exports/" + table + "_export.xml");
+                FertigkeitenXML.Save(Application.dataPath + "/XMLDocuments/Exports/" + table + "_export.xml");
                 console_msg.text = "Export XML in column:\n         " + table
                                  + "\ncompleted!\n"
                                  + "saved file in: \n"
@@ -231,6 +232,64 @@ namespace SqliteFertigkeitencontroller
                 console_msg.text = "Error:\nFailed to export values!";
             }
 
+        }
+        #endregion
+
+        #region ImportXML
+        public void ImportXML()
+        {
+            try
+            {
+                int generateName = UnityEngine.Random.Range(0, 1000);
+                string dbpath = Application.dataPath + @"/Scripts/Database/Fertigkeiten_table_Num" + generateName + ".sqlite";
+                string xmlpath = Application.dataPath + @"/XMLDocuments/Imports/gurbslight_character_export.xml";
+                XmlDocument attributeXMLFile = new XmlDocument();
+                attributeXMLFile.Load(xmlpath);
+
+                XmlNode selectCP = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Fertigkeiten")[0].ChildNodes[0];
+                XmlNode selectID = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Fertigkeiten")[0].ChildNodes[1];
+                XmlNode selectFW = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Fertigkeiten")[0].ChildNodes[2];
+                XmlNode selectArt = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Fertigkeiten")[0].ChildNodes[3];
+                XmlNode selectTyp = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Fertigkeiten")[0].ChildNodes[4];
+                XmlNode selectName = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Fertigkeiten")[0].ChildNodes[5];
+
+                SqliteConnection dbconnect = new SqliteConnection("Data Source = " + dbpath + "; " + " Version = 3;");
+                if (!File.Exists(dbpath))
+                {
+                    SqliteConnection.CreateFile(dbpath);
+
+                    if (dbconnect != null)
+                    {
+                        dbconnect.Open();
+                        string createtable = "CREATE TABLE Fertigkeiten(CP int, ID int, FW int, Art string, Typ string, Name string);";
+                        SqliteCommand commandCreateTable = new SqliteCommand(createtable, dbconnect);
+                        commandCreateTable.ExecuteNonQuery();
+
+                        string insertinto = " INSERT INTO Fertigkeiten(CP, ID, FW, Art, Typ, Name) " +
+                                          " VALUES(@cp, @id, @fw, @art, @typ, @name);";
+                        SqliteCommand commandinsert = new SqliteCommand(insertinto, dbconnect);
+                        commandinsert.Parameters.Add("@cp", System.Data.DbType.Int32).Value = selectCP.InnerText;
+                        commandinsert.Parameters.Add("@id", System.Data.DbType.Int32).Value = selectID.InnerText;
+                        commandinsert.Parameters.Add("@fw", System.Data.DbType.Int32).Value = selectFW.InnerText;
+                        commandinsert.Parameters.Add("@art", System.Data.DbType.String).Value = selectArt.InnerText;
+                        commandinsert.Parameters.Add("@typ", System.Data.DbType.String).Value = selectTyp.InnerText;
+                        commandinsert.Parameters.Add("@name", System.Data.DbType.String).Value = selectName.InnerText;
+
+                        commandinsert.ExecuteNonQuery();
+                        commandinsert.Parameters.Clear();
+
+                        console_msg.text = "Successfully imported into: " + dbpath;
+                    }
+                }
+                else
+                {
+                    Debug.Log("Please delete the existing file in: " + dbpath);
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+            }
         }
         #endregion
 

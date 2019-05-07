@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Xml;
 using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -221,7 +222,7 @@ namespace SqliteplayerControll
                     idtext = "" + output["SpielerID"];
                 }
 
-                XDocument abwehrXML = new XDocument(
+                XDocument PlayerXML = new XDocument(
                 new XDeclaration("1.0", "utf-8", "yes"),
                 new XComment(" Table: " + table + " "),
                 new XElement("table_" + table,
@@ -236,7 +237,7 @@ namespace SqliteplayerControll
                     new XElement("ID", idtext)
                     )
                 );
-                abwehrXML.Save(Application.dataPath + "/XMLDocuments/Exports/" + table + "_export.xml");
+                PlayerXML.Save(Application.dataPath + "/XMLDocuments/Exports/" + table + "_export.xml");
                 console_msg.text = "Export XML in column:\n         " + table
                                  + "\ncompleted!\n"
                                  + "saved file in: \n"
@@ -248,6 +249,71 @@ namespace SqliteplayerControll
                 console_msg.text = "Error:\nFailed to export values!";
             }
 
+        }
+        #endregion
+
+        #region ImportXML
+        public void ImportXML()
+        {
+            try
+            {
+                int generateName = UnityEngine.Random.Range(0, 1000);
+                string dbpath = Application.dataPath + @"/Scripts/Database/Player_table_Num" + generateName + ".sqlite";
+                string xmlpath = Application.dataPath + @"/XMLDocuments/Imports/gurbslight_character_export.xml";
+                XmlDocument attributeXMLFile = new XmlDocument();
+                attributeXMLFile.Load(xmlpath);
+
+                XmlNode selectName = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Player")[0].ChildNodes[0];
+                XmlNode selectGeschlecht = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Player")[0].ChildNodes[1];
+                XmlNode selectRasse = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Player")[0].ChildNodes[2];
+                XmlNode selectHaar = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Player")[0].ChildNodes[3];
+                XmlNode selectAugen = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Player")[0].ChildNodes[4];
+                XmlNode selectGewicht = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Player")[0].ChildNodes[5];
+                XmlNode selectGroese = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Player")[0].ChildNodes[6];
+                XmlNode selectBeschreibung = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Player")[0].ChildNodes[7];
+                XmlNode selectSpielerID = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Player")[0].ChildNodes[8];
+
+                SqliteConnection dbconnect = new SqliteConnection("Data Source = " + dbpath + "; " + " Version = 3;");
+                if (!File.Exists(dbpath))
+                {
+                    SqliteConnection.CreateFile(dbpath);
+
+                    if (dbconnect != null)
+                    {
+                        dbconnect.Open();
+                        string createtable = "CREATE TABLE Spieler(name string, geschlecht string, rasse string, haar string, augen string, gewicht double, groese decimal, beschreibung string, SpielerID int);";
+                        SqliteCommand commandCreateTable = new SqliteCommand(createtable, dbconnect);
+                        commandCreateTable.ExecuteNonQuery();
+
+                        string insertinto = " INSERT INTO Spieler(name, geschlecht, rasse, haar, augen, gewicht, groese, beschreibung, SpielerID)" +
+                                           " VALUES(@name, @geschlecht, @rasse, @haar, @augen, @gewicht," +
+                                           " @groese, @beschreibung, @SpielerID)";
+                        SqliteCommand commandinsert = new SqliteCommand(insertinto, dbconnect);
+                        commandinsert.Parameters.Add("@name", System.Data.DbType.String).Value = selectName.InnerText;
+                        commandinsert.Parameters.Add("@geschlecht", System.Data.DbType.String).Value = selectGeschlecht.InnerText;
+                        commandinsert.Parameters.Add("@rasse", System.Data.DbType.String).Value = selectRasse.InnerText;
+                        commandinsert.Parameters.Add("@haar", System.Data.DbType.String).Value = selectHaar.InnerText;
+                        commandinsert.Parameters.Add("@augen", System.Data.DbType.String).Value = selectAugen.InnerText;
+                        commandinsert.Parameters.Add("@gewicht", System.Data.DbType.Double).Value = selectGewicht.InnerText;
+                        commandinsert.Parameters.Add("@groese", System.Data.DbType.Decimal).Value = selectGroese.InnerText;
+                        commandinsert.Parameters.Add("@beschreibung", System.Data.DbType.String).Value = selectBeschreibung.InnerText;
+                        commandinsert.Parameters.Add("@SpielerID", System.Data.DbType.Int32).Value = selectSpielerID.InnerText;
+
+                        commandinsert.ExecuteNonQuery();
+                        commandinsert.Parameters.Clear();
+
+                        console_msg.text = "Successfully imported into: " + dbpath;
+                    }
+                }
+                else
+                {
+                    Debug.Log("Please delete the existing file in: " + dbpath);
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+            }
         }
         #endregion
 

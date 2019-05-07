@@ -9,6 +9,8 @@ ______
 
 		Edit:		clean code XML-Imports
 					Background Color
+					NullReferenceExeption Bug in: Abwehr, Attribute, Waffen
+					ParseExeption in: Fertigkeiten
 					
 
 		Delete:		

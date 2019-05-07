@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\DBScripts\ExportAll.cs" />
+     <Compile Include="Assets\Scripts\DBScripts\ImportAll.cs" />
      <Compile Include="Assets\Scripts\DBScripts\SqliteAbwehrController.cs" />
      <Compile Include="Assets\Scripts\DBScripts\SqliteAttributeController.cs" />
      <Compile Include="Assets\Scripts\DBScripts\SqliteAttributskostenController.cs" />
@@ -62,6 +63,7 @@
      <Compile Include="Assets\Scripts\DBScripts\SqliteWaffenController.cs" />
      <Compile Include="Assets\Scripts\ScenesScripts\DropDown.cs" />
      <Compile Include="Assets\Scripts\ScenesScripts\ScenesScripts.cs" />
+     <None Include="Assets\XMLDocuments\Exports\Spieler_export.xml" />
      <None Include="Assets\XMLDocuments\Imports\gurbslight_character_export.xml" />
      <None Include="Assets\TODOList.txt" />
      <None Include="Assets\XMLDocuments\Exports\gurbslight_character_export.xml" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Xml;
 using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -45,10 +46,10 @@ namespace AttributskostenController
         {
             try
             {
-                string insertIntoWaffen = " INSERT INTO Attributskosten(Wert, Kosten, ID) " +
+                string insertIntoAttributskosten = " INSERT INTO Attributskosten(Wert, Kosten, ID) " +
                                           " VALUES(@wert, @kosten, @id);";
 
-                SqliteCommand Command = new SqliteCommand(insertIntoWaffen, dbConnection);
+                SqliteCommand Command = new SqliteCommand(insertIntoAttributskosten, dbConnection);
                 Command.Parameters.Add("@wert", System.Data.DbType.Int32).Value = FieldWert.text;
                 Command.Parameters.Add("@kosten", System.Data.DbType.Int32).Value = FieldKosten.text;
                 Command.Parameters.Add("@id", System.Data.DbType.Int32).Value = FieldID.text;
@@ -192,7 +193,7 @@ namespace AttributskostenController
                     idtext = "" + output["ID"];
                 }
 
-                XDocument abwehrXML = new XDocument(
+                XDocument attriKostenXML = new XDocument(
                 new XDeclaration("1.0", "utf-8", "yes"),
                 new XComment(" Table: " + table + " "),
                 new XElement("table_" + table,
@@ -201,7 +202,7 @@ namespace AttributskostenController
                     new XElement("ID", idtext)
                     )
                 );
-                abwehrXML.Save(Application.dataPath + "/XMLDocuments/Exports/" + table + "_export.xml");
+                attriKostenXML.Save(Application.dataPath + "/XMLDocuments/Exports/" + table + "_export.xml");
                 console_msg.text = "Export XML in column:\n         " + table
                                  + "\ncompleted!\n"
                                  + "saved file in: \n"
@@ -213,6 +214,58 @@ namespace AttributskostenController
                 console_msg.text = "Error:\nFailed to export values!";
             }
 
+        }
+        #endregion
+
+        #region ImportXML
+        public void ImportXML()
+        {
+            try
+            {
+                int generateName = UnityEngine.Random.Range(0, 1000);
+                string dbpath = Application.dataPath + @"/Scripts/Database/attributskosten_table_Num" + generateName + ".sqlite";
+                string xmlpath = Application.dataPath + @"/XMLDocuments/Imports/gurbslight_character_export.xml";
+                XmlDocument attributeXMLFile = new XmlDocument();
+                attributeXMLFile.Load(xmlpath);
+
+                XmlNode selectKosten = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Attributskosten")[0].ChildNodes[0];
+                XmlNode selectWert = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Attributskosten")[0].ChildNodes[1];
+                XmlNode selectID = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Attributskosten")[0].ChildNodes[2];
+
+                SqliteConnection dbconnect = new SqliteConnection("Data Source = " + dbpath + "; " + " Version = 3;");
+                if (!File.Exists(dbpath))
+                {
+                    SqliteConnection.CreateFile(dbpath);
+
+                    if (dbconnect != null)
+                    {
+                        dbconnect.Open();
+                        string createtable = "CREATE TABLE Attributkosten(Wert int, Kosten int, ID int);";
+                        SqliteCommand commandCreateTable = new SqliteCommand(createtable, dbconnect);
+                        commandCreateTable.ExecuteNonQuery();
+
+                        string insertinto = " INSERT INTO Attributkosten(Wert, Kosten, ID) " +
+                                          " VALUES(@wert, @kosten, @id);";
+                        SqliteCommand commandinsert = new SqliteCommand(insertinto, dbconnect);
+                        commandinsert.Parameters.Add("@wert", System.Data.DbType.Int32).Value = selectKosten.InnerText;
+                        commandinsert.Parameters.Add("@kosten", System.Data.DbType.Int32).Value = selectWert.InnerText;
+                        commandinsert.Parameters.Add("@id", System.Data.DbType.Int32).Value = selectID.InnerText;
+
+                        commandinsert.ExecuteNonQuery();
+                        commandinsert.Parameters.Clear();
+
+                        console_msg.text = "Successfully imported into: " + dbpath;
+                    }
+                }
+                else
+                {
+                    Debug.Log("Please delete the existing file in: " + dbpath);
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+            }
         }
         #endregion
 
