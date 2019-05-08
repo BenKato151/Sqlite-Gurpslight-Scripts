@@ -13,8 +13,8 @@ namespace SqliteAbwehrController
         #region ConnectionVars
         private static SqliteConnection dbConnection;
         //absolute path required
-        private static string databasepath;
-        private static readonly string relativePath = @"/Scripts/Database/new_Char_Bogen1.sqlite";
+        private string databasepath;
+        private readonly string relativePath = @"/Scripts/Database/new_Char_Bogen1.sqlite";
         #endregion
 
         #region SqlVar        
@@ -23,17 +23,17 @@ namespace SqliteAbwehrController
         #endregion
 
         #region InputVars
-        public static Text FieldSchild;
-        public static Text FieldRuestung;
-        public static Text FieldUmhang;
-        public static Text FieldID;
-        public static Text FieldBekannterWert;
-        public static Text FieldSelect;
+        public Text FieldSchild;
+        public Text FieldRuestung;
+        public Text FieldUmhang;
+        public Text FieldID;
+        public Text FieldBekannterWert;
+        public Text FieldSelect;
         #endregion
 
         #region MsgVars
-        public static Text console_msg;
-        public static Text sqlOutput_msg;
+        public Text console_msg;
+        public Text sqlOutput_msg;
         #endregion
 
         #region UpdateVars
@@ -43,7 +43,7 @@ namespace SqliteAbwehrController
         #endregion
 
         #region Insert
-        public static void InsertingValues()
+        public void InsertingValues()
         {
             try
             {
@@ -73,7 +73,7 @@ namespace SqliteAbwehrController
         #endregion
 
         #region Select
-        public static void SelectingColumns()
+        public void SelectingColumns()
         {
             try
             {
@@ -137,7 +137,7 @@ namespace SqliteAbwehrController
         #endregion
 
         #region DELETE
-        public static void DeleteColumns()
+        public void DeleteColumns()
         {
             try
             {
@@ -162,7 +162,7 @@ namespace SqliteAbwehrController
         #endregion
 
         #region Connection
-        public static void ConnectionDB()
+        public void ConnectionDB()
         {
             databasepath = Application.dataPath + relativePath;
             //Tries to get a connection with the database and if there is an path-error, it will catch it
@@ -189,7 +189,7 @@ namespace SqliteAbwehrController
         #endregion
 
         #region ExportXML
-        public static void ExportXML()
+        public void ExportXML()
         {
             try
             {
@@ -244,7 +244,7 @@ namespace SqliteAbwehrController
             try
             {
                 int generateName = UnityEngine.Random.Range(0, 1000);
-                string dbpath = Application.dataPath + @"/Scripts/Database/abwehrtable_Num" + generateName + ".sqlite";
+                string dbpath = Application.dataPath + @"/Scripts/Database/Exported_DBs/abwehrtable_Num" + generateName + ".sqlite";
                 string xmlpath = Application.dataPath + @"/XMLDocuments/Imports/gurbslight_character_export.xml";
                 XmlDocument abwehrtableFile = new XmlDocument();
                 abwehrtableFile.Load(xmlpath);
@@ -294,7 +294,7 @@ namespace SqliteAbwehrController
         #endregion
 
         #region Exit
-        public static void Exit()
+        public void Exit()
         {
             try
             {

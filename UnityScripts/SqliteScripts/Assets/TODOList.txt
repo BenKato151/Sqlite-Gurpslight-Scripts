@@ -8,14 +8,11 @@ ______
 					XML Export with attributes
 					automatically generate XLS etc.
 					
+					Open File/Folder Panel to avoid hard coded /Assets/ paths...
 
 		Edit:		clean code XML-Imports
 					Background Color
-					NullReferenceExeption Bug in: Abwehr, Attribute, Waffen
-					ParseExeption in: Fertigkeiten -> Input String was not in the correct format
 					
-					I fucked it up: Scenes with SqliteAbwehrController.cs are broken 
-						add all required GameObjects, FIX IT!...
 					
 
 		Delete:		
@@ -30,7 +27,9 @@ _________
 		
 
 	
-		Edited:		
+		Edited:		Dont confuse urself with static objects... ahhh.
+					Fixed my stupid mistakes :)
+					Ordered path
 					
 
 

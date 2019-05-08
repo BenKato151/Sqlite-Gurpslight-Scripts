@@ -647,6 +647,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de15c6c53123bc045a8229e04c19c0eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FieldSchild: {fileID: 1356818279}
+  FieldRuestung: {fileID: 1580839664}
+  FieldUmhang: {fileID: 1052433279}
+  FieldID: {fileID: 938392368}
+  FieldBekannterWert: {fileID: 1321947758}
+  FieldSelect: {fileID: 1321947758}
+  console_msg: {fileID: 42440981}
+  sqlOutput_msg: {fileID: 661783065}
   Fieldwert: {fileID: 0}
   Fieldcolumn: {fileID: 0}
   FieldIDvalue: {fileID: 0}

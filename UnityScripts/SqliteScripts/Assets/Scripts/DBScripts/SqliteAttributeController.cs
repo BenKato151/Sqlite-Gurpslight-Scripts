@@ -11,7 +11,7 @@ namespace SqliteAttributeController
     public class SqliteAttributeController : MonoBehaviour {
     
         #region ConnectionVars
-        static SqliteConnection dbConnection;
+        private static SqliteConnection dbConnection;
         //absolute path required
         private string databasepath;
         private readonly string relativePath = @"/Scripts/Database/new_Char_Bogen1.sqlite";
@@ -19,7 +19,7 @@ namespace SqliteAttributeController
 
         #region SqlVars
         //Database Query
-        static private readonly string table = "Attribute";
+        private static readonly string table = "Attribute";
         #endregion
 
         #region InputVars

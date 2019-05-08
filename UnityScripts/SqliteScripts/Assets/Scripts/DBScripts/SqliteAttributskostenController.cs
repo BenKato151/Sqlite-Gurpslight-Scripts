@@ -223,7 +223,7 @@ namespace AttributskostenController
             try
             {
                 int generateName = UnityEngine.Random.Range(0, 1000);
-                string dbpath = Application.dataPath + @"/Scripts/Database/attributskosten_table_Num" + generateName + ".sqlite";
+                string dbpath = Application.dataPath + @"/Scripts/Database//Exported_DBs/attributskosten_table_Num" + generateName + ".sqlite";
                 string xmlpath = Application.dataPath + @"/XMLDocuments/Imports/gurbslight_character_export.xml";
                 XmlDocument attributeXMLFile = new XmlDocument();
                 attributeXMLFile.Load(xmlpath);
