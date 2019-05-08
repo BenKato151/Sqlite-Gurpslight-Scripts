@@ -2,15 +2,20 @@
 ______
 
 		Add:		
-					XML Import (In Lesson)
+					XML Import for all structs into a single database (In Lesson)
 					using List<> for everything instead of new Objects 
 					case for select statement
+					XML Export with attributes
+					automatically generate XLS etc.
 					
 
 		Edit:		clean code XML-Imports
 					Background Color
 					NullReferenceExeption Bug in: Abwehr, Attribute, Waffen
-					ParseExeption in: Fertigkeiten
+					ParseExeption in: Fertigkeiten -> Input String was not in the correct format
+					
+					I fucked it up: Scenes with SqliteAbwehrController.cs are broken 
+						add all required GameObjects, FIX IT!...
 					
 
 		Delete:		
