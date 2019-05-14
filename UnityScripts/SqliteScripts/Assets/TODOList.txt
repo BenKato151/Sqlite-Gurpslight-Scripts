@@ -8,7 +8,11 @@ ______
 					XML Export with attributes
 					automatically generate XLS etc.
 					
-					Open File/Folder Panel to avoid hard coded /Assets/ paths...
+
+					New Project for every database. Not hardcoded.
+						-> Filesystem bc of access-rights: Textfield for database / XML path
+						You can use every database schema and type in the new Project
+
 
 		Edit:		clean code XML-Imports
 					Background Color
@@ -22,15 +26,14 @@ ______
 FINISHED:	
 _________
 
-		Added:		One single XML file -> Loading Scene: "Export All"
-					One table XML import
+		Added:		
+					
 		
 
 	
-		Edited:		Dont confuse urself with static objects... ahhh.
-					Fixed my stupid mistakes :)
-					Ordered path
-					
+		Edited:		
+
+
 
 
 		Deleted:			
