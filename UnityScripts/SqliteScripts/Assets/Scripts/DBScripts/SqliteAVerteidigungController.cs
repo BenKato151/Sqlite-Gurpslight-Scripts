@@ -209,11 +209,11 @@ namespace SqliteAVerteidigungcontroller
                 new XDeclaration("1.0", "utf-8", "yes"),
                 new XComment(" Table: " + table + " "),
                 new XElement("table_" + table,
-                    new XElement("Parieren", parierentext),
-                    new XElement("Ausweichen", ausweichentext),
-                    new XElement("Abblocken", abblockentext),
-                    new XElement("AblockenUmh", abblockenUmhtext),
-                    new XElement("ID", idtext)
+                    new XAttribute("Parieren", parierentext),
+                    new XAttribute("Ausweichen", ausweichentext),
+                    new XAttribute("Abblocken", abblockentext),
+                    new XAttribute("AblockenUmh", abblockenUmhtext),
+                    new XAttribute("ID", idtext)
                     )
                 );
                 AVerteidigungXML.Save(Application.dataPath + "/XMLDocuments/Exports/" + table + "_export.xml");

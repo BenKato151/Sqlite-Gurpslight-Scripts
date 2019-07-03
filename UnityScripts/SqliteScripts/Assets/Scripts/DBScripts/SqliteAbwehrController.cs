@@ -216,11 +216,11 @@ namespace SqliteAbwehrController
                 new XDeclaration("1.0", "utf-8", "yes"),
                 new XComment(" Table: " + table + " "),
                 new XElement("table_" + table,
-                    new XElement("Schild", schildtext),
-                    new XElement("Ruestung", ruestungtext),
-                    new XElement("Umhang", umhangtext),
-                    new XElement("Gesamt", gesamttext),
-                    new XElement("ID", idtext)
+                    new XAttribute("Schild", schildtext),
+                    new XAttribute("Ruestung", ruestungtext),
+                    new XAttribute("Umhang", umhangtext),
+                    new XAttribute("Gesamt", gesamttext),
+                    new XAttribute("ID", idtext)
                     )
                 );
                 abwehrXML.Save(Application.dataPath + "/XMLDocuments/Exports/" + table + "_export.xml");

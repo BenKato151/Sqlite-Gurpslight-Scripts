@@ -212,12 +212,12 @@ namespace SqliteFertigkeitencontroller
                 new XDeclaration("1.0", "utf-8", "yes"),
                 new XComment(" Table: " + table + " "),
                 new XElement("table_" + table,
-                    new XElement("Name", nametext),
-                    new XElement("CP", cptext),
-                    new XElement("FW", fwtext),
-                    new XElement("Art", arttext),
-                    new XElement("Typ", typtext),
-                    new XElement("ID", idtext)
+                    new XAttribute("Name", nametext),
+                    new XAttribute("CP", cptext),
+                    new XAttribute("FW", fwtext),
+                    new XAttribute("Art", arttext),
+                    new XAttribute("Typ", typtext),
+                    new XAttribute("ID", idtext)
                     )
                 );
                 FertigkeitenXML.Save(Application.dataPath + "/XMLDocuments/Exports/" + table + "_export.xml");

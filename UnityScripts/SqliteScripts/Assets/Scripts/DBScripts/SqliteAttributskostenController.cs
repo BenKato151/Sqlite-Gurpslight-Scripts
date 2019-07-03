@@ -197,9 +197,9 @@ namespace AttributskostenController
                 new XDeclaration("1.0", "utf-8", "yes"),
                 new XComment(" Table: " + table + " "),
                 new XElement("table_" + table,
-                    new XElement("Wert", werttext),
-                    new XElement("Kosten", kostentext),
-                    new XElement("ID", idtext)
+                    new XAttribute("Wert", werttext),
+                    new XAttribute("Kosten", kostentext),
+                    new XAttribute("ID", idtext)
                     )
                 );
                 attriKostenXML.Save(Application.dataPath + "/XMLDocuments/Exports/" + table + "_export.xml");

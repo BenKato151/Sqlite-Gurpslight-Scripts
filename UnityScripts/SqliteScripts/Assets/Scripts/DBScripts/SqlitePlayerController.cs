@@ -226,15 +226,15 @@ namespace SqliteplayerControll
                 new XDeclaration("1.0", "utf-8", "yes"),
                 new XComment(" Table: " + table + " "),
                 new XElement("table_" + table,
-                    new XElement("Name", nametext),
-                    new XElement("Geschlecht", geschlechttext),
-                    new XElement("Rasse", rassetext),
-                    new XElement("Haar", haartext),
-                    new XElement("Augen", augentext),
-                    new XElement("Gewicht", gewichttext),
-                    new XElement("Groese", groesettext),
-                    new XElement("Beschreibung", beschreibungtext),
-                    new XElement("ID", idtext)
+                    new XAttribute("Name", nametext),
+                    new XAttribute("Geschlecht", geschlechttext),
+                    new XAttribute("Rasse", rassetext),
+                    new XAttribute("Haar", haartext),
+                    new XAttribute("Augen", augentext),
+                    new XAttribute("Gewicht", gewichttext),
+                    new XAttribute("Groese", groesettext),
+                    new XAttribute("Beschreibung", beschreibungtext),
+                    new XAttribute("ID", idtext)
                     )
                 );
                 PlayerXML.Save(Application.dataPath + "/XMLDocuments/Exports/" + table + "_export.xml");

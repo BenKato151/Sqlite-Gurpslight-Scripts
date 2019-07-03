@@ -204,10 +204,10 @@ namespace SqliteRuestungSchutzController
                 new XDeclaration("1.0", "utf-8", "yes"),
                 new XComment(" Table: " + table + " "),
                 new XElement("table_" + table,
-                    new XElement("Ort", orttext),
-                    new XElement("SR", srtext),
-                    new XElement("PV", pvtext),
-                    new XElement("ID", idtext)
+                    new XAttribute("Ort", orttext),
+                    new XAttribute("SR", srtext),
+                    new XAttribute("PV", pvtext),
+                    new XAttribute("ID", idtext)
                     )
                 );
                 ruestungSchutzXML.Save(Application.dataPath + "/XMLDocuments/Exports/" + table + "_export.xml");

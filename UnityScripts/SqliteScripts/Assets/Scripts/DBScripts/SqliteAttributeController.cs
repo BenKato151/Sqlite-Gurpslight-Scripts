@@ -207,11 +207,11 @@ namespace SqliteAttributeController
                 new XDeclaration("1.0", "utf-8", "yes"),
                 new XComment(" Table: " + table + " "),
                 new XElement("table_" + table,
-                    new XElement("Staerke", staerketext),
-                    new XElement("Geschicklichkeit", geschicklichkeittext),
-                    new XElement("Intelligenz", intelligenztext),
-                    new XElement("Konstitution", konstititiontext),
-                    new XElement("ID", idtext)
+                    new XAttribute("Staerke", staerketext),
+                    new XAttribute("Geschicklichkeit", geschicklichkeittext),
+                    new XAttribute("Intelligenz", intelligenztext),
+                    new XAttribute("Konstitution", konstititiontext),
+                    new XAttribute("ID", idtext)
                     )
                 );
                 attributeXML.Save(Application.dataPath + "/XMLDocuments/Exports/" + table + "_export.xml");
