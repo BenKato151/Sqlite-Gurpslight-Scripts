@@ -11,15 +11,6 @@
     <groese>1.80</groese>
     <beschreibung>Das ist Spieler 1</beschreibung>
     <SpielerID>0</SpielerID>
-    <name>Spieler21</name>
-    <geschlecht>weiblich</geschlecht>
-    <rasse>Mensch</rasse>
-    <haar>blond</haar>
-    <augen>blau</augen>
-    <gewicht>64</gewicht>
-    <groese>1.74</groese>
-    <beschreibung>Das ist Spieler 2</beschreibung>
-    <SpielerID>1</SpielerID>
   </Spieler>
   <Abwehr>
     <Schild>5</Schild>
@@ -27,11 +18,6 @@
     <Umhang>5</Umhang>
     <Gesamt>20</Gesamt>
     <ID>0</ID>
-    <Schild>0</Schild>
-    <Ruestung>0</Ruestung>
-    <Umhang>20</Umhang>
-    <Gesamt>20</Gesamt>
-    <ID>1</ID>
   </Abwehr>
   <Aktive_Verteidigung>
     <Parieren>5</Parieren>
@@ -39,11 +25,6 @@
     <Abblocken>20</Abblocken>
     <AblockenUmh>0</AblockenUmh>
     <ID>0</ID>
-    <Parieren>10</Parieren>
-    <Ausweichen>10</Ausweichen>
-    <Abblocken>9</Abblocken>
-    <AblockenUmh>9</AblockenUmh>
-    <ID>1</ID>
   </Aktive_Verteidigung>
   <Attribute>
     <Parieren>5</Parieren>
@@ -51,22 +32,11 @@
     <Abblocken>20</Abblocken>
     <AblockenUmh>0</AblockenUmh>
     <ID>0</ID>
-    <Parieren>10</Parieren>
-    <Ausweichen>10</Ausweichen>
-    <Abblocken>9</Abblocken>
-    <AblockenUmh>9</AblockenUmh>
-    <ID>1</ID>
   </Attribute>
   <Attributskosten>
     <Wert>15</Wert>
     <Kosten>3</Kosten>
     <ID>0</ID>
-    <Wert>15</Wert>
-    <Kosten>3</Kosten>
-    <ID>1</ID>
-    <Wert>80</Wert>
-    <Kosten>3</Kosten>
-    <ID>8</ID>
   </Attributskosten>
   <Fertigkeiten>
     <CP>3</CP>
@@ -81,10 +51,6 @@
     <SR>5</SR>
     <PV>4</PV>
     <ID>0</ID>
-    <Ort>Ort 5</Ort>
-    <SR>5</SR>
-    <PV>3</PV>
-    <ID>1</ID>
   </Ruestung_Schutz>
   <Waffen>
     <Waffenname>Schwert</Waffenname>
@@ -102,22 +68,6 @@
     <RS>5</RS>
     <ST>8</ST>
     <LZ>5</LZ>
-    <BM>7</BM>
-    <Waffenname>Bogen</Waffenname>
-    <WaffenID>1</WaffenID>
-    <FW>3</FW>
-    <Schaden>8</Schaden>
-    <Mod>3</Mod>
-    <Ort>Ort3</Ort>
-    <ZG>5</ZG>
-    <SS>7</SS>
-    <EINHALBS>3</EINHALBS>
-    <RW>4</RW>
-    <FG>7</FG>
-    <MAG>5</MAG>
-    <RS>8</RS>
-    <ST>3</ST>
-    <LZ>2</LZ>
     <BM>7</BM>
   </Waffen>
 </Characterbogen>

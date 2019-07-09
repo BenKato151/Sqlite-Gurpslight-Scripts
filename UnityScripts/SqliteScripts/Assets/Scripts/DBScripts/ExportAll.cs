@@ -218,6 +218,7 @@ public class ExportAll : MonoBehaviour {
                     waffen_attributesnames.Clear();
                     waffen_dbvalues.Clear();
                     #endregion
+                    dbConnection.Close();
                 }
             }
         }
