@@ -64,8 +64,6 @@
      <Compile Include="Assets\Scripts\ScenesScripts\DropDown.cs" />
      <Compile Include="Assets\Scripts\ScenesScripts\ScenesScripts.cs" />
      <None Include="Assets\TODOList.txt" />
-     <None Include="Assets\XMLDocuments\Exports\Attributskosten_export.xml" />
-     <None Include="Assets\XMLDocuments\Exports\gurbslight_character_export.xml" />
      <None Include="Assets\XMLDocuments\Exports\char.xml" />
  <Reference Include="UnityEditor.StandardEvents">
  <HintPath>D:/Faecher/DBG/Unity_Programm/UnityScripts/SqliteScripts/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
