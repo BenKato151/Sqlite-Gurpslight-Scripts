@@ -110,7 +110,7 @@ public class ExportAll : MonoBehaviour {
                     #region Attribute
                     List<string> attribute_attributesnames = new List<string>();
                     List<string> attribute_dbvalues = new List<string>();
-                    string selectAttribute = "SELECT * FROM Aktive_Verteidigung;";
+                    string selectAttribute = "SELECT * FROM Attribute;";
                     SqliteCommand commandAttribute = new SqliteCommand(selectAttribute, dbConnection);
                     SqliteDataReader outputAttribute = commandAttribute.ExecuteReader();
 

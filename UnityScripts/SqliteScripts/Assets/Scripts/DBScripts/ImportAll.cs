@@ -23,10 +23,7 @@ public class ImportAll : MonoBehaviour {
             {
                 #region XML
                 XmlDocument xmlFile = new XmlDocument();
-                xmlFile.Load(xmlpath);
-
-                List<string> keys = new List<string>();
-                
+                xmlFile.Load(xmlpath);                
 
                 XmlNodeList selectall = xmlFile.SelectNodes("/Characterbogen");
 
@@ -42,14 +39,17 @@ public class ImportAll : MonoBehaviour {
                         for (int i = 0; i < node.ChildNodes.Count; i++)
                         {
                             string table = node.ChildNodes[i].Name.ToString();
+                            List<string> column = new List<string>();
+                            List<string> value = new List<string>();
                             for (int k = 0; k < node.ChildNodes[i].ChildNodes.Count; k++)
                             {
-                                string column = node.ChildNodes[i].ChildNodes[k].Name.ToString();
-                                string value = node.ChildNodes[i].ChildNodes[k].InnerText.ToString();
-                                string commandstring = "INSERT INTO " + table + " (" + column + ") VALUES(" + value+ ")";
-                                SqliteCommand command = new SqliteCommand(commandstring, dbconnection);
-                                command.ExecuteNonQuery();
+                                column.Add(node.ChildNodes[i].ChildNodes[k].Name.ToString());
+                                value.Add(node.ChildNodes[i].ChildNodes[k].InnerText.ToString());
                             }
+
+                            string commandstring = "INSERT INTO " + table + " (" + string.Join(", ",column.ToArray()) + ") VALUES('" + string.Join(", ", value.ToArray())+ "')";
+                            SqliteCommand command = new SqliteCommand(commandstring, dbconnection);
+                            command.ExecuteNonQuery();
                         }
                     }
 

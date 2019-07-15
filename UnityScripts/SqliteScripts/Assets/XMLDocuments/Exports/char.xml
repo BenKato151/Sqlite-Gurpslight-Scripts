@@ -27,10 +27,10 @@
     <ID>0</ID>
   </Aktive_Verteidigung>
   <Attribute>
-    <Parieren>5</Parieren>
-    <Ausweichen>5</Ausweichen>
-    <Abblocken>20</Abblocken>
-    <AblockenUmh>0</AblockenUmh>
+    <Staerke>20</Staerke>
+    <Geschicklichkeit>20</Geschicklichkeit>
+    <Intelligenz>20</Intelligenz>
+    <Konstitution>20</Konstitution>
     <ID>0</ID>
   </Attribute>
   <Attributskosten>
