@@ -110,12 +110,12 @@ namespace SqliteAttributeController
                                        " SET " + Fieldcolumn.text + " = @wert " +
                                        " WHERE ID = @IDvalue;";
 
-                SqliteCommand Command = new SqliteCommand(updatecommand, dbConnection);
-                Command.Parameters.Add("@wert", System.Data.DbType.Int32).Value = Fieldwert.text;
-                Command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = FieldIDvalue.text;
+                SqliteCommand command = new SqliteCommand(updatecommand, dbConnection);
+                command.Parameters.Add("@wert", System.Data.DbType.Int32).Value = Fieldwert.text;
+                command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = FieldIDvalue.text;
 
-                Command.ExecuteNonQuery();
-                Command.Parameters.Clear();
+                command.ExecuteNonQuery();
+                command.Parameters.Clear();
                 console_msg.text = "Updated value in \n         " + table +
                                    "\nsuccessfuly!";
             }
@@ -136,11 +136,11 @@ namespace SqliteAttributeController
                 string deleteColumn = " DELETE FROM Attribute " +
                                       " WHERE ID = @id;";
 
-                SqliteCommand Command = new SqliteCommand(deleteColumn, dbConnection);
-                Command.Parameters.Add("@id", System.Data.DbType.Int32).Value = FieldDelete.text;
+                SqliteCommand command = new SqliteCommand(deleteColumn, dbConnection);
+                command.Parameters.Add("@id", System.Data.DbType.Int32).Value = FieldDelete.text;
 
-                Command.ExecuteNonQuery();
-                Command.Parameters.Clear();
+                command.ExecuteNonQuery();
+                command.Parameters.Clear();
                 console_msg.text = "Deleted Row/s successfully!";
             }
 
@@ -160,12 +160,12 @@ namespace SqliteAttributeController
             try
             {
                 dbConnection = new SqliteConnection("Data Source = " + databasepath + "; " + " Version = 3;");
-                dbConnection.Open();
 
                 if (File.Exists(databasepath))
                 {
                     if (dbConnection != null)
                     {
+                        dbConnection.Open();
                         console_msg.text = "Connected to the database!\n Table: " + table;
                     }
                 }

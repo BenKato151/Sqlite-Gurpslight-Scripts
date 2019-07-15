@@ -3,10 +3,14 @@ using System.IO;
 using System.Xml.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Mono.Data.Sqlite;
 
 public class ExportAll : MonoBehaviour {
 
+    public Text console_msg;
+
+    #region ExportXML
     public void Export()
     {
         #region Vars
@@ -197,7 +201,7 @@ public class ExportAll : MonoBehaviour {
                     #endregion
 
                     file.Save(xmlpath + "char.xml");
-                    Debug.Log("Successfully exported!");
+                    console_msg.text = "Successfully exported!";
 
                     #region Cleared();
                     spielerattributesnames.Clear();
@@ -225,7 +229,7 @@ public class ExportAll : MonoBehaviour {
         catch (Exception e)
         {
             Debug.LogError(e);
-            Debug.Log("Error:\nFailed to connect or to export XML!");
+            console_msg.text = "Error:\nFailed to connect or to export XML!";
         }
     }
 
@@ -241,4 +245,6 @@ public class ExportAll : MonoBehaviour {
         }
         return returnValue;
     }
+    #endregion
+
 }

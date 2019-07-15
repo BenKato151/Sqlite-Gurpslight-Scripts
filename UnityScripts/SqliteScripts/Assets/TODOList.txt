@@ -2,10 +2,7 @@
 ______
 
 		Add:		
-					XML Import for all structs into a single database (In Lesson)
-					using List<> for everything instead of new Objects 
 					case for select statement
-					XML Export with attributes
 					automatically generate XLS etc.
 					
 
@@ -14,8 +11,7 @@ ______
 						You can use every database schema and type in the new Project
 
 
-		Edit:		clean code XML-Imports
-					Background Color
+		Edit:		
 					
 					
 
@@ -26,14 +22,17 @@ ______
 FINISHED:	
 _________
 
-		Added:		
+		Added:		XML-Import into complete database
+					
 					
 		
 
 	
-		Edited:		
+		Edited:		beautified all code
+					Background / Text Color
 
 
 
 
 		Deleted:			
+					XML Export with attributes //Childnodes are better

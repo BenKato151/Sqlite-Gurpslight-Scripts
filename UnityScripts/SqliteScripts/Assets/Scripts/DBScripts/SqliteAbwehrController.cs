@@ -47,10 +47,10 @@ namespace SqliteAbwehrController
         {
             try
             {
-                string insertIntoWaffen = " INSERT INTO Abwehr(Schild, Ruestung, Umhang, Gesamt, ID) " +
+                string insertIntoAbwehr = " INSERT INTO Abwehr(Schild, Ruestung, Umhang, Gesamt, ID) " +
                                           " VALUES(@schild, @ruestung, @umhang, @gesamt, @ID);";
 
-                SqliteCommand Command = new SqliteCommand(insertIntoWaffen, dbConnection);
+                SqliteCommand Command = new SqliteCommand(insertIntoAbwehr, dbConnection);
                 Command.Parameters.Add("@schild", System.Data.DbType.Int32).Value = FieldSchild.text;
                 Command.Parameters.Add("@ruestung", System.Data.DbType.Int32).Value = FieldRuestung.text;
                 Command.Parameters.Add("@umhang", System.Data.DbType.Int32).Value = FieldUmhang.text;
@@ -118,12 +118,12 @@ namespace SqliteAbwehrController
                                        " SET " + Fieldcolumn.text + " = @wert " +
                                        " WHERE ID = @IDvalue;";
 
-                SqliteCommand Command = new SqliteCommand(updatecommand, dbConnection);
-                Command.Parameters.Add("@wert", System.Data.DbType.Int32).Value = Fieldwert.text;
-                Command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = FieldIDvalue.text;
+                SqliteCommand command = new SqliteCommand(updatecommand, dbConnection);
+                command.Parameters.Add("@wert", System.Data.DbType.Int32).Value = Fieldwert.text;
+                command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = FieldIDvalue.text;
 
-                Command.ExecuteNonQuery();
-                Command.Parameters.Clear();
+                command.ExecuteNonQuery();
+                command.Parameters.Clear();
                 console_msg.text = "Updated value in \n         " + table + 
                                    "\nsuccessfuly!";
             }
@@ -144,11 +144,11 @@ namespace SqliteAbwehrController
                 string deleteColumn = " DELETE FROM Abwehr " +
                                       " WHERE ID = @wert;";
 
-                SqliteCommand Command = new SqliteCommand(deleteColumn, dbConnection);
-                Command.Parameters.Add("@wert", System.Data.DbType.Int32).Value = FieldBekannterWert.text;
+                SqliteCommand command = new SqliteCommand(deleteColumn, dbConnection);
+                command.Parameters.Add("@wert", System.Data.DbType.Int32).Value = FieldBekannterWert.text;
 
-                Command.ExecuteNonQuery();
-                Command.Parameters.Clear();
+                command.ExecuteNonQuery();
+                command.Parameters.Clear();
                 console_msg.text = "Deleted Row/s successfully!";
             }
 
@@ -169,12 +169,12 @@ namespace SqliteAbwehrController
             try
             {
                 dbConnection = new SqliteConnection("Data Source = " + databasepath + "; " + " Version = 3;");
-                dbConnection.Open();
 
                 if (File.Exists(databasepath))
                 {
                     if (dbConnection != null)
                     {
+                        dbConnection.Open();
                         console_msg.text = "Connected to the database!\n Table: " + table;
                     }
                 }

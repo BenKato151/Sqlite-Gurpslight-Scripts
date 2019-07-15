@@ -55,18 +55,18 @@ namespace SqliteplayerControll
                                            " VALUES(@name, @geschlecht, @rasse, @haar, @augen, @gewicht," +
                                            " @groese, @beschreibung, @SpielerID)";
                    
-                SqliteCommand Command = new SqliteCommand(insertIntoSpieler, dbConnection);
-                Command.Parameters.Add("@name", System.Data.DbType.String).Value = Fieldname.text;
-                Command.Parameters.Add("@geschlecht", System.Data.DbType.String).Value = Fieldgeschlecht.text;
-                Command.Parameters.Add("@rasse", System.Data.DbType.String).Value = FieldRasse.text;
-                Command.Parameters.Add("@haar", System.Data.DbType.String).Value = FieldHaar.text;
-                Command.Parameters.Add("@augen", System.Data.DbType.String).Value = FieldAugen.text;
-                Command.Parameters.Add("@gewicht", System.Data.DbType.Double).Value = FieldGewicht.text;
-                Command.Parameters.Add("@groese", System.Data.DbType.Decimal).Value = FieldGroese.text;
-                Command.Parameters.Add("@beschreibung", System.Data.DbType.String).Value = FieldDesc.text;
-                Command.Parameters.Add("@SpielerID", System.Data.DbType.Int32).Value = FieldID.text;
-                Command.ExecuteNonQuery();
-                Command.Parameters.Clear();
+                SqliteCommand command = new SqliteCommand(insertIntoSpieler, dbConnection);
+                command.Parameters.Add("@name", System.Data.DbType.String).Value = Fieldname.text;
+                command.Parameters.Add("@geschlecht", System.Data.DbType.String).Value = Fieldgeschlecht.text;
+                command.Parameters.Add("@rasse", System.Data.DbType.String).Value = FieldRasse.text;
+                command.Parameters.Add("@haar", System.Data.DbType.String).Value = FieldHaar.text;
+                command.Parameters.Add("@augen", System.Data.DbType.String).Value = FieldAugen.text;
+                command.Parameters.Add("@gewicht", System.Data.DbType.Double).Value = FieldGewicht.text;
+                command.Parameters.Add("@groese", System.Data.DbType.Decimal).Value = FieldGroese.text;
+                command.Parameters.Add("@beschreibung", System.Data.DbType.String).Value = FieldDesc.text;
+                command.Parameters.Add("@SpielerID", System.Data.DbType.Int32).Value = FieldID.text;
+                command.ExecuteNonQuery();
+                command.Parameters.Clear();
                 console_msg.text = "Inserted values in table:\n         " + table
                                   + "\nsuccessfuly!";
             }
@@ -88,12 +88,12 @@ namespace SqliteplayerControll
                                        " SET " + Fieldcolumn.text + " = @wert " +
                                        " WHERE SpielerID = @IDvalue;";
 
-                SqliteCommand Command = new SqliteCommand(updatecommand, dbConnection);
-                Command.Parameters.Add("@wert", System.Data.DbType.String).Value = Fieldwert.text;
-                Command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = FieldIDvalue.text;
+                SqliteCommand command = new SqliteCommand(updatecommand, dbConnection);
+                command.Parameters.Add("@wert", System.Data.DbType.String).Value = Fieldwert.text;
+                command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = FieldIDvalue.text;
 
-                Command.ExecuteNonQuery();
-                Command.Parameters.Clear();
+                command.ExecuteNonQuery();
+                command.Parameters.Clear();
                 console_msg.text = "Updated value in \n         " + table +
                                    "\nsuccessfuly!";
             }
@@ -147,11 +147,11 @@ namespace SqliteplayerControll
                 string deleteColumn = " DELETE FROM Spieler " +
                                       " WHERE SpielerID = @IDvalue";
 
-                SqliteCommand Command = new SqliteCommand(deleteColumn, dbConnection);
-                Command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = FieldDelete.text;
+                SqliteCommand command = new SqliteCommand(deleteColumn, dbConnection);
+                command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = FieldDelete.text;
 
-                Command.ExecuteNonQuery();
-                Command.Parameters.Clear();
+                command.ExecuteNonQuery();
+                command.Parameters.Clear();
                 console_msg.text = "Deleted Row/s successfully!";
             }
 
@@ -171,12 +171,12 @@ namespace SqliteplayerControll
             try
             {
                 dbConnection = new SqliteConnection("Data Source = " + databasepath + "; " + " Version = 3;");
-                dbConnection.Open();
 
                 if (File.Exists(databasepath))
                 {
                     if (dbConnection != null)
                     {
+                        dbConnection.Open();
                         console_msg.text = "Connected to the database!\n Table: " + table;
                     }
                 }

@@ -64,26 +64,26 @@ namespace SqliteWaffenController
                                           " @ss, @einhalbs, @rw, @fg, @mag, @rs, @st, @lz, @bm" +
                                           " );";
 
-                SqliteCommand Command = new SqliteCommand(insertIntoWaffen, dbConnection);
-                Command.Parameters.Add("@waffenname", System.Data.DbType.String).Value = Fieldwaffenname.text;
-                Command.Parameters.Add("@waffenID", System.Data.DbType.Int32).Value = FieldWaffenID.text;
-                Command.Parameters.Add("@ort", System.Data.DbType.String).Value = FieldOrt.text;
-                Command.Parameters.Add("@fw", System.Data.DbType.Int32).Value = FieldFW.text;
-                Command.Parameters.Add("@schaden", System.Data.DbType.Int32).Value = Fieldschaden.text;
-                Command.Parameters.Add("@mod", System.Data.DbType.Int32).Value = Fieldmod.text;
-                Command.Parameters.Add("@zg", System.Data.DbType.Int32).Value = Fieldzg.text;
-                Command.Parameters.Add("@ss", System.Data.DbType.Int32).Value = Fieldss.text;
-                Command.Parameters.Add("@einhalbs", System.Data.DbType.Int32).Value = Fieldeinhalbs.text;
-                Command.Parameters.Add("@rw", System.Data.DbType.Int32).Value = Fieldrw.text;
-                Command.Parameters.Add("@fg", System.Data.DbType.Int32).Value = Fieldfg.text;
-                Command.Parameters.Add("@mag", System.Data.DbType.Int32).Value = Fieldmag.text;
-                Command.Parameters.Add("@rs", System.Data.DbType.Int32).Value = Fieldrs.text;
-                Command.Parameters.Add("@st", System.Data.DbType.Int32).Value = Fieldst.text;
-                Command.Parameters.Add("@lz", System.Data.DbType.Int32).Value = Fieldlz.text;
-                Command.Parameters.Add("@bm", System.Data.DbType.Int32).Value = Fieldbm.text;
+                SqliteCommand command = new SqliteCommand(insertIntoWaffen, dbConnection);
+                command.Parameters.Add("@waffenname", System.Data.DbType.String).Value = Fieldwaffenname.text;
+                command.Parameters.Add("@waffenID", System.Data.DbType.Int32).Value = FieldWaffenID.text;
+                command.Parameters.Add("@ort", System.Data.DbType.String).Value = FieldOrt.text;
+                command.Parameters.Add("@fw", System.Data.DbType.Int32).Value = FieldFW.text;
+                command.Parameters.Add("@schaden", System.Data.DbType.Int32).Value = Fieldschaden.text;
+                command.Parameters.Add("@mod", System.Data.DbType.Int32).Value = Fieldmod.text;
+                command.Parameters.Add("@zg", System.Data.DbType.Int32).Value = Fieldzg.text;
+                command.Parameters.Add("@ss", System.Data.DbType.Int32).Value = Fieldss.text;
+                command.Parameters.Add("@einhalbs", System.Data.DbType.Int32).Value = Fieldeinhalbs.text;
+                command.Parameters.Add("@rw", System.Data.DbType.Int32).Value = Fieldrw.text;
+                command.Parameters.Add("@fg", System.Data.DbType.Int32).Value = Fieldfg.text;
+                command.Parameters.Add("@mag", System.Data.DbType.Int32).Value = Fieldmag.text;
+                command.Parameters.Add("@rs", System.Data.DbType.Int32).Value = Fieldrs.text;
+                command.Parameters.Add("@st", System.Data.DbType.Int32).Value = Fieldst.text;
+                command.Parameters.Add("@lz", System.Data.DbType.Int32).Value = Fieldlz.text;
+                command.Parameters.Add("@bm", System.Data.DbType.Int32).Value = Fieldbm.text;
                 
-                Command.ExecuteNonQuery();
-                Command.Parameters.Clear();
+                command.ExecuteNonQuery();
+                command.Parameters.Clear();
                 console_msg.text = "Inserted values in table:\n         " + table
                                   + "\nsuccessfuly!";
             }
@@ -105,12 +105,12 @@ namespace SqliteWaffenController
                                        " SET " + Fieldcolumn.text + " = @wert " +
                                        " WHERE WaffenID = @IDvalue;";
 
-                SqliteCommand Command = new SqliteCommand(updatecommand, dbConnection);
-                Command.Parameters.Add("@wert", System.Data.DbType.String).Value = Fieldwert.text;
-                Command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = FieldIDvalue.text;
+                SqliteCommand command = new SqliteCommand(updatecommand, dbConnection);
+                command.Parameters.Add("@wert", System.Data.DbType.String).Value = Fieldwert.text;
+                command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = FieldIDvalue.text;
 
-                Command.ExecuteNonQuery();
-                Command.Parameters.Clear();
+                command.ExecuteNonQuery();
+                command.Parameters.Clear();
                 console_msg.text = "Updated value in \n         " + table +
                                    "\nsuccessfuly!";
             }
@@ -171,11 +171,11 @@ namespace SqliteWaffenController
                 string deleteColumn = " DELETE FROM Waffen " +
                                       " WHERE WaffenID = @id";
 
-                SqliteCommand Command = new SqliteCommand(deleteColumn, dbConnection);
-                Command.Parameters.Add("@id", System.Data.DbType.Int32).Value = FieldDelete.text;
+                SqliteCommand command = new SqliteCommand(deleteColumn, dbConnection);
+                command.Parameters.Add("@id", System.Data.DbType.Int32).Value = FieldDelete.text;
 
-                Command.ExecuteNonQuery();
-                Command.Parameters.Clear();
+                command.ExecuteNonQuery();
+                command.Parameters.Clear();
                 console_msg.text = "Deleted Row/s successfully!";
             }
 
@@ -195,12 +195,12 @@ namespace SqliteWaffenController
             try
             {
                 dbConnection = new SqliteConnection("Data Source = " + databasepath + "; " + " Version = 3;");
-                dbConnection.Open();
 
                 if (File.Exists(databasepath))
                 {
                     if (dbConnection != null)
                     {
+                        dbConnection.Open();
                         console_msg.text = "Connected to the database!\n Table: " + table;
                     }
                 }

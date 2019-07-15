@@ -50,14 +50,14 @@ namespace SqliteRuestungSchutzController
                 string insertIntoruestungSchutz = " INSERT INTO Ruestung_Schutz(Ort, SR, PV, ID) " +
                                           " VALUES(@Ort, @SR, @PV, @ID);";
 
-                SqliteCommand Command = new SqliteCommand(insertIntoruestungSchutz, dbConnection);
-                Command.Parameters.Add("@Ort", System.Data.DbType.String).Value = FieldOrt.text;
-                Command.Parameters.Add("@SR", System.Data.DbType.Int32).Value = FieldSR.text;
-                Command.Parameters.Add("@PV", System.Data.DbType.Int32).Value = FieldPV.text;
-                Command.Parameters.Add("@ID", System.Data.DbType.Int32).Value = FieldID.text;
+                SqliteCommand command = new SqliteCommand(insertIntoruestungSchutz, dbConnection);
+                command.Parameters.Add("@Ort", System.Data.DbType.String).Value = FieldOrt.text;
+                command.Parameters.Add("@SR", System.Data.DbType.Int32).Value = FieldSR.text;
+                command.Parameters.Add("@PV", System.Data.DbType.Int32).Value = FieldPV.text;
+                command.Parameters.Add("@ID", System.Data.DbType.Int32).Value = FieldID.text;
 
-                Command.ExecuteNonQuery();
-                Command.Parameters.Clear();
+                command.ExecuteNonQuery();
+                command.Parameters.Clear();
                 console_msg.text = "Inserted values in table:\n         " + table
                                   + "\nsuccessfuly!";
             }
@@ -79,12 +79,12 @@ namespace SqliteRuestungSchutzController
                                        " SET " + Fieldcolumn.text + " = @wert " +
                                        " WHERE ID = @IDvalue;";
 
-                SqliteCommand Command = new SqliteCommand(updatecommand, dbConnection);
-                Command.Parameters.Add("@wert", System.Data.DbType.String).Value = Fieldwert.text;
-                Command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = FieldIDvalue.text;
+                SqliteCommand command = new SqliteCommand(updatecommand, dbConnection);
+                command.Parameters.Add("@wert", System.Data.DbType.String).Value = Fieldwert.text;
+                command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = FieldIDvalue.text;
 
-                Command.ExecuteNonQuery();
-                Command.Parameters.Clear();
+                command.ExecuteNonQuery();
+                command.Parameters.Clear();
                 console_msg.text = "Updated value in \n         " + table +
                                    "\nsuccessfuly!";
             }
@@ -134,11 +134,11 @@ namespace SqliteRuestungSchutzController
                 string deleteColumn = " DELETE FROM Ruestung_Schutz " +
                                       " WHERE ID = @idwert";
 
-                SqliteCommand Command = new SqliteCommand(deleteColumn, dbConnection);
-                Command.Parameters.Add("@idwert", System.Data.DbType.Int32).Value = FieldDelete.text;
+                SqliteCommand command = new SqliteCommand(deleteColumn, dbConnection);
+                command.Parameters.Add("@idwert", System.Data.DbType.Int32).Value = FieldDelete.text;
 
-                Command.ExecuteNonQuery();
-                Command.Parameters.Clear();
+                command.ExecuteNonQuery();
+                command.Parameters.Clear();
                 console_msg.text = "Deleted Row/s successfully!";
             }
 
@@ -159,12 +159,12 @@ namespace SqliteRuestungSchutzController
             try
             {
                 dbConnection = new SqliteConnection("Data Source = " + databasepath + "; " + " Version = 3;");
-                dbConnection.Open();
 
                 if (File.Exists(databasepath))
                 {
                     if (dbConnection != null)
                     {
+                        dbConnection.Open();
                         console_msg.text = "Connected to the database!\n Table: " + table;
                     }
                 }

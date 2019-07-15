@@ -33,27 +33,27 @@ EditorBuildSettings:
     path: Assets/Scenes/InsertCustomController/SqliteInsertWaffen.unity
     guid: a5bfa9fa77727f849a7768e5333e2cbf
   - enabled: 1
-    path: Assets/Scenes/UpdateControllerUpdate/SqliteUpdateAbwehr.unity
+    path: Assets/Scenes/UpdateCostumController/SqliteUpdateAbwehr.unity
     guid: 0757c96708dc31245a04e8d31e38daf3
   - enabled: 1
-    path: Assets/Scenes/UpdateControllerUpdate/SqliteUpdateAttribute.unity
+    path: Assets/Scenes/UpdateCostumController/SqliteUpdateAttribute.unity
     guid: bc620c553b842c9438f624804b554970
   - enabled: 1
-    path: Assets/Scenes/UpdateControllerUpdate/SqliteUpdateAttributskosten.unity
+    path: Assets/Scenes/UpdateCostumController/SqliteUpdateAttributskosten.unity
     guid: ebe93a3b89569664e97d3348c42c039c
   - enabled: 1
-    path: Assets/Scenes/UpdateControllerUpdate/SqliteUpdateAVerteidigung.unity
+    path: Assets/Scenes/UpdateCostumController/SqliteUpdateAVerteidigung.unity
     guid: cf0998e83bfc3664f982fcb7c8902ccb
   - enabled: 1
-    path: Assets/Scenes/UpdateControllerUpdate/SqliteUpdateFertigkeiten.unity
+    path: Assets/Scenes/UpdateCostumController/SqliteUpdateFertigkeiten.unity
     guid: 98ccd6c7e28ca024a81b8638e0e7e27d
   - enabled: 1
-    path: Assets/Scenes/UpdateControllerUpdate/SqliteUpdatePlayer.unity
+    path: Assets/Scenes/UpdateCostumController/SqliteUpdatePlayer.unity
     guid: 296fd16f362cb3f488b91b09c4fd31a1
   - enabled: 1
-    path: Assets/Scenes/UpdateControllerUpdate/SqliteUpdateRuestungSchutz.unity
+    path: Assets/Scenes/UpdateCostumController/SqliteUpdateRuestungSchutz.unity
     guid: 9fa375eb3341cc847a68bbf7cc41c452
   - enabled: 1
-    path: Assets/Scenes/UpdateControllerUpdate/SqliteUpdateWaffen.unity
+    path: Assets/Scenes/UpdateCostumController/SqliteUpdateWaffen.unity
     guid: 5df10effcf2872d448ec1d96712a7bcf
   m_configObjects: {}

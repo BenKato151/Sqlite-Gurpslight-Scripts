@@ -53,15 +53,15 @@ namespace SqliteAVerteidigungcontroller
                                           "VALUES(@parieren, @ausweichen, @abblocken, @abblockenUmh, @idwert)" +
                                           ";";
 
-                SqliteCommand Command = new SqliteCommand(insertIntoAVerteidigung, dbConnection);
-                Command.Parameters.Add("@parieren", System.Data.DbType.Int32).Value = FieldParieren.text;
-                Command.Parameters.Add("@ausweichen", System.Data.DbType.Int32).Value = FieldAusweichen.text;
-                Command.Parameters.Add("@abblocken", System.Data.DbType.Int32).Value = FieldAbblocken.text;
-                Command.Parameters.Add("@abblockenUmh", System.Data.DbType.String).Value = FieldAbblockenUmh.text;
-                Command.Parameters.Add("@idwert", System.Data.DbType.Int32).Value = FieldID.text;
+                SqliteCommand command = new SqliteCommand(insertIntoAVerteidigung, dbConnection);
+                command.Parameters.Add("@parieren", System.Data.DbType.Int32).Value = FieldParieren.text;
+                command.Parameters.Add("@ausweichen", System.Data.DbType.Int32).Value = FieldAusweichen.text;
+                command.Parameters.Add("@abblocken", System.Data.DbType.Int32).Value = FieldAbblocken.text;
+                command.Parameters.Add("@abblockenUmh", System.Data.DbType.String).Value = FieldAbblockenUmh.text;
+                command.Parameters.Add("@idwert", System.Data.DbType.Int32).Value = FieldID.text;
 
-                Command.ExecuteNonQuery();
-                Command.Parameters.Clear();
+                command.ExecuteNonQuery();
+                command.Parameters.Clear();
                 console_msg.text = "Inserted values in table:\n         " + table
                                  + "\nsuccessfuly!";
             }
@@ -138,11 +138,11 @@ namespace SqliteAVerteidigungcontroller
                 string deleteColumn = " DELETE FROM Aktive_Verteidigung " +
                                       " WHERE ID = @id;";
 
-                SqliteCommand Command = new SqliteCommand(deleteColumn, dbConnection);
-                Command.Parameters.Add("@id", System.Data.DbType.Int32).Value = FieldDelete.text;
+                SqliteCommand command = new SqliteCommand(deleteColumn, dbConnection);
+                command.Parameters.Add("@id", System.Data.DbType.Int32).Value = FieldDelete.text;
 
-                Command.ExecuteNonQuery();
-                Command.Parameters.Clear();
+                command.ExecuteNonQuery();
+                command.Parameters.Clear();
                 console_msg.text = "Deleted Row/s successfully!";
             }
 
@@ -162,12 +162,12 @@ namespace SqliteAVerteidigungcontroller
             try
             {
                 dbConnection = new SqliteConnection("Data Source = " + databasepath + "; " + " Version = 3;");
-                dbConnection.Open();
 
                 if (File.Exists(databasepath))
                 {
                     if (dbConnection != null)
                     {
+                        dbConnection.Open();
                         console_msg.text = "Connected to the database!\n Table: " + table;
                     }
                 }

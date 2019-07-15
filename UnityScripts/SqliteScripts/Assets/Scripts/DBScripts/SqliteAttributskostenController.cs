@@ -49,13 +49,13 @@ namespace AttributskostenController
                 string insertIntoAttributskosten = " INSERT INTO Attributskosten(Wert, Kosten, ID) " +
                                           " VALUES(@wert, @kosten, @id);";
 
-                SqliteCommand Command = new SqliteCommand(insertIntoAttributskosten, dbConnection);
-                Command.Parameters.Add("@wert", System.Data.DbType.Int32).Value = FieldWert.text;
-                Command.Parameters.Add("@kosten", System.Data.DbType.Int32).Value = FieldKosten.text;
-                Command.Parameters.Add("@id", System.Data.DbType.Int32).Value = FieldID.text;
+                SqliteCommand command = new SqliteCommand(insertIntoAttributskosten, dbConnection);
+                command.Parameters.Add("@wert", System.Data.DbType.Int32).Value = FieldWert.text;
+                command.Parameters.Add("@kosten", System.Data.DbType.Int32).Value = FieldKosten.text;
+                command.Parameters.Add("@id", System.Data.DbType.Int32).Value = FieldID.text;
 
-                Command.ExecuteNonQuery();
-                Command.Parameters.Clear();
+                command.ExecuteNonQuery();
+                command.Parameters.Clear();
                 console_msg.text = "Inserted values in table:\n         " + table
                                  + "\nsuccessfuly!";
             }
@@ -77,12 +77,12 @@ namespace AttributskostenController
                                        " SET " + Fieldcolumn.text + " = @wert " +
                                        " WHERE ID = @IDvalue;";
 
-                SqliteCommand Command = new SqliteCommand(updatecommand, dbConnection);
-                Command.Parameters.Add("@wert", System.Data.DbType.Int32).Value = Fieldwert.text;
-                Command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = FieldIDvalue.text;
+                SqliteCommand command = new SqliteCommand(updatecommand, dbConnection);
+                command.Parameters.Add("@wert", System.Data.DbType.Int32).Value = Fieldwert.text;
+                command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = FieldIDvalue.text;
 
-                Command.ExecuteNonQuery();
-                Command.Parameters.Clear();
+                command.ExecuteNonQuery();
+                command.Parameters.Clear();
                 console_msg.text = "Updated value in \n         " + table +
                                    "\nsuccessfuly!";
             }
@@ -130,11 +130,11 @@ namespace AttributskostenController
                 string deleteColumn = " DELETE FROM Attributskosten " +
                                       " WHERE ID = @id";
 
-                SqliteCommand Command = new SqliteCommand(deleteColumn, dbConnection);
-                Command.Parameters.Add("@id", System.Data.DbType.Int32).Value = FieldDelete.text;
+                SqliteCommand command = new SqliteCommand(deleteColumn, dbConnection);
+                command.Parameters.Add("@id", System.Data.DbType.Int32).Value = FieldDelete.text;
 
-                Command.ExecuteNonQuery();
-                Command.Parameters.Clear();
+                command.ExecuteNonQuery();
+                command.Parameters.Clear();
                 console_msg.text = "Deleted Row/s successfully!";
             }
 
@@ -154,12 +154,12 @@ namespace AttributskostenController
             try
             {
                 dbConnection = new SqliteConnection("Data Source = " + databasepath + "; " + " Version = 3;");
-                dbConnection.Open();
 
                 if (File.Exists(databasepath))
                 {
                     if (dbConnection != null)
                     {
+                        dbConnection.Open();
                         console_msg.text = "Connected to the database!\n Table: " + table;
                     }
                 }

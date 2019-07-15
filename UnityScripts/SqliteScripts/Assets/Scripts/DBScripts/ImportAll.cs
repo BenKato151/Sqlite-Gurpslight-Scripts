@@ -3,10 +3,12 @@ using System.IO;
 using System.Xml;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Mono.Data.Sqlite;
 
 public class ImportAll : MonoBehaviour {
-    
+    public Text console_msg;
+
     #region ImportXML
     public void ImportXML()
     {
@@ -48,15 +50,22 @@ public class ImportAll : MonoBehaviour {
                             command.ExecuteNonQuery();
                         }
                     }
-                    Debug.Log("Success");
+                    console_msg.text = "Successfully imported!";
                 }
                 #endregion
             }
         }
         catch (Exception e)
         {
+            if (e.Message.Contains("Abort due to constraint violation"))
+            {
+                console_msg.text = "Error:\nFailed to import XML because of constraints.";
+            }
+            else
+            {
+                console_msg.text = "Error:\nFailed to connect or to import XML!";
+            }
             Debug.LogError(e);
-            Debug.Log("Error:\nFailed to connect or to import XML!");
         }
     }
     #endregion

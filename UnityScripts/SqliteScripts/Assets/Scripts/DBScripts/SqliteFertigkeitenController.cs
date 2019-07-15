@@ -51,16 +51,16 @@ namespace SqliteFertigkeitencontroller
                 string insertIntoFertigkeiten = " INSERT INTO Fertigkeiten(CP, ID, FW, Art, Typ, Name) " +
                                           " VALUES(@cp, @id, @fw, @art, @typ, @name);";
 
-                SqliteCommand Command = new SqliteCommand(insertIntoFertigkeiten, dbConnection);
-                Command.Parameters.Add("@cp", System.Data.DbType.Int32).Value = FieldCP.text;
-                Command.Parameters.Add("@id", System.Data.DbType.Int32).Value = FieldID.text;
-                Command.Parameters.Add("@fw", System.Data.DbType.Int32).Value = FieldFW.text;
-                Command.Parameters.Add("@art", System.Data.DbType.String).Value = FieldArt.text;
-                Command.Parameters.Add("@typ", System.Data.DbType.String).Value = FieldTyp.text;
-                Command.Parameters.Add("@name", System.Data.DbType.String).Value = Fieldname.text;
+                SqliteCommand command = new SqliteCommand(insertIntoFertigkeiten, dbConnection);
+                command.Parameters.Add("@cp", System.Data.DbType.Int32).Value = FieldCP.text;
+                command.Parameters.Add("@id", System.Data.DbType.Int32).Value = FieldID.text;
+                command.Parameters.Add("@fw", System.Data.DbType.Int32).Value = FieldFW.text;
+                command.Parameters.Add("@art", System.Data.DbType.String).Value = FieldArt.text;
+                command.Parameters.Add("@typ", System.Data.DbType.String).Value = FieldTyp.text;
+                command.Parameters.Add("@name", System.Data.DbType.String).Value = Fieldname.text;
 
-                Command.ExecuteNonQuery();
-                Command.Parameters.Clear();
+                command.ExecuteNonQuery();
+                command.Parameters.Clear();
                 console_msg.text = "Inserted values in table:\n         " + table
                                   + "\nsuccessfuly!";
             }
@@ -82,12 +82,12 @@ namespace SqliteFertigkeitencontroller
                                        " SET " + Fieldcolumn.text + " = @wert " +
                                        " WHERE ID = @IDvalue;";
 
-                SqliteCommand Command = new SqliteCommand(updatecommand, dbConnection);
-                Command.Parameters.Add("@wert", System.Data.DbType.Int32).Value = Fieldwert.text;
-                Command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = FieldIDvalue.text;
+                SqliteCommand command = new SqliteCommand(updatecommand, dbConnection);
+                command.Parameters.Add("@wert", System.Data.DbType.Int32).Value = Fieldwert.text;
+                command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = FieldIDvalue.text;
 
-                Command.ExecuteNonQuery();
-                Command.Parameters.Clear();
+                command.ExecuteNonQuery();
+                command.Parameters.Clear();
                 console_msg.text = "Updated value in \n         " + table +
                                    "\nsuccessfuly!";
             }
@@ -138,11 +138,11 @@ namespace SqliteFertigkeitencontroller
                 string deleteColumn = " DELETE FROM Fertigkeiten " +
                                       " WHERE ID = @idwert;";
 
-                SqliteCommand Command = new SqliteCommand(deleteColumn, dbConnection);
-                Command.Parameters.Add("@idwert", System.Data.DbType.Int32).Value = FieldDelete.text;
+                SqliteCommand command = new SqliteCommand(deleteColumn, dbConnection);
+                command.Parameters.Add("@idwert", System.Data.DbType.Int32).Value = FieldDelete.text;
 
-                Command.ExecuteNonQuery();
-                Command.Parameters.Clear();
+                command.ExecuteNonQuery();
+                command.Parameters.Clear();
                 console_msg.text = "Deleted Row/s successfully!";
             }
 
@@ -163,12 +163,12 @@ namespace SqliteFertigkeitencontroller
             try
             {
                 dbConnection = new SqliteConnection("Data Source = " + databasepath + "; " + " Version = 3;");
-                dbConnection.Open();
 
                 if (File.Exists(databasepath))
                 {
                     if (dbConnection != null)
                     {
+                        dbConnection.Open();
                         console_msg.text = "Connected to the database!\n Table: " + table;
                     }
                 }
