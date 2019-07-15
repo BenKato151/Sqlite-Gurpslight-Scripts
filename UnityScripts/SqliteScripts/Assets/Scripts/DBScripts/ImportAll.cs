@@ -4,6 +4,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Xsl;
 using System.Xml.Serialization;
+using System.Collections.Generic;
 using UnityEngine;
 using Mono.Data.Sqlite;
 
@@ -24,9 +25,10 @@ public class ImportAll : MonoBehaviour {
                 XmlDocument xmlFile = new XmlDocument();
                 xmlFile.Load(xmlpath);
 
-                XmlNode select_wert_from_attributskosten = xmlFile.SelectSingleNode("/Characterbogen/Attributskosten/Wert");
-                XmlNode select_kosten_from_attributskosten = xmlFile.SelectSingleNode("/Characterbogen/Attributskosten/Kosten");
-                XmlNode select_id_from_attributskosten = xmlFile.SelectSingleNode("/Characterbogen/Attributskosten/ID");
+                List<string> keys = new List<string>();
+                
+
+                XmlNodeList selectall = xmlFile.SelectNodes("/Characterbogen");
 
                 #endregion
                 #region SQLite
@@ -35,14 +37,21 @@ public class ImportAll : MonoBehaviour {
                 {
                     dbconnection.Open();
 
-                    string insertinto = "INSERT INTO Attributskosten(Wert, Kosten, ID) VALUES (@wert, @kosten, @id)";
-                    SqliteCommand command = new SqliteCommand(insertinto, dbconnection);
-                    command.Parameters.Add("@wert", System.Data.DbType.Int32).Value = select_wert_from_attributskosten.InnerText;
-                    command.Parameters.Add("@kosten", System.Data.DbType.Int32).Value = select_kosten_from_attributskosten.InnerText;
-                    command.Parameters.Add("@id", System.Data.DbType.Int32).Value = select_id_from_attributskosten.InnerText;
-
-                    command.ExecuteNonQuery();
-                    command.Parameters.Clear();
+                    foreach (XmlNode node in selectall)
+                    {
+                        for (int i = 0; i < node.ChildNodes.Count; i++)
+                        {
+                            string table = node.ChildNodes[i].Name.ToString();
+                            for (int k = 0; k < node.ChildNodes[i].ChildNodes.Count; k++)
+                            {
+                                string column = node.ChildNodes[i].ChildNodes[k].Name.ToString();
+                                string value = node.ChildNodes[i].ChildNodes[k].InnerText.ToString();
+                                string commandstring = "INSERT INTO " + table + " (" + column + ") VALUES(" + value+ ")";
+                                SqliteCommand command = new SqliteCommand(commandstring, dbconnection);
+                                command.ExecuteNonQuery();
+                            }
+                        }
+                    }
 
                     Debug.Log("Success");
 
