@@ -2,6 +2,8 @@
 ______
 
 		Add:		
+					Import single file: An Input field that contains the path for .xml file. Pls not hardcoded!
+						(GOTO: __Added__)
 					case for select statement
 					automatically generate XLS etc.
 					
@@ -22,16 +24,14 @@ ______
 FINISHED:	
 _________
 
-		Added:		XML-Import into complete database
+		Added:		Error Messages in "Abwehrcontroller" because of import 
 					
 					
 		
-
-	
-		Edited:		beautified all code
-					Background / Text Color
-
-
+		Edited:		Buttons were fixed / Deletion sets output text to invisible.
+					Bug: Import -> We need a .xml file with a specific name... its too hardcoded here.
+					
+					
 
 
 		Deleted:			

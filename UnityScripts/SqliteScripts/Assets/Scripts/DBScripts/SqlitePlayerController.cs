@@ -153,6 +153,7 @@ namespace SqliteplayerControll
                 command.ExecuteNonQuery();
                 command.Parameters.Clear();
                 console_msg.text = "Deleted Row/s successfully!";
+                sqlOutput_msg.text = "";
             }
 
             catch (Exception e)

@@ -150,6 +150,7 @@ namespace SqliteAbwehrController
                 command.ExecuteNonQuery();
                 command.Parameters.Clear();
                 console_msg.text = "Deleted Row/s successfully!";
+                sqlOutput_msg.text = "";
             }
 
             catch (Exception e)
@@ -243,6 +244,7 @@ namespace SqliteAbwehrController
         {
             try
             {
+
                 int generateName = UnityEngine.Random.Range(0, 1000);
                 string dbpath = Application.dataPath + @"/Scripts/Database/Exported_DBs/abwehrtable_Num" + generateName + ".sqlite";
                 string xmlpath = Application.dataPath + @"/XMLDocuments/Imports/gurbslight_character_export.xml";
@@ -289,6 +291,14 @@ namespace SqliteAbwehrController
             catch (Exception e)
             {
                 Debug.Log(e);
+                if (e.Message.Contains("Could not find file"))
+                {
+                    console_msg.text = "Failed, bc there isnt the file in:\n Assets\\XMLDocuments\\Imports\\gurbslight_character_export.xml";
+                }
+                else
+                {
+                    console_msg.text = "Failed to import!";
+                }
             }
         }
         #endregion
@@ -309,6 +319,7 @@ namespace SqliteAbwehrController
             }
         }
         #endregion
+
 
     }
 }
