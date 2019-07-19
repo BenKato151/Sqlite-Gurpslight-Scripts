@@ -18,7 +18,7 @@ namespace SqliteplayerControll
 
         #region SqlVars
         //Database Query
-        static private readonly string table = "Spieler";
+        private readonly string table = "Spieler";
         #endregion
 
         #region InputVars
@@ -111,6 +111,7 @@ namespace SqliteplayerControll
         {
             try
             {
+                sqlOutput_msg.text = "";
                 string selecting = "SELECT * FROM Spieler WHERE SpielerID = " + FieldSelectID.text;
                 SqliteCommand command = new SqliteCommand(selecting, dbConnection);
                 
@@ -259,20 +260,20 @@ namespace SqliteplayerControll
             try
             {
                 int generateName = UnityEngine.Random.Range(0, 1000);
-                string dbpath = Application.dataPath + @"/Scripts/Database/Exported_DBs/Player_table_Num" + generateName + ".sqlite";
-                string xmlpath = Application.dataPath + @"/XMLDocuments/Imports/gurbslight_character_export.xml";
+                string dbpath = Application.dataPath + @"\Scripts\Database\Exported_DBs\" + table + "_table_" + generateName.ToString() + ".sqlite";
+                string xmlpath = Application.dataPath + @"\XMLDocuments\Exports\char.xml";
                 XmlDocument attributeXMLFile = new XmlDocument();
                 attributeXMLFile.Load(xmlpath);
 
-                XmlNode selectName = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Player")[0].ChildNodes[0];
-                XmlNode selectGeschlecht = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Player")[0].ChildNodes[1];
-                XmlNode selectRasse = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Player")[0].ChildNodes[2];
-                XmlNode selectHaar = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Player")[0].ChildNodes[3];
-                XmlNode selectAugen = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Player")[0].ChildNodes[4];
-                XmlNode selectGewicht = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Player")[0].ChildNodes[5];
-                XmlNode selectGroese = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Player")[0].ChildNodes[6];
-                XmlNode selectBeschreibung = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Player")[0].ChildNodes[7];
-                XmlNode selectSpielerID = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Player")[0].ChildNodes[8];
+                XmlNode selectName = attributeXMLFile.SelectNodes("/Characterbogen/Player")[0].ChildNodes[0];
+                XmlNode selectGeschlecht = attributeXMLFile.SelectNodes("/Characterbogen/Player")[0].ChildNodes[1];
+                XmlNode selectRasse = attributeXMLFile.SelectNodes("/Characterbogen/Player")[0].ChildNodes[2];
+                XmlNode selectHaar = attributeXMLFile.SelectNodes("/Characterbogen/Player")[0].ChildNodes[3];
+                XmlNode selectAugen = attributeXMLFile.SelectNodes("/Characterbogen/Player")[0].ChildNodes[4];
+                XmlNode selectGewicht = attributeXMLFile.SelectNodes("/Characterbogen/Player")[0].ChildNodes[5];
+                XmlNode selectGroese = attributeXMLFile.SelectNodes("/Characterbogen/Player")[0].ChildNodes[6];
+                XmlNode selectBeschreibung = attributeXMLFile.SelectNodes("/Characterbogen/Player")[0].ChildNodes[7];
+                XmlNode selectSpielerID = attributeXMLFile.SelectNodes("/Characterbogen/Player")[0].ChildNodes[8];
 
                 SqliteConnection dbconnect = new SqliteConnection("Data Source = " + dbpath + "; " + " Version = 3;");
                 if (!File.Exists(dbpath))
@@ -323,14 +324,29 @@ namespace SqliteplayerControll
         {
             try
             {
-                dbConnection.Close();
-                console_msg.text = "\nConnection closed!";
-                sqlOutput_msg.text = " ";
+                if (dbConnection.State == System.Data.ConnectionState.Open)
+                {
+                    dbConnection.Close();
+                    console_msg.text = "\nConnection closed!";
+                    sqlOutput_msg.text = " ";
+
+                }
+                else
+                {
+                    console_msg.text = "No connection to close";
+                }
             }
             catch (Exception e)
             {
-                Debug.Log(e);
-                console_msg.text = "Error:\nFailed to close the connection!";
+                if (e.Message.Contains("Object reference not set to an instance of an object"))
+                {
+                    console_msg.text = "No connection to close";
+                }
+                else
+                {
+                    console_msg.text = "Error:\nFailed to close the connection!";
+                    Debug.LogError(e);
+                }
             }
         }
         #endregion

@@ -128,6 +128,7 @@ namespace SqliteWaffenController
         {
             try
             {
+                sqlOutput_msg.text = "";
                 string selecting = "SELECT * FROM Waffen WHERE WaffenID = " + FieldSelectID.text;
                 SqliteCommand command = new SqliteCommand(selecting, dbConnection);
                 SqliteDataReader output = command.ExecuteReader();
@@ -310,27 +311,27 @@ namespace SqliteWaffenController
             try
             {
                 int generateName = UnityEngine.Random.Range(0, 1000);
-                string dbpath = Application.dataPath + @"/Scripts/Database/Exported_DBs/waffen_table_Num" + generateName + ".sqlite";
-                string xmlpath = Application.dataPath + @"/XMLDocuments/Imports/gurbslight_character_export.xml";
+                string dbpath = Application.dataPath + @"/Scripts/Database/Exported_DBs/" + table + "_table_" + generateName.ToString() + ".sqlite";
+                string xmlpath = Application.dataPath + @"/XMLDocuments/Exports/char.xml";
                 XmlDocument attributeXMLFile = new XmlDocument();
                 attributeXMLFile.Load(xmlpath);
 
-                XmlNode selectname = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Waffen")[0].ChildNodes[0];
-                XmlNode selectID = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Waffen")[0].ChildNodes[1];
-                XmlNode selectfw = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Waffen")[0].ChildNodes[2];
-                XmlNode selectschaden = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Waffen")[0].ChildNodes[3];
-                XmlNode selectmod = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Waffen")[0].ChildNodes[4];
-                XmlNode selectOrt = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Waffen")[0].ChildNodes[5];
-                XmlNode selectzg = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Waffen")[0].ChildNodes[6];
-                XmlNode selectss = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Waffen")[0].ChildNodes[7];
-                XmlNode selecteinhalbs = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Waffen")[0].ChildNodes[8];
-                XmlNode selectrw = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Waffen")[0].ChildNodes[9];
-                XmlNode selectfg = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Waffen")[0].ChildNodes[10];
-                XmlNode selectmag = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Waffen")[0].ChildNodes[11];
-                XmlNode selectrs = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Waffen")[0].ChildNodes[12];
-                XmlNode selectst = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Waffen")[0].ChildNodes[13];
-                XmlNode selectlz = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Waffen")[0].ChildNodes[14];
-                XmlNode selectbm = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Waffen")[0].ChildNodes[15];
+                XmlNode selectname = attributeXMLFile.SelectNodes("/Characterbogen/Waffen")[0].ChildNodes[0];
+                XmlNode selectID = attributeXMLFile.SelectNodes("/Characterbogen/Waffen")[0].ChildNodes[1];
+                XmlNode selectfw = attributeXMLFile.SelectNodes("/Characterbogen/Waffen")[0].ChildNodes[2];
+                XmlNode selectschaden = attributeXMLFile.SelectNodes("/Characterbogen/Waffen")[0].ChildNodes[3];
+                XmlNode selectmod = attributeXMLFile.SelectNodes("/Characterbogen/Waffen")[0].ChildNodes[4];
+                XmlNode selectOrt = attributeXMLFile.SelectNodes("/Characterbogen/Waffen")[0].ChildNodes[5];
+                XmlNode selectzg = attributeXMLFile.SelectNodes("/Characterbogen/Waffen")[0].ChildNodes[6];
+                XmlNode selectss = attributeXMLFile.SelectNodes("/Characterbogen/Waffen")[0].ChildNodes[7];
+                XmlNode selecteinhalbs = attributeXMLFile.SelectNodes("/Characterbogen/Waffen")[0].ChildNodes[8];
+                XmlNode selectrw = attributeXMLFile.SelectNodes("/Characterbogen/Waffen")[0].ChildNodes[9];
+                XmlNode selectfg = attributeXMLFile.SelectNodes("/Characterbogen/Waffen")[0].ChildNodes[10];
+                XmlNode selectmag = attributeXMLFile.SelectNodes("/Characterbogen/Waffen")[0].ChildNodes[11];
+                XmlNode selectrs = attributeXMLFile.SelectNodes("/Characterbogen/Waffen")[0].ChildNodes[12];
+                XmlNode selectst = attributeXMLFile.SelectNodes("/Characterbogen/Waffen")[0].ChildNodes[13];
+                XmlNode selectlz = attributeXMLFile.SelectNodes("/Characterbogen/Waffen")[0].ChildNodes[14];
+                XmlNode selectbm = attributeXMLFile.SelectNodes("/Characterbogen/Waffen")[0].ChildNodes[15];
 
                 SqliteConnection dbconnect = new SqliteConnection("Data Source = " + dbpath + "; " + " Version = 3;");
                 if (!File.Exists(dbpath))
@@ -391,15 +392,31 @@ namespace SqliteWaffenController
         {
             try
             {
-                dbConnection.Close();
-                console_msg.text = "\nConnection closed!";
-                sqlOutput_msg.text = " ";
+                if (dbConnection.State == System.Data.ConnectionState.Open)
+                {
+                    dbConnection.Close();
+                    console_msg.text = "\nConnection closed!";
+                    sqlOutput_msg.text = " ";
+
+                }
+                else
+                {
+                    console_msg.text = "No connection to close";
+                }
             }
             catch (Exception e)
             {
-                Debug.Log(e);
-                console_msg.text = "Error:\nFailed to close the connection!";
+                if (e.Message.Contains("Object reference not set to an instance of an object"))
+                {
+                    console_msg.text = "No connection to close";
+                }
+                else
+                {
+                    console_msg.text = "Error:\nFailed to close the connection!";
+                    Debug.LogError(e);
+                }
             }
+
         }
         #endregion
 

@@ -11,12 +11,21 @@
     <groese>1.80</groese>
     <beschreibung>Das ist Spieler 1</beschreibung>
     <SpielerID>0</SpielerID>
+    <name>Benni</name>
+    <geschlecht>male</geschlecht>
+    <rasse>human</rasse>
+    <haar>brown</haar>
+    <augen>green</augen>
+    <gewicht>70.0</gewicht>
+    <groese>1.64</groese>
+    <beschreibung>thats me</beschreibung>
+    <SpielerID>1337</SpielerID>
   </Spieler>
   <Abwehr>
-    <Schild>5</Schild>
+    <Schild>10</Schild>
     <Ruestung>5</Ruestung>
     <Umhang>5</Umhang>
-    <Gesamt>100</Gesamt>
+    <Gesamt>20</Gesamt>
     <ID>0</ID>
   </Abwehr>
   <Aktive_Verteidigung>

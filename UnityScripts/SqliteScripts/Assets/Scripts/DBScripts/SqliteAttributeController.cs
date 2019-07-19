@@ -19,7 +19,7 @@ namespace SqliteAttributeController
 
         #region SqlVars
         //Database Query
-        private static readonly string table = "Attribute";
+        private readonly string table = "Attribute";
         #endregion
 
         #region InputVars
@@ -77,6 +77,7 @@ namespace SqliteAttributeController
         {
             try
             {
+                sqlOutput_msg.text = "";
                 string selecting = "SELECT * FROM Attribute WHERE ID = " + FieldSelectID.text;
                 SqliteCommand command = new SqliteCommand(selecting, dbConnection);
                 SqliteDataReader output = command.ExecuteReader();
@@ -236,16 +237,16 @@ namespace SqliteAttributeController
             try
             {
                 int generateName = UnityEngine.Random.Range(0, 1000);
-                string dbpath = Application.dataPath + @"/Scripts/Database/attribute_table_Num" + generateName + ".sqlite";
-                string xmlpath = Application.dataPath + @"/XMLDocuments/Imports/gurbslight_character_export.xml";
+                string dbpath = Application.dataPath + @"/Scripts/Database/" + table + "_table_" + generateName.ToString() + ".sqlite";
+                string xmlpath = Application.dataPath + @"/XMLDocuments/Exports/char.xml";
                 XmlDocument attributeXMLFile = new XmlDocument();
                 attributeXMLFile.Load(xmlpath);
 
-                XmlNode selectStaerke = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Attribute")[0].ChildNodes[0];
-                XmlNode selectGeschicklichkeit = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Attribute")[0].ChildNodes[1];
-                XmlNode selectIntelligenz = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Attribute")[0].ChildNodes[2];
-                XmlNode selectKonstitution = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Attribute")[0].ChildNodes[3];
-                XmlNode selectid = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Attribute")[0].ChildNodes[4];
+                XmlNode selectStaerke = attributeXMLFile.SelectNodes("/Characterbogen/Attribute")[0].ChildNodes[0];
+                XmlNode selectGeschicklichkeit = attributeXMLFile.SelectNodes("/Characterbogen/Attribute")[0].ChildNodes[1];
+                XmlNode selectIntelligenz = attributeXMLFile.SelectNodes("/Characterbogen/Attribute")[0].ChildNodes[2];
+                XmlNode selectKonstitution = attributeXMLFile.SelectNodes("/Characterbogen/Attribute")[0].ChildNodes[3];
+                XmlNode selectid = attributeXMLFile.SelectNodes("/Characterbogen/Attribute")[0].ChildNodes[4];
 
                 SqliteConnection dbconnect = new SqliteConnection("Data Source = " + dbpath + "; " + " Version = 3;");
                 if (!File.Exists(dbpath))
@@ -291,15 +292,31 @@ namespace SqliteAttributeController
         {
             try
             {
-                dbConnection.Close();
-                console_msg.text = "\nConnection closed!";
-                sqlOutput_msg.text = " ";
+                if (dbConnection.State == System.Data.ConnectionState.Open)
+                {
+                    dbConnection.Close();
+                    console_msg.text = "\nConnection closed!";
+                    sqlOutput_msg.text = " ";
+
+                }
+                else
+                {
+                    console_msg.text = "No connection to close";
+                }
             }
             catch (Exception e)
             {
-                Debug.Log(e);
-                console_msg.text = "Error:\nFailed to close the connection!";
+                if (e.Message.Contains("Object reference not set to an instance of an object"))
+                {
+                    console_msg.text = "No connection to close";
+                }
+                else
+                {
+                    console_msg.text = "Error:\nFailed to close the connection!";
+                    Debug.LogError(e);
+                }
             }
+
         }
         #endregion
 

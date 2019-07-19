@@ -63,8 +63,8 @@
      <Compile Include="Assets\Scripts\DBScripts\SqliteWaffenController.cs" />
      <Compile Include="Assets\Scripts\ScenesScripts\DropDown.cs" />
      <Compile Include="Assets\Scripts\ScenesScripts\ScenesScripts.cs" />
-     <None Include="Assets\XMLDocuments\Exports\Abwehr_export.xml" />
      <None Include="Assets\TODOList.txt" />
+     <None Include="Assets\XMLDocuments\Exports\Abwehr_export.xml" />
      <None Include="Assets\XMLDocuments\Exports\char.xml" />
  <Reference Include="UnityEditor.StandardEvents">
  <HintPath>D:/Faecher/DBG/Unity_Programm/UnityScripts/SqliteScripts/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
@@ -267,6 +267,12 @@
  <Reference Include="UnityEngine.SpatialTracking">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
  </Reference>
+ <Reference Include="Mono.Data.Sqlite">
+ <HintPath>D:/Faecher/DBG/Unity_Programm/UnityScripts/SqliteScripts/Assets/Plugins/Mono.Data.Sqlite.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Data">
+ <HintPath>D:/Faecher/DBG/Unity_Programm/UnityScripts/SqliteScripts/Assets/Plugins/System.Data.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.Analytics">
  <HintPath>C:/Users/homeuser/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>
  </Reference>
@@ -275,12 +281,6 @@
  </Reference>
  <Reference Include="UnityEngine.StandardEvents">
  <HintPath>C:/Users/homeuser/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll</HintPath>
- </Reference>
- <Reference Include="Mono.Data.Sqlite">
- <HintPath>D:/Faecher/DBG/Unity_Programm/UnityScripts/SqliteScripts/Assets/Plugins/Mono.Data.Sqlite.dll</HintPath>
- </Reference>
- <Reference Include="System.Data">
- <HintPath>D:/Faecher/DBG/Unity_Programm/UnityScripts/SqliteScripts/Assets/Plugins/System.Data.dll</HintPath>
  </Reference>
  <Reference Include="mscorlib">
  <HintPath>C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/unity/mscorlib.dll</HintPath>

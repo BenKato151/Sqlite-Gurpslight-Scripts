@@ -19,7 +19,7 @@ namespace AttributskostenController
 
         #region SqlVars
         //Database Query
-        static private readonly string table = "Attributskosten";
+        private readonly string table = "Attributskosten";
         #endregion
 
         #region InputVars
@@ -100,6 +100,7 @@ namespace AttributskostenController
         {
             try
             {
+                sqlOutput_msg.text = "";
                 string selecting = "SELECT * FROM Attributskosten WHERE ID = " + FieldSelectID.text;
                 SqliteCommand command = new SqliteCommand(selecting, dbConnection);
                 SqliteDataReader output = command.ExecuteReader();
@@ -224,14 +225,14 @@ namespace AttributskostenController
             try
             {
                 int generateName = UnityEngine.Random.Range(0, 1000);
-                string dbpath = Application.dataPath + @"/Scripts/Database//Exported_DBs/attributskosten_table_Num" + generateName + ".sqlite";
-                string xmlpath = Application.dataPath + @"/XMLDocuments/Imports/gurbslight_character_export.xml";
+                string dbpath = Application.dataPath + @"/Scripts/Database/Exported_DBs/" + table + "_table_" + generateName.ToString() + ".sqlite";
+                string xmlpath = Application.dataPath + @"/XMLDocuments/Exports/char.xml";
                 XmlDocument attributeXMLFile = new XmlDocument();
                 attributeXMLFile.Load(xmlpath);
 
-                XmlNode selectKosten = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Attributskosten")[0].ChildNodes[0];
-                XmlNode selectWert = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Attributskosten")[0].ChildNodes[1];
-                XmlNode selectID = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Attributskosten")[0].ChildNodes[2];
+                XmlNode selectKosten = attributeXMLFile.SelectNodes("/Characterbogen/Attributskosten")[0].ChildNodes[0];
+                XmlNode selectWert = attributeXMLFile.SelectNodes("/Characterbogen/Attributskosten")[0].ChildNodes[1];
+                XmlNode selectID = attributeXMLFile.SelectNodes("/Characterbogen/Attributskosten")[0].ChildNodes[2];
 
                 SqliteConnection dbconnect = new SqliteConnection("Data Source = " + dbpath + "; " + " Version = 3;");
                 if (!File.Exists(dbpath))
@@ -275,15 +276,31 @@ namespace AttributskostenController
         {
             try
             {
-                dbConnection.Close();
-                console_msg.text = "\nConnection closed!";
-                sqlOutput_msg.text = " ";
+                if (dbConnection.State == System.Data.ConnectionState.Open)
+                {
+                    dbConnection.Close();
+                    console_msg.text = "\nConnection closed!";
+                    sqlOutput_msg.text = " ";
+
+                }
+                else
+                {
+                    console_msg.text = "No connection to close";
+                }
             }
             catch (Exception e)
             {
-                Debug.Log(e);
-                console_msg.text = "Error:\nFailed to close the connection!";
+                if (e.Message.Contains("Object reference not set to an instance of an object"))
+                {
+                    console_msg.text = "No connection to close";
+                }
+                else
+                {
+                    console_msg.text = "Error:\nFailed to close the connection!";
+                    Debug.LogError(e);
+                }
             }
+
         }
         #endregion
 

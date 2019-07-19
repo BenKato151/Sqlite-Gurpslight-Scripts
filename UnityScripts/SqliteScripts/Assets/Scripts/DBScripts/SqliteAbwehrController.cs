@@ -19,7 +19,7 @@ namespace SqliteAbwehrController
 
         #region SqlVar        
         //Database Query
-        private static readonly string table = "Abwehr";
+        private readonly string table = "Abwehr";
         #endregion
 
         #region InputVars
@@ -75,8 +75,10 @@ namespace SqliteAbwehrController
         #region Select
         public void SelectingColumns()
         {
+
             try
             {
+                sqlOutput_msg.text = "";
                 string selecting = "SELECT * FROM Abwehr WHERE ID = " + FieldSelect.text;
                 
                 SqliteCommand command = new SqliteCommand(selecting, dbConnection);
@@ -244,18 +246,17 @@ namespace SqliteAbwehrController
         {
             try
             {
-
-                int generateName = UnityEngine.Random.Range(0, 1000);
-                string dbpath = Application.dataPath + @"/Scripts/Database/Exported_DBs/abwehrtable_Num" + generateName + ".sqlite";
-                string xmlpath = Application.dataPath + @"/XMLDocuments/Imports/gurbslight_character_export.xml";
+                int generateName = UnityEngine.Random.Range(0, 20);
+                string dbpath = Application.dataPath + @"/Scripts/Database/Exported_DBs/" + table + "_table_" + generateName.ToString() + ".sqlite";
+                string xmlpath = Application.dataPath + @"/XMLDocuments/Exports/char.xml";
                 XmlDocument abwehrtableFile = new XmlDocument();
                 abwehrtableFile.Load(xmlpath);
-                
-                XmlNode selectabwehrschild = abwehrtableFile.SelectNodes("/GurpsLightCharacter/Abwehr")[0].ChildNodes[0];
-                XmlNode selectabwehrruestung = abwehrtableFile.SelectNodes("/GurpsLightCharacter/Abwehr")[0].ChildNodes[1];
-                XmlNode selectabwehrumhang = abwehrtableFile.SelectNodes("/GurpsLightCharacter/Abwehr")[0].ChildNodes[2];
-                XmlNode selectabwehrgesamt = abwehrtableFile.SelectNodes("/GurpsLightCharacter/Abwehr")[0].ChildNodes[3];
-                XmlNode selectabwehrid = abwehrtableFile.SelectNodes("/GurpsLightCharacter/Abwehr")[0].ChildNodes[4];
+
+                XmlNode selectabwehrschild = abwehrtableFile.SelectNodes("/Characterbogen/Abwehr")[0].ChildNodes[0];
+                XmlNode selectabwehrruestung = abwehrtableFile.SelectNodes("/Characterbogen/Abwehr")[0].ChildNodes[1];
+                XmlNode selectabwehrumhang = abwehrtableFile.SelectNodes("/Characterbogen/Abwehr")[0].ChildNodes[2];
+                XmlNode selectabwehrgesamt = abwehrtableFile.SelectNodes("/Characterbogen/Abwehr")[0].ChildNodes[3];
+                XmlNode selectabwehrid = abwehrtableFile.SelectNodes("/Characterbogen/Abwehr")[0].ChildNodes[4];
 
                 SqliteConnection dbconnect = new SqliteConnection("Data Source = " + dbpath + "; " + " Version = 3;");
                 if (!File.Exists(dbpath))
@@ -308,18 +309,33 @@ namespace SqliteAbwehrController
         {
             try
             {
-                dbConnection.Close();
-                console_msg.text = "\nConnection closed!";
-                sqlOutput_msg.text = " ";
+                if (dbConnection.State == System.Data.ConnectionState.Open)
+                {
+                    dbConnection.Close();
+                    console_msg.text = "\nConnection closed!";
+                    sqlOutput_msg.text = " ";
+
+                }
+                else
+                {
+                    console_msg.text = "No connection to close";
+                }
             }
             catch (Exception e)
             {
-                Debug.Log(e);
-                console_msg.text = "Error:\nFailed to close the connection!";
+                if (e.Message.Contains("Object reference not set to an instance of an object"))
+                {
+                    console_msg.text = "No connection to close";
+                }
+                else
+                {
+                    console_msg.text = "Error:\nFailed to close the connection!";
+                    Debug.LogError(e);
+                }
             }
+
         }
         #endregion
-
 
     }
 }

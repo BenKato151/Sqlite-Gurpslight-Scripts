@@ -18,7 +18,7 @@ namespace SqliteFertigkeitencontroller
 
         #region SqlVars
         //Database Query
-        static private readonly string table = "Fertigkeiten";
+        private readonly string table = "Fertigkeiten";
         #endregion
 
         #region InputVars
@@ -105,6 +105,7 @@ namespace SqliteFertigkeitencontroller
         {
             try
             {
+                sqlOutput_msg.text = "";
                 string selecting = "SELECT * FROM Fertigkeiten WHERE ID = " + FieldSelectID.text;
                 SqliteCommand command = new SqliteCommand(selecting, dbConnection);
                 SqliteDataReader output = command.ExecuteReader();
@@ -242,17 +243,17 @@ namespace SqliteFertigkeitencontroller
             try
             {
                 int generateName = UnityEngine.Random.Range(0, 1000);
-                string dbpath = Application.dataPath + @"/Scripts/Database/Exported_DBs/Fertigkeiten_table_Num" + generateName + ".sqlite";
-                string xmlpath = Application.dataPath + @"/XMLDocuments/Imports/gurbslight_character_export.xml";
+                string dbpath = Application.dataPath + @"/Scripts/Database/Exported_DBs/" + table + "_table_" + generateName.ToString() + ".sqlite";
+                string xmlpath = Application.dataPath + @"/XMLDocuments/Exports/char.xml";
                 XmlDocument attributeXMLFile = new XmlDocument();
                 attributeXMLFile.Load(xmlpath);
 
-                XmlNode selectCP = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Fertigkeiten")[0].ChildNodes[0];
-                XmlNode selectID = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Fertigkeiten")[0].ChildNodes[1];
-                XmlNode selectFW = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Fertigkeiten")[0].ChildNodes[2];
-                XmlNode selectArt = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Fertigkeiten")[0].ChildNodes[3];
-                XmlNode selectTyp = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Fertigkeiten")[0].ChildNodes[4];
-                XmlNode selectName = attributeXMLFile.SelectNodes("/GurpsLightCharacter/Fertigkeiten")[0].ChildNodes[5];
+                XmlNode selectCP = attributeXMLFile.SelectNodes("/Characterbogen/Fertigkeiten")[0].ChildNodes[0];
+                XmlNode selectID = attributeXMLFile.SelectNodes("/Characterbogen/Fertigkeiten")[0].ChildNodes[1];
+                XmlNode selectFW = attributeXMLFile.SelectNodes("/Characterbogen/Fertigkeiten")[0].ChildNodes[2];
+                XmlNode selectArt = attributeXMLFile.SelectNodes("/Characterbogen/Fertigkeiten")[0].ChildNodes[3];
+                XmlNode selectTyp = attributeXMLFile.SelectNodes("/Characterbogen/Fertigkeiten")[0].ChildNodes[4];
+                XmlNode selectName = attributeXMLFile.SelectNodes("/Characterbogen/Fertigkeiten")[0].ChildNodes[5];
 
                 SqliteConnection dbconnect = new SqliteConnection("Data Source = " + dbpath + "; " + " Version = 3;");
                 if (!File.Exists(dbpath))
@@ -299,15 +300,31 @@ namespace SqliteFertigkeitencontroller
         {
             try
             {
-                dbConnection.Close();
-                console_msg.text = "\nConnection closed!";
-                sqlOutput_msg.text = " ";
+                if (dbConnection.State == System.Data.ConnectionState.Open)
+                {
+                    dbConnection.Close();
+                    console_msg.text = "\nConnection closed!";
+                    sqlOutput_msg.text = " ";
+
+                }
+                else
+                {
+                    console_msg.text = "No connection to close";
+                }
             }
             catch (Exception e)
             {
-                Debug.Log(e);
-                console_msg.text = "Error:\nFailed to close the connection!";
+                if (e.Message.Contains("Object reference not set to an instance of an object"))
+                {
+                    console_msg.text = "No connection to close";
+                }
+                else
+                {
+                    console_msg.text = "Error:\nFailed to close the connection!";
+                    Debug.LogError(e);
+                }
             }
+
         }
         #endregion
 

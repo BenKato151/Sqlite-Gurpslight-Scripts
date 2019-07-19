@@ -2,8 +2,6 @@
 ______
 
 		Add:		
-					Import single file: An Input field that contains the path for .xml file. Pls not hardcoded!
-						(GOTO: __Added__)
 					case for select statement
 					automatically generate XLS etc.
 					
@@ -24,15 +22,13 @@ ______
 FINISHED:	
 _________
 
-		Added:		Error Messages in "Abwehrcontroller" because of import 
+		Added:		 
 					
 					
 		
-		Edited:		Buttons were fixed / Deletion sets output text to invisible.
-					Bug: Import -> We need a .xml file with a specific name... its too hardcoded here.
-					
+		Edited:		fixed bugs
 					
 
 
 		Deleted:			
-					XML Export with attributes //Childnodes are better
+
