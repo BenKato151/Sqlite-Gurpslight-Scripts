@@ -145,7 +145,7 @@ public class ExportAll : MonoBehaviour {
                         }
                     }
                     #endregion
-
+                        
                     #region Fertigkeiten
                     List<string> fertigkeiten_attributesnames = new List<string>();
                     List<string> fertigkeiten_dbvalues = new List<string>();

@@ -8,15 +8,9 @@ using Mono.Data.Sqlite;
 
 namespace SqliteAttributeController
 {
-    public class SqliteAttributeController : MonoBehaviour {
+    public class SqliteAttributeController : MonoBehaviour
+    {
     
-        #region ConnectionVars
-        private static SqliteConnection dbConnection;
-        //absolute path required
-        private string databasepath;
-        private readonly string relativePath = @"/Scripts/Database/new_Char_Bogen1.sqlite";
-        #endregion
-
         #region SqlVars
         //Database Query
         private readonly string table = "Attribute";
@@ -51,7 +45,7 @@ namespace SqliteAttributeController
                 string insertIntoAttribute = " INSERT INTO Attribute(Staerke, Geschicklichkeit, Intelligenz, Konstitution, ID) " +
                                           " VALUES(@starke, @geschicklichkeit, @intelligenz, @konstitution, @id);";
 
-                SqliteCommand Command = new SqliteCommand(insertIntoAttribute, dbConnection);
+                SqliteCommand Command = new SqliteCommand(insertIntoAttribute, SqliteConnectionManager.dbConnection);
                 Command.Parameters.Add("@starke", System.Data.DbType.Int32).Value = Int32.Parse(FieldStaerke.text);
                 Command.Parameters.Add("@geschicklichkeit", System.Data.DbType.Int32).Value = Int32.Parse(FieldGeschickl.text);
                 Command.Parameters.Add("@intelligenz", System.Data.DbType.Int32).Value = Int32.Parse(FieldIntelli.text);
@@ -79,7 +73,7 @@ namespace SqliteAttributeController
             {
                 sqlOutput_msg.text = "";
                 string selecting = "SELECT * FROM Attribute WHERE ID = " + FieldSelectID.text;
-                SqliteCommand command = new SqliteCommand(selecting, dbConnection);
+                SqliteCommand command = new SqliteCommand(selecting, SqliteConnectionManager.dbConnection);
                 SqliteDataReader output = command.ExecuteReader();
 
                 while (output.Read())
@@ -111,7 +105,7 @@ namespace SqliteAttributeController
                                        " SET " + Fieldcolumn.text + " = @wert " +
                                        " WHERE ID = @IDvalue;";
 
-                SqliteCommand command = new SqliteCommand(updatecommand, dbConnection);
+                SqliteCommand command = new SqliteCommand(updatecommand, SqliteConnectionManager.dbConnection);
                 command.Parameters.Add("@wert", System.Data.DbType.Int32).Value = Fieldwert.text;
                 command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = FieldIDvalue.text;
 
@@ -137,7 +131,7 @@ namespace SqliteAttributeController
                 string deleteColumn = " DELETE FROM Attribute " +
                                       " WHERE ID = @id;";
 
-                SqliteCommand command = new SqliteCommand(deleteColumn, dbConnection);
+                SqliteCommand command = new SqliteCommand(deleteColumn, SqliteConnectionManager.dbConnection);
                 command.Parameters.Add("@id", System.Data.DbType.Int32).Value = FieldDelete.text;
 
                 command.ExecuteNonQuery();
@@ -157,27 +151,7 @@ namespace SqliteAttributeController
         #region Connection
         public void ConnectionDB()
         {
-            databasepath = Application.dataPath + relativePath;
-            //Tries to get a connection with the database and if there is an path-error, it will catch it
-            try
-            {
-                dbConnection = new SqliteConnection("Data Source = " + databasepath + "; " + " Version = 3;");
-
-                if (File.Exists(databasepath))
-                {
-                    if (dbConnection != null)
-                    {
-                        dbConnection.Open();
-                        console_msg.text = "Connected to the database!\n Table: " + table;
-                    }
-                }
-            }
-
-            catch (Exception e)
-            {
-                Debug.Log(e);
-                console_msg.text = "Error:\nFailed to connect!";
-            }
+            SqliteConnectionManager.Connection(console_msg, table);
         }
         #endregion
 
@@ -193,7 +167,7 @@ namespace SqliteAttributeController
                 string idtext = "";
                 string selecting = "SELECT * FROM Attribute";
 
-                SqliteCommand command = new SqliteCommand(selecting, dbConnection);
+                SqliteCommand command = new SqliteCommand(selecting, SqliteConnectionManager.dbConnection);
                 SqliteDataReader output = command.ExecuteReader();
 
                 while (output.Read())
@@ -290,33 +264,7 @@ namespace SqliteAttributeController
         #region Exit
         public void Exit()
         {
-            try
-            {
-                if (dbConnection.State == System.Data.ConnectionState.Open)
-                {
-                    dbConnection.Close();
-                    console_msg.text = "\nConnection closed!";
-                    sqlOutput_msg.text = " ";
-
-                }
-                else
-                {
-                    console_msg.text = "No connection to close";
-                }
-            }
-            catch (Exception e)
-            {
-                if (e.Message.Contains("Object reference not set to an instance of an object"))
-                {
-                    console_msg.text = "No connection to close";
-                }
-                else
-                {
-                    console_msg.text = "Error:\nFailed to close the connection!";
-                    Debug.LogError(e);
-                }
-            }
-
+            SqliteConnectionManager.Exit(console_msg, sqlOutput_msg);
         }
         #endregion
 

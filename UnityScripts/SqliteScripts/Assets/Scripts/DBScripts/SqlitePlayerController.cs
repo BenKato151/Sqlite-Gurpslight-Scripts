@@ -8,13 +8,8 @@ using Mono.Data.Sqlite;
 
 namespace SqliteplayerControll
 {
-    public class SqlitePlayerController : MonoBehaviour {
-
-        #region SqlConnection Vars
-        static SqliteConnection dbConnection;
-        private string databasepath;
-        private readonly string relativePath = @"/Scripts/Database/new_Char_Bogen1.sqlite";
-        #endregion
+    public class SqlitePlayerController : MonoBehaviour
+    {
 
         #region SqlVars
         //Database Query
@@ -55,7 +50,7 @@ namespace SqliteplayerControll
                                            " VALUES(@name, @geschlecht, @rasse, @haar, @augen, @gewicht," +
                                            " @groese, @beschreibung, @SpielerID)";
                    
-                SqliteCommand command = new SqliteCommand(insertIntoSpieler, dbConnection);
+                SqliteCommand command = new SqliteCommand(insertIntoSpieler, SqliteConnectionManager.dbConnection);
                 command.Parameters.Add("@name", System.Data.DbType.String).Value = Fieldname.text;
                 command.Parameters.Add("@geschlecht", System.Data.DbType.String).Value = Fieldgeschlecht.text;
                 command.Parameters.Add("@rasse", System.Data.DbType.String).Value = FieldRasse.text;
@@ -88,7 +83,7 @@ namespace SqliteplayerControll
                                        " SET " + Fieldcolumn.text + " = @wert " +
                                        " WHERE SpielerID = @IDvalue;";
 
-                SqliteCommand command = new SqliteCommand(updatecommand, dbConnection);
+                SqliteCommand command = new SqliteCommand(updatecommand, SqliteConnectionManager.dbConnection);
                 command.Parameters.Add("@wert", System.Data.DbType.String).Value = Fieldwert.text;
                 command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = FieldIDvalue.text;
 
@@ -113,7 +108,7 @@ namespace SqliteplayerControll
             {
                 sqlOutput_msg.text = "";
                 string selecting = "SELECT * FROM Spieler WHERE SpielerID = " + FieldSelectID.text;
-                SqliteCommand command = new SqliteCommand(selecting, dbConnection);
+                SqliteCommand command = new SqliteCommand(selecting, SqliteConnectionManager.dbConnection);
                 
                 SqliteDataReader output = command.ExecuteReader();
                 while (output.Read())
@@ -148,7 +143,7 @@ namespace SqliteplayerControll
                 string deleteColumn = " DELETE FROM Spieler " +
                                       " WHERE SpielerID = @IDvalue";
 
-                SqliteCommand command = new SqliteCommand(deleteColumn, dbConnection);
+                SqliteCommand command = new SqliteCommand(deleteColumn, SqliteConnectionManager.dbConnection);
                 command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = FieldDelete.text;
 
                 command.ExecuteNonQuery();
@@ -168,27 +163,7 @@ namespace SqliteplayerControll
         #region Connection
         public void ConnectionDB()
         {
-            databasepath = Application.dataPath + relativePath;
-            //Tries to get a connection with the database and if there is an path-error, it will catch it
-            try
-            {
-                dbConnection = new SqliteConnection("Data Source = " + databasepath + "; " + " Version = 3;");
-
-                if (File.Exists(databasepath))
-                {
-                    if (dbConnection != null)
-                    {
-                        dbConnection.Open();
-                        console_msg.text = "Connected to the database!\n Table: " + table;
-                    }
-                }
-            }
-
-            catch (Exception e)
-            {
-                Debug.Log(e);
-                console_msg.text = "Error:\nFailed to connect!";
-            }
+            SqliteConnectionManager.Connection(console_msg, table);
         }
         #endregion
 
@@ -208,7 +183,7 @@ namespace SqliteplayerControll
                 string beschreibungtext = "";
                 string selecting = "SELECT * FROM Spieler";
 
-                SqliteCommand command = new SqliteCommand(selecting, dbConnection);
+                SqliteCommand command = new SqliteCommand(selecting, SqliteConnectionManager.dbConnection);
                 SqliteDataReader output = command.ExecuteReader();
 
                 while (output.Read())
@@ -322,32 +297,7 @@ namespace SqliteplayerControll
         #region Exit
         public void Exit()
         {
-            try
-            {
-                if (dbConnection.State == System.Data.ConnectionState.Open)
-                {
-                    dbConnection.Close();
-                    console_msg.text = "\nConnection closed!";
-                    sqlOutput_msg.text = " ";
-
-                }
-                else
-                {
-                    console_msg.text = "No connection to close";
-                }
-            }
-            catch (Exception e)
-            {
-                if (e.Message.Contains("Object reference not set to an instance of an object"))
-                {
-                    console_msg.text = "No connection to close";
-                }
-                else
-                {
-                    console_msg.text = "Error:\nFailed to close the connection!";
-                    Debug.LogError(e);
-                }
-            }
+            SqliteConnectionManager.Exit(console_msg, sqlOutput_msg);
         }
         #endregion
 

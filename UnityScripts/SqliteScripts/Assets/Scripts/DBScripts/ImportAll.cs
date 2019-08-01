@@ -15,7 +15,7 @@ public class ImportAll : MonoBehaviour {
         //Unterricht
         try
         {
-            string dbpath = Application.dataPath + @"/Scripts/Database/new_Char_Bogen1.sqlite";
+            string dbpath = SqliteConnectionManager.dbpath;
             string xmlpath = Application.dataPath + @"/XMLDocuments/Exports/char.xml";
 
             if (File.Exists(dbpath) && File.Exists(xmlpath))

@@ -8,14 +8,8 @@ using Mono.Data.Sqlite;
 
 namespace AttributskostenController
 {
-    public class SqliteAttributskostenController : MonoBehaviour {
-
-        #region ConnectionVars
-        static SqliteConnection dbConnection;
-        //absolute path required
-        private string databasepath;
-        private readonly string relativePath = @"/Scripts/Database/new_Char_Bogen1.sqlite";
-        #endregion
+    public class SqliteAttributskostenController : MonoBehaviour
+    {
 
         #region SqlVars
         //Database Query
@@ -49,7 +43,7 @@ namespace AttributskostenController
                 string insertIntoAttributskosten = " INSERT INTO Attributskosten(Wert, Kosten, ID) " +
                                           " VALUES(@wert, @kosten, @id);";
 
-                SqliteCommand command = new SqliteCommand(insertIntoAttributskosten, dbConnection);
+                SqliteCommand command = new SqliteCommand(insertIntoAttributskosten, SqliteConnectionManager.dbConnection);
                 command.Parameters.Add("@wert", System.Data.DbType.Int32).Value = FieldWert.text;
                 command.Parameters.Add("@kosten", System.Data.DbType.Int32).Value = FieldKosten.text;
                 command.Parameters.Add("@id", System.Data.DbType.Int32).Value = FieldID.text;
@@ -77,7 +71,7 @@ namespace AttributskostenController
                                        " SET " + Fieldcolumn.text + " = @wert " +
                                        " WHERE ID = @IDvalue;";
 
-                SqliteCommand command = new SqliteCommand(updatecommand, dbConnection);
+                SqliteCommand command = new SqliteCommand(updatecommand, SqliteConnectionManager.dbConnection);
                 command.Parameters.Add("@wert", System.Data.DbType.Int32).Value = Fieldwert.text;
                 command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = FieldIDvalue.text;
 
@@ -102,7 +96,7 @@ namespace AttributskostenController
             {
                 sqlOutput_msg.text = "";
                 string selecting = "SELECT * FROM Attributskosten WHERE ID = " + FieldSelectID.text;
-                SqliteCommand command = new SqliteCommand(selecting, dbConnection);
+                SqliteCommand command = new SqliteCommand(selecting, SqliteConnectionManager.dbConnection);
                 SqliteDataReader output = command.ExecuteReader();
 
                 while (output.Read())
@@ -131,7 +125,7 @@ namespace AttributskostenController
                 string deleteColumn = " DELETE FROM Attributskosten " +
                                       " WHERE ID = @id";
 
-                SqliteCommand command = new SqliteCommand(deleteColumn, dbConnection);
+                SqliteCommand command = new SqliteCommand(deleteColumn, SqliteConnectionManager.dbConnection);
                 command.Parameters.Add("@id", System.Data.DbType.Int32).Value = FieldDelete.text;
 
                 command.ExecuteNonQuery();
@@ -151,27 +145,7 @@ namespace AttributskostenController
         #region Connection
         public void ConnectionDB()
         {
-            databasepath = Application.dataPath + relativePath;
-            //Tries to get a connection with the database and if there is an path-error, it will catch it
-            try
-            {
-                dbConnection = new SqliteConnection("Data Source = " + databasepath + "; " + " Version = 3;");
-
-                if (File.Exists(databasepath))
-                {
-                    if (dbConnection != null)
-                    {
-                        dbConnection.Open();
-                        console_msg.text = "Connected to the database!\n Table: " + table;
-                    }
-                }
-            }
-
-            catch (Exception e)
-            {
-                Debug.Log(e);
-                console_msg.text = "Error:\nFailed to connect!";
-            }
+            SqliteConnectionManager.Connection(console_msg, table);
         }
         #endregion
 
@@ -185,7 +159,7 @@ namespace AttributskostenController
                 string idtext = "";
                 string selecting = "SELECT * FROM Attributskosten";
 
-                SqliteCommand command = new SqliteCommand(selecting, dbConnection);
+                SqliteCommand command = new SqliteCommand(selecting, SqliteConnectionManager.dbConnection);
                 SqliteDataReader output = command.ExecuteReader();
                 
                 while (output.Read())
@@ -274,33 +248,7 @@ namespace AttributskostenController
         #region Exit
         public void Exit()
         {
-            try
-            {
-                if (dbConnection.State == System.Data.ConnectionState.Open)
-                {
-                    dbConnection.Close();
-                    console_msg.text = "\nConnection closed!";
-                    sqlOutput_msg.text = " ";
-
-                }
-                else
-                {
-                    console_msg.text = "No connection to close";
-                }
-            }
-            catch (Exception e)
-            {
-                if (e.Message.Contains("Object reference not set to an instance of an object"))
-                {
-                    console_msg.text = "No connection to close";
-                }
-                else
-                {
-                    console_msg.text = "Error:\nFailed to close the connection!";
-                    Debug.LogError(e);
-                }
-            }
-
+            SqliteConnectionManager.Exit(console_msg, sqlOutput_msg);
         }
         #endregion
 

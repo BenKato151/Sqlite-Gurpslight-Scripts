@@ -10,12 +10,7 @@ namespace SqliteAVerteidigungcontroller
 {
     public class SqliteAVerteidigungController : MonoBehaviour
     {
-        #region SqlConnection Vars
-        static SqliteConnection dbConnection;
-        private string databasepath;
-        private readonly string relativePath = @"/Scripts/Database/new_Char_Bogen1.sqlite";
-        #endregion
-
+        
         #region SqlVars
         //Database Query
         private readonly string table = "Aktive_Verteidigung";
@@ -53,7 +48,7 @@ namespace SqliteAVerteidigungcontroller
                                           "VALUES(@parieren, @ausweichen, @abblocken, @abblockenUmh, @idwert)" +
                                           ";";
 
-                SqliteCommand command = new SqliteCommand(insertIntoAVerteidigung, dbConnection);
+                SqliteCommand command = new SqliteCommand(insertIntoAVerteidigung, SqliteConnectionManager.dbConnection);
                 command.Parameters.Add("@parieren", System.Data.DbType.Int32).Value = FieldParieren.text;
                 command.Parameters.Add("@ausweichen", System.Data.DbType.Int32).Value = FieldAusweichen.text;
                 command.Parameters.Add("@abblocken", System.Data.DbType.Int32).Value = FieldAbblocken.text;
@@ -83,7 +78,7 @@ namespace SqliteAVerteidigungcontroller
                                        " SET " + Fieldcolumn.text + " = @wert " +
                                        " WHERE ID = @IDvalue;";
 
-                SqliteCommand Command = new SqliteCommand(updatecommand, dbConnection);
+                SqliteCommand Command = new SqliteCommand(updatecommand, SqliteConnectionManager.dbConnection);
                 Command.Parameters.Add("@wert", System.Data.DbType.Int32).Value = Fieldwert.text;
                 Command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = FieldIDvalue.text;
 
@@ -108,7 +103,7 @@ namespace SqliteAVerteidigungcontroller
             {
                 sqlOutput_msg.text = "";
                 string selecting = "SELECT * FROM Aktive_Verteidigung WHERE ID = " + FieldSelectID.text;
-                SqliteCommand command = new SqliteCommand(selecting, dbConnection);
+                SqliteCommand command = new SqliteCommand(selecting, SqliteConnectionManager.dbConnection);
                 SqliteDataReader output = command.ExecuteReader();
 
                 while (output.Read())
@@ -139,7 +134,7 @@ namespace SqliteAVerteidigungcontroller
                 string deleteColumn = " DELETE FROM Aktive_Verteidigung " +
                                       " WHERE ID = @id;";
 
-                SqliteCommand command = new SqliteCommand(deleteColumn, dbConnection);
+                SqliteCommand command = new SqliteCommand(deleteColumn, SqliteConnectionManager.dbConnection);
                 command.Parameters.Add("@id", System.Data.DbType.Int32).Value = FieldDelete.text;
 
                 command.ExecuteNonQuery();
@@ -159,27 +154,7 @@ namespace SqliteAVerteidigungcontroller
         #region Connection
         public void ConnectionDB()
         {
-            databasepath = Application.dataPath + relativePath;
-            //Tries to get a connection with the database and if there is an path-error, it will catch it
-            try
-            {
-                dbConnection = new SqliteConnection("Data Source = " + databasepath + "; " + " Version = 3;");
-
-                if (File.Exists(databasepath))
-                {
-                    if (dbConnection != null)
-                    {
-                        dbConnection.Open();
-                        console_msg.text = "Connected to the database!\n Table: " + table;
-                    }
-                }
-            }
-
-            catch (Exception e)
-            {
-                Debug.Log(e);
-                console_msg.text = "Error:\nFailed to connect!";
-            }
+            SqliteConnectionManager.Connection(console_msg, table);
         }
         #endregion
 
@@ -195,7 +170,7 @@ namespace SqliteAVerteidigungcontroller
                 string idtext = "";
                 string selecting = "SELECT * FROM Aktive_Verteidigung";
 
-                SqliteCommand command = new SqliteCommand(selecting, dbConnection);
+                SqliteCommand command = new SqliteCommand(selecting, SqliteConnectionManager.dbConnection);
                 SqliteDataReader output = command.ExecuteReader();
 
                 while (output.Read())
@@ -294,33 +269,7 @@ namespace SqliteAVerteidigungcontroller
         #region Exit
         public void Exit()
         {
-            try
-            {
-                if (dbConnection.State == System.Data.ConnectionState.Open)
-                {
-                    dbConnection.Close();
-                    console_msg.text = "\nConnection closed!";
-                    sqlOutput_msg.text = " ";
-
-                }
-                else
-                {
-                    console_msg.text = "No connection to close";
-                }
-            }
-            catch (Exception e)
-            {
-                if (e.Message.Contains("Object reference not set to an instance of an object"))
-                {
-                    console_msg.text = "No connection to close";
-                }
-                else
-                {
-                    console_msg.text = "Error:\nFailed to close the connection!";
-                    Debug.LogError(e);
-                }
-            }
-
+            SqliteConnectionManager.Exit(console_msg, sqlOutput_msg);
         }
         #endregion
 

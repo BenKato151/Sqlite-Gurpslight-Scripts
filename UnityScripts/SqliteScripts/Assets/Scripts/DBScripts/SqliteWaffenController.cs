@@ -10,13 +10,6 @@ namespace SqliteWaffenController
 {
     public class SqliteWaffenController : MonoBehaviour
     {
-        #region ConnectionVars
-        public static SqliteConnection dbConnection;
-        //absolute path required
-        private string databasepath;
-        private readonly string relativePath = @"/Scripts/Database/new_Char_Bogen1.sqlite";
-        #endregion
-
         #region SqlVars
         static private readonly string table = "Waffen";
         #endregion
@@ -64,7 +57,7 @@ namespace SqliteWaffenController
                                           " @ss, @einhalbs, @rw, @fg, @mag, @rs, @st, @lz, @bm" +
                                           " );";
 
-                SqliteCommand command = new SqliteCommand(insertIntoWaffen, dbConnection);
+                SqliteCommand command = new SqliteCommand(insertIntoWaffen, SqliteConnectionManager.dbConnection);
                 command.Parameters.Add("@waffenname", System.Data.DbType.String).Value = Fieldwaffenname.text;
                 command.Parameters.Add("@waffenID", System.Data.DbType.Int32).Value = FieldWaffenID.text;
                 command.Parameters.Add("@ort", System.Data.DbType.String).Value = FieldOrt.text;
@@ -105,7 +98,7 @@ namespace SqliteWaffenController
                                        " SET " + Fieldcolumn.text + " = @wert " +
                                        " WHERE WaffenID = @IDvalue;";
 
-                SqliteCommand command = new SqliteCommand(updatecommand, dbConnection);
+                SqliteCommand command = new SqliteCommand(updatecommand, SqliteConnectionManager.dbConnection);
                 command.Parameters.Add("@wert", System.Data.DbType.String).Value = Fieldwert.text;
                 command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = FieldIDvalue.text;
 
@@ -130,7 +123,7 @@ namespace SqliteWaffenController
             {
                 sqlOutput_msg.text = "";
                 string selecting = "SELECT * FROM Waffen WHERE WaffenID = " + FieldSelectID.text;
-                SqliteCommand command = new SqliteCommand(selecting, dbConnection);
+                SqliteCommand command = new SqliteCommand(selecting, SqliteConnectionManager.dbConnection);
                 SqliteDataReader output = command.ExecuteReader();
 
                 while (output.Read())
@@ -172,7 +165,7 @@ namespace SqliteWaffenController
                 string deleteColumn = " DELETE FROM Waffen " +
                                       " WHERE WaffenID = @id";
 
-                SqliteCommand command = new SqliteCommand(deleteColumn, dbConnection);
+                SqliteCommand command = new SqliteCommand(deleteColumn, SqliteConnectionManager.dbConnection);
                 command.Parameters.Add("@id", System.Data.DbType.Int32).Value = FieldDelete.text;
 
                 command.ExecuteNonQuery();
@@ -191,28 +184,8 @@ namespace SqliteWaffenController
 
         #region Connection
         public void ConnectionDB()
-        {
-            databasepath = Application.dataPath + relativePath;
-            //Tries to get a connection with the database and if there is an path-error, it will catch it
-            try
-            {
-                dbConnection = new SqliteConnection("Data Source = " + databasepath + "; " + " Version = 3;");
-
-                if (File.Exists(databasepath))
-                {
-                    if (dbConnection != null)
-                    {
-                        dbConnection.Open();
-                        console_msg.text = "Connected to the database!\n Table: " + table;
-                    }
-                }
-            }
-
-            catch (Exception e)
-            {
-                Debug.Log(e);
-                console_msg.text = "Error:\nFailed to connect!";
-            }
+        {            
+            SqliteConnectionManager.Connection(console_msg, table);
         }
         #endregion
 
@@ -241,7 +214,7 @@ namespace SqliteWaffenController
                 string selecting = "SELECT * FROM Waffen";
                 #endregion
 
-                SqliteCommand command = new SqliteCommand(selecting, dbConnection);
+                SqliteCommand command = new SqliteCommand(selecting, SqliteConnectionManager.dbConnection);
                 SqliteDataReader output = command.ExecuteReader();
 
                 #region Read
@@ -311,7 +284,7 @@ namespace SqliteWaffenController
             try
             {
                 int generateName = UnityEngine.Random.Range(0, 1000);
-                string dbpath = Application.dataPath + @"/Scripts/Database/Exported_DBs/" + table + "_table_" + generateName.ToString() + ".sqlite";
+                string exportdbpath = Application.dataPath + @"/Scripts/Database/Exported_DBs/" + table + "_table_" + generateName.ToString() + ".sqlite";
                 string xmlpath = Application.dataPath + @"/XMLDocuments/Exports/char.xml";
                 XmlDocument attributeXMLFile = new XmlDocument();
                 attributeXMLFile.Load(xmlpath);
@@ -333,10 +306,10 @@ namespace SqliteWaffenController
                 XmlNode selectlz = attributeXMLFile.SelectNodes("/Characterbogen/Waffen")[0].ChildNodes[14];
                 XmlNode selectbm = attributeXMLFile.SelectNodes("/Characterbogen/Waffen")[0].ChildNodes[15];
 
-                SqliteConnection dbconnect = new SqliteConnection("Data Source = " + dbpath + "; " + " Version = 3;");
-                if (!File.Exists(dbpath))
+                SqliteConnection dbconnect = new SqliteConnection("Data Source = " + exportdbpath + "; " + " Version = 3;");
+                if (!File.Exists(exportdbpath))
                 {
-                    SqliteConnection.CreateFile(dbpath);
+                    SqliteConnection.CreateFile(exportdbpath);
 
                     if (dbconnect != null)
                     {
@@ -372,12 +345,12 @@ namespace SqliteWaffenController
                         commandinsert.ExecuteNonQuery();
                         commandinsert.Parameters.Clear();
 
-                        console_msg.text = "Successfully imported into: " + dbpath;
+                        console_msg.text = "Successfully imported into: " + exportdbpath;
                     }
                 }
                 else
                 {
-                    Debug.Log("Please delete the existing file in: " + dbpath);
+                    Debug.Log("Please delete the existing file in: " + exportdbpath);
                 }
             }
             catch (Exception e)
@@ -390,33 +363,7 @@ namespace SqliteWaffenController
         #region Exit
         public void Exit()
         {
-            try
-            {
-                if (dbConnection.State == System.Data.ConnectionState.Open)
-                {
-                    dbConnection.Close();
-                    console_msg.text = "\nConnection closed!";
-                    sqlOutput_msg.text = " ";
-
-                }
-                else
-                {
-                    console_msg.text = "No connection to close";
-                }
-            }
-            catch (Exception e)
-            {
-                if (e.Message.Contains("Object reference not set to an instance of an object"))
-                {
-                    console_msg.text = "No connection to close";
-                }
-                else
-                {
-                    console_msg.text = "Error:\nFailed to close the connection!";
-                    Debug.LogError(e);
-                }
-            }
-
+            SqliteConnectionManager.Exit(console_msg, sqlOutput_msg);
         }
         #endregion
 

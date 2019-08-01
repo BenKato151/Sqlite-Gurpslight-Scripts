@@ -8,13 +8,8 @@ using Mono.Data.Sqlite;
 
 namespace SqliteFertigkeitencontroller
 {
-    public class SqliteFertigkeitenController : MonoBehaviour {
-
-        #region SqlConnection Vars
-        static SqliteConnection dbConnection;
-        private string databasepath;
-        private readonly string relativePath = @"/Scripts/Database/new_Char_Bogen1.sqlite";
-        #endregion
+    public class SqliteFertigkeitenController : MonoBehaviour
+    {
 
         #region SqlVars
         //Database Query
@@ -51,7 +46,7 @@ namespace SqliteFertigkeitencontroller
                 string insertIntoFertigkeiten = " INSERT INTO Fertigkeiten(CP, ID, FW, Art, Typ, Name) " +
                                           " VALUES(@cp, @id, @fw, @art, @typ, @name);";
 
-                SqliteCommand command = new SqliteCommand(insertIntoFertigkeiten, dbConnection);
+                SqliteCommand command = new SqliteCommand(insertIntoFertigkeiten, SqliteConnectionManager.dbConnection);
                 command.Parameters.Add("@cp", System.Data.DbType.Int32).Value = FieldCP.text;
                 command.Parameters.Add("@id", System.Data.DbType.Int32).Value = FieldID.text;
                 command.Parameters.Add("@fw", System.Data.DbType.Int32).Value = FieldFW.text;
@@ -82,7 +77,7 @@ namespace SqliteFertigkeitencontroller
                                        " SET " + Fieldcolumn.text + " = @wert " +
                                        " WHERE ID = @IDvalue;";
 
-                SqliteCommand command = new SqliteCommand(updatecommand, dbConnection);
+                SqliteCommand command = new SqliteCommand(updatecommand, SqliteConnectionManager.dbConnection);
                 command.Parameters.Add("@wert", System.Data.DbType.Int32).Value = Fieldwert.text;
                 command.Parameters.Add("@IDvalue", System.Data.DbType.Int32).Value = FieldIDvalue.text;
 
@@ -107,7 +102,7 @@ namespace SqliteFertigkeitencontroller
             {
                 sqlOutput_msg.text = "";
                 string selecting = "SELECT * FROM Fertigkeiten WHERE ID = " + FieldSelectID.text;
-                SqliteCommand command = new SqliteCommand(selecting, dbConnection);
+                SqliteCommand command = new SqliteCommand(selecting, SqliteConnectionManager.dbConnection);
                 SqliteDataReader output = command.ExecuteReader();
 
                 while (output.Read())
@@ -139,7 +134,7 @@ namespace SqliteFertigkeitencontroller
                 string deleteColumn = " DELETE FROM Fertigkeiten " +
                                       " WHERE ID = @idwert;";
 
-                SqliteCommand command = new SqliteCommand(deleteColumn, dbConnection);
+                SqliteCommand command = new SqliteCommand(deleteColumn, SqliteConnectionManager.dbConnection);
                 command.Parameters.Add("@idwert", System.Data.DbType.Int32).Value = FieldDelete.text;
 
                 command.ExecuteNonQuery();
@@ -160,27 +155,7 @@ namespace SqliteFertigkeitencontroller
         #region Connection
         public void ConnectionDB()
         {
-            databasepath = Application.dataPath + relativePath;
-            //Tries to get a connection with the database and if there is an path-error, it will catch it
-            try
-            {
-                dbConnection = new SqliteConnection("Data Source = " + databasepath + "; " + " Version = 3;");
-
-                if (File.Exists(databasepath))
-                {
-                    if (dbConnection != null)
-                    {
-                        dbConnection.Open();
-                        console_msg.text = "Connected to the database!\n Table: " + table;
-                    }
-                }
-            }
-
-            catch (Exception e)
-            {
-                Debug.Log(e);
-                console_msg.text = "Error:\nFailed to connect!";
-            }
+            SqliteConnectionManager.Connection(console_msg, table);
         }
         #endregion
 
@@ -197,7 +172,7 @@ namespace SqliteFertigkeitencontroller
                 string idtext = "";
                 string selecting = "SELECT * FROM Fertigkeiten";
 
-                SqliteCommand command = new SqliteCommand(selecting, dbConnection);
+                SqliteCommand command = new SqliteCommand(selecting, SqliteConnectionManager.dbConnection);
                 SqliteDataReader output = command.ExecuteReader();
 
                 while (output.Read())
@@ -298,33 +273,7 @@ namespace SqliteFertigkeitencontroller
         #region Exit
         public void Exit()
         {
-            try
-            {
-                if (dbConnection.State == System.Data.ConnectionState.Open)
-                {
-                    dbConnection.Close();
-                    console_msg.text = "\nConnection closed!";
-                    sqlOutput_msg.text = " ";
-
-                }
-                else
-                {
-                    console_msg.text = "No connection to close";
-                }
-            }
-            catch (Exception e)
-            {
-                if (e.Message.Contains("Object reference not set to an instance of an object"))
-                {
-                    console_msg.text = "No connection to close";
-                }
-                else
-                {
-                    console_msg.text = "Error:\nFailed to close the connection!";
-                    Debug.LogError(e);
-                }
-            }
-
+            SqliteConnectionManager.Exit(console_msg, sqlOutput_msg);
         }
         #endregion
 
